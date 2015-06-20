@@ -1,4 +1,4 @@
-# simpleknowledgeservice
+# Simple Knowledge Service
 all you need for a simple medical knowledge service. Not a simplistic knowledge service or a service for simplistic knowledge but a straightforward, consistent service for medical knowledge.
 
 >> In every field of inquiry, it is true that all things should be made as simple as possible – but no simpler. (And for every problem that is muddled by over-complexity, a dozen are muddled by over-simplifying.)
