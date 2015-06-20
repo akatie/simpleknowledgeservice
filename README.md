@@ -5,4 +5,3 @@ all you need for a simple medical knowledge service. Not a simplistic knowledge 
 
 In-between excel spreadsheets and crude lookup tables and the lofty towers of ontologies and orders of logic lies a middle ground where knowledge can be
 represented consistently, compared, translated, measured and reasoned upon with a minimum of frills and theory.
-
