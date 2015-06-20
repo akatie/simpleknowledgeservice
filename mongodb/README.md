@@ -1,1 +1,1 @@
-Use MongoDB as a repository for medical knowledge
+Use MongoDB for a simple medical knowledge service
