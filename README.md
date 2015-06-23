@@ -6,10 +6,18 @@ all you need for a simple medical knowledge service. Not a simplistic knowledge 
 In-between excel spreadsheets and crude lookup tables and the lofty towers of ontologies and orders of logic lies a middle ground where knowledge can be
 represented consistently, compared, translated, measured and reasoned upon with a minimum of frills and theory.
 
+--- | ---
+Format | JSON-LD
+Model | SKOS
+Stores | Graph or MongoDB
+Coverage | freely available, government and 3rd party medical knowledge schemes
+
+* up-to-date. We will publish updates to schemes once they are available. This is NOT an academic exercise.
+
 We want a service that
 
-  * accurately captures the complete contents of existing knowledge schemes. We don't want to start guessing which subset is appropriate for every future purpose
-  * translates ("matches") between schemes
+  * accurately captures the complete contents of existing knowledge schemes. We don't want to start guessing which subset is appropriate for every future purpose. We want to know about all that's available, quantify it and move on from there.
+  * translates ("matches") between schemes and within schemes, rolling up what consistutes classes of concepts
   * reduces the redundancy and overlaps between schemes including prioritizing "anchor" schemes
 
 and can be implemented in everyday media. Today a knowledge representation often means a graph - think Google's Knowledge Graph or Microsoft's Satori - but while we want to show a graph based service, we also want to address knowledge in the popular document or file based stores like MongoDB where much application development takes place today. 
