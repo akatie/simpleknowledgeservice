@@ -1,0 +1,65 @@
+======= Report on Contents of MongoDB sksdb ========
+
+Simple Knowledge Service DB: sksdb
+Schemes supported - one collection per scheme [u'rxnorm']
+
+RxNorm Vocabulary (rxnorm:scheme)
+	Total 'documents' (by MongoDB): 203495
+
+	-------------- details --------------
+	Definition:
+		RxNorm, a standardized nomenclature for clinical drugs, is produced by the National Library of Medicine. In this context, a clinical drug is a pharmaceutical product given to (or taken by) a patient with a therapeutic or diagnostic intent. In RxNorm, the name of a clinical drug combines its ingredients, strengths, and form. However; some important medicines are not sufficiently or appropriately characterized by those three components alone. These have been identified as medicines that are dispensed in 'Packs'. The RxNorm clinical drug name does not indicate the form in which the product was manufactured, or its form when it arrived at the dispensary.
+	Version: 15AA_150601F
+	Last update: 2015-06-22
+	Copyright:
+		The majority of the content of RxNorm is available for use under the basic and open terms described in sections 1-11 and 13-16 of the UMLS Metathesaurus license. Please refer to the UMLS Reference Manual for further information on this topic..
+
+	-------------- statistics --------------
+	Subjects: 202100
+	Total Assertions: 944073
+	Property Assertions: 261433
+	Graph Assertions: 479147
+	Matches: 0
+	Topmost (Broader Top) Concepts: 13
+
+	-------------- Broader Tops --------------
+	... the organizing concepts
+	1 Drug (rxnorm:SCD)
+		Children 21171
+	2 Ingredient and Form (rxnorm:SCDF)
+		Children 18649
+	3 Branded Ingredient and Form (rxnorm:SBDF)
+		Children 18407
+	4 Drug Component (rxnorm:SCDC)
+		Children 16817
+	5 Branded Drug (rxnorm:SBD)
+		Children 11674
+	6 Ingredient (rxnorm:IN)
+		Children 10562
+	7 Branded Drug Component (rxnorm:SBDC)
+		Children 10007
+	8 Branded Ingredient (rxnorm:BN)
+		Children 6460
+	9 Multi-Ingredient (rxnorm:MIN)
+		Children 3959
+	10 Precise Ingredient (rxnorm:PIN)
+		Children 2419
+	11 Branded Pack (rxnorm:BPCK)
+		Children 417
+	12 Pack (rxnorm:GPCK)
+		Children 363
+	13 Dose Form (rxnorm:DF)
+		Children 156
+
+	-------------- Example (Active) Concept --------------
+	code 794769
+	inScheme rxnorm:scheme
+	broaderTop {u'id': u'rxnorm:SCD'}
+	umlsCUI C2342862
+	broader [{u'id': u'rxnorm:SCD'}]
+	rxnormo:has_component {u'id': u'rxnorm:328287'}
+	rxnormo:has_ingredient_and_form {u'id': u'rxnorm:597445'}
+	_id rxnorm:794769
+	type skos:Concept
+	prefLabel Ciprofloxacin 500 MG Extended Release Oral Tablet
+

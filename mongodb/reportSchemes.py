@@ -15,27 +15,20 @@ try:
     from pymongo import MongoClient
 except:
     raise Exception("You must install the package pymongo - http://api.mongodb.org/python/current/installation.html")
+    
+from importSchemes import MONGODBNAME, SCHEMES
 
 """
-Companion for fmqlToMongo.py - see notes there on shape of MongoDB
-
-INSTALL MONGO: http://docs.mongodb.org/manual/installation/
-
-REM: before running - start local server ...
-> ./mongod --dbpath data/filemandb & 
+All schemes have one ConceptScheme description. It contains a
+mixture of general and per version meta data about a scheme. This
+set of routines will print out these details about the schemes
+in a Simple Knowledge Service's MongoDB as well as walk down to 
+the key organizing concepts ("Broader Tops") of the scheme.
 """
 
-MONGODBNAME = "filemandb"
-MONGODB_URI = 'mongodb://localhost' # :27017/filemandb 
+MONGODB_URI = 'mongodb://localhost' # :27017/sksdb 
 
-COLLECTIONS = {
-    "PATIENTS": "2",
-    "PROBLEMS": "9000011",
-    "VITALS": "120_5",
-    "PRESCRIPTIONS": "52"
-}
-
-def reportMongo():
+def reportSchemes():
 
     # REM: server must be started on params of MONGODB_URI
     try:
@@ -49,125 +42,81 @@ def reportMongo():
 
     print
     db = client[MONGODBNAME]
-    print "Using DB", db.name
+    print "Simple Knowledge Service DB:", db.name
     
-    print "Collections supported (mirror FileMan)", db.collection_names(include_system_collections=False)
+    print "Schemes supported - one collection per scheme", db.collection_names(include_system_collections=False)
     
-    if len(db.collection_names(include_system_collections=False)) < len(COLLECTIONS):
-        raise Exception("Did you run fmqlToMongo.py? Wrong number of collections in db - exiting")
-
+    if len(db.collection_names(include_system_collections=False)) < len(SCHEMES):
+        raise Exception("Did you run importSchemes.py? Wrong number of collections in db - exiting")
+        
+    for schemeMN in SCHEMES:
+            
+        reportScheme(db, schemeMN)
+    
+def reportScheme(db, schemeMN):
+    """
+    Only interested in the ConceptScheme resource, the one with id
+            <schemeMN>:scheme
+    It contains a mixture of meta data about a particular version of a scheme
+    """
+    useCollection = "rxnorm"
+    schemeCollection = db[useCollection] 
+    
+    schemeDescription = schemeCollection.find_one({"_id": schemeMN + ":scheme"})
+    
+    # Leaving out "umlsCUI", "referencedSchemes", "hasTopConcept", "sourceFormat"
     print
-    useCollection = "PATIENTS"
-    ftCollection = db[COLLECTIONS[useCollection]] 
-    print "=== Collection", useCollection, "(", COLLECTIONS[useCollection], ") has", ftCollection.count(), "entries"
-
-    # find first
+    print schemeDescription["prefLabel"], "(" + schemeDescription["_id"] + ")"
+    print "\tTotal 'documents' (by MongoDB):", schemeCollection.count()
+    
     print
-    print "Find first one"
-    descr = ftCollection.find_one()
-    print "\t", descr["name-2"], descr["_id"]
-    for key, value in descr.iteritems():
-        if key in ["_id", "name-2"]:
+    print "\t-------------- details --------------"    
+    print "\tDefinition:"
+    print "\t\t", schemeDescription["definition"]
+    print "\tVersion:", schemeDescription["version"]
+    print "\tLast update:", schemeDescription["lastUpdate"]
+    print "\tCopyright:"
+    print "\t\t", schemeDescription["copyright"]
+    
+    print
+    print "\t-------------- statistics --------------"
+    # Statistics are from the VoID schema (http://www.w3.org/TR/void/) and Caregraf 
+    # additions. Some include ...
+    STAT_PREDS = [("void:distinctSubjects", "Subjects"), ("void:triples", "Total Assertions"), ("cgkos:literalTriples", "Property Assertions"), ("cgkos:edgeTriples", "Graph Assertions"), ("cgkos:matched", "Matches"), ("cgkos:broaderTops", "Topmost (Broader Top) Concepts")]
+    for predInfo in STAT_PREDS:
+        if predInfo[0] not in schemeDescription:
             continue
-        print "\t\t", key, value
-    print "Note that records are dictionaries so their keys come back in any order unless you specify one"
+        print "\t" + predInfo[1] + ":", schemeDescription[predInfo[0]]
+    
+    # Unless a scheme is flat (it has no hierarchy) then it will have one topConcept
+    # and one or more second level concepts. In these scheme representations, such
+    # second level concepts are called "broader tops". These are the main organizing
+    # concepts of a scheme ("Drug", "Dose Form" ... for RxNORM) or ("Clinical Finding", "Substance" for SNOMED).
+    print
+    print "\t-------------- Broader Tops --------------"
+    print "\t... the organizing concepts"
+    topConceptId = schemeDescription["hasTopConcept"]["id"]
+    for i, btConceptDescription in enumerate(schemeCollection.find({"broader.id": topConceptId}, {"_id": 1, "prefLabel": 1, "numberSubordinates": 1}).sort("numberSubordinates", -1), 1):
+        if i == 1: # most popular BT is the first as sorting
+            mostPopularBTId = btConceptDescription["_id"]
+        print "\t", i, btConceptDescription["prefLabel"], "(" + btConceptDescription["_id"] + ")"
+        print "\t\tChildren", btConceptDescription["numberSubordinates"] 
+     
+    # Let's display a child of the most popular broader top, one that hasn't been retired
+    # (deprecated). All inactive/retired concepts with have the value 'true' for
+    # 'deprecated'. Active concepts won't have a 'deprecated' field.
+    print 
+    print "\t-------------- Example (Active) Concept --------------"
+    exampleConceptDescription = schemeCollection.find_one({"broaderTop.id": mostPopularBTId, "deprecated" : { "$exists" : False }})
+    for pred in exampleConceptDescription:
+        print "\t", pred, exampleConceptDescription[pred]
     print
         
-    print
-    useCollection = "PROBLEMS"
-    ftCollection = db[COLLECTIONS[useCollection]] 
-    print "=== Collection", useCollection, "(", COLLECTIONS[useCollection], ") has", ftCollection.count(), "entries"
-    
-    # find first
-    print
-    print "Find first one"
-    for key, value in ftCollection.find_one().iteritems():
-        print "\t", key, value
-    print
-        
-    # find by id
-    testId = "9000011-4"
-    print "Lookup specific problem by id -", testId
-    for descr in ftCollection.find({"_id": testId}):
-        for key, value in descr.iteritems():
-            print "\t", key, value
-    print
-
-    print "Count of problems of Patient 9", ftCollection.find({"patient_name-9000011.id": "9000001-9"}).count()
-    print
-    
-    testId = "200-52"    
-    print "'Project' specific keys of problems recorded by a specific provider 'NOTHER,NADA' with id 200-52", testId
-    PROJECT_KEYS = {"_id": 1, "date_entered-9000011.value": 1, "diagnosis-9000011.sameAs": 1, "diagnosis-9000011.sameAsLabel": 1, "status-9000011.label": 1, "condition-9000011.label": 1}
-    for i, descr in enumerate(ftCollection.find({"patient_name-9000011.id": "9000001-9", "recording_provider-9000011.id": "200-52"}, PROJECT_KEYS), 1):
-        print "\t", i, descr["_id"]
-        for key, value in descr.iteritems():
-            if key == "_id":
-                continue
-            print "\t\t", key, value
-    print
-        
-    # Didn't filter out HIDDEN with FMQL - doing in Mongo
-    print "All but the 'HIDDEN' problems"
-    PROJECT_KEYS = {"_id": 1, "date_entered-9000011.value": 1, "diagnosis-9000011.sameAs": 1, "diagnosis-9000011.sameAsLabel": 1, "status-9000011.label": 1, "condition-9000011.label": 1}
-    for i, descr in enumerate(ftCollection.find({"patient_name-9000011.id": "9000001-9", "condition-9000011.label": {"$ne": "HIDDEN"}}, PROJECT_KEYS), 1):
-        print "\t", i, descr["_id"]
-        for key, value in descr.iteritems():
-            if key == "_id":
-                continue
-            print "\t\t", key, value
-    print
-
-    print "Distinct doctors who wrote problems for patient 9"
-    print ftCollection.find({"patient_name-9000011.id": "9000001-9"}).distinct("recording_provider-9000011.label")
-    print
-    
-    print "Distinct patients with agent orange exposure (only one now and he's our guy, patient 9)"
-    print ftCollection.find({"agent_orange_exposure-9000011": True}).distinct("patient_name-9000011")
-    print
-        
-    print "All problems sorted by status (note: by default, sorted by 'date entered')"
-    PROJECT_KEYS = {"_id": 1, "date_entered-9000011.value": 1, "recording_provider-9000011": 1, "diagnosis-9000011.sameAs": 1, "diagnosis-9000011.sameAsLabel": 1, "status-9000011.label": 1}
-    for i, descr in enumerate(ftCollection.find({"patient_name-9000011.id": "9000001-9"}, PROJECT_KEYS).sort("status-9000011.label", 1), 1):
-        print "\t", i, descr["_id"]
-        for key, value in descr.iteritems():
-            if key == "_id":
-                continue
-            print "\t\t", key, value
-    print  
-    
-    print
-    useCollection = "VITALS"
-    ftCollection = db[COLLECTIONS[useCollection]] 
-    print "=== Collection", useCollection, "(", COLLECTIONS[useCollection], ") has", ftCollection.count(), "entries"
-    
-    print
-    useCollection = "PRESCRIPTIONS"
-    ftCollection = db[COLLECTIONS[useCollection]] 
-    print "=== Collection", useCollection, "(", COLLECTIONS[useCollection], ") has", ftCollection.count(), "entries"  
-    print
-    
-    """
-    Vitals:
-    - limits and 
-    """
-    
-    return
-    
-    """
-    NEXT: indexing - http://api.mongodb.org/python/2.0.1/tutorial.html
-    
-    ... only printing out - will add indexes elsewhere.
-    """
-    print "No index stats"
-    print ndc.find({"activeIngredient.substance.id": testSubstance}).explain()["cursor"]
-    print ndc.find({"activeIngredient.substance.id": testSubstance}).explain()["nscanned"], "which is every doc!"
-
 # ############################# Demo Driver ####################################
 
 def main():
 
-    reportMongo()
+    reportSchemes()
     
 if __name__ == "__main__":
     main()

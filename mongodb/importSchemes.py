@@ -8,19 +8,14 @@
 # (c) 2015 caregraf
 #
 
+import os
 import json
 from datetime import datetime
+from zipfile import ZipFile
 try:
     from pymongo import MongoClient
 except:
     raise Exception("You must install the package pymongo - http://api.mongodb.org/python/current/installation.html")
-    
-"""
-TODO:
-1. consider loading from .zip version of releases as faster? [and need to auto zip in maker!]
-2. make sure mongo install works (Wikipedia) and gives relative sizes
-   ... do a WikiInstall
-"""
 
 """
 First INSTALL MONGO: http://docs.mongodb.org/manual/installation/
@@ -29,7 +24,10 @@ Second create the database directory: dbs/sksdb
 before running - start local server ...
 > ./mongod --dbpath dbs/sksdb & 
 
-Simple invoke: python datasetsToMongoDB.py
+Then invoke: python importSchemes.py
+
+TODO:
+- more on sizing of raw scheme vs MongoDB representation
 """
 
 MONGODBNAME = "sksdb"
@@ -42,17 +40,16 @@ SCHEMES = [
     # "mthspl"
 ]
 
-def datasetsToMongo():
+def importSchemes():
     """
     Load available schemes one MongoDB database with one Collection per scheme
     """
     
-    # REM: server must be started on params of MONGODB_URI
     try:
         client = MongoClient(MONGODB_URI)
     except Exception, err:
         print 'Error: %s' % err
-        print '... is mongoDB running?'
+        print '... is mongoDB installed and running at', MONGODB_URI
         return
 
     db = client[MONGODBNAME]
@@ -60,27 +57,38 @@ def datasetsToMongo():
     
     for i, schemeMN in enumerate(SCHEMES, 1):
     
+        print "Loading latest version of scheme", schemeMN
+    
+        # Identify the latest version of this scheme - should be in a zip in SCHEMES_DIR
+        schemeZipFiles = [zipFile for zipFile in os.listdir(SCHEMES_DIR) if zipFile.lower().startswith(schemeMN) and zipFile.endswith(".zip")]
+        if len(schemeZipFiles) != 1:
+            raise Exception("Can't import version of scheme " + schemeMN + " as either missing or there is more than one")
+        schemeZipFile = schemeZipFiles[0]
+    
         # purge current contents
         if schemeMN in db.collection_names():
-            print "Purging contents of pre-existing", schemeMN, "collection"
+            print "\tpurging contents of pre-existing MongoDB collection"
             db[schemeMN].remove()
     
         schemeCollection = db[schemeMN] # identify collection with schemeMN
         
-        schemeJLD = json.load(open(SCHEMES_DIR + schemeMN + "/" + schemeMN + ".json"))
-        print "scheme JSON loaded - now inserting into Mongo ..."
-    
+        # Loading JSON before inserting as want to change it a little for MongoDB
+        # ... this looks convoluted but it's the usual zipFile/file io stuff
+        print "\tloading latest scheme JSON from zip file ..."
+        schemeJLD = json.load(ZipFile(SCHEMES_DIR + schemeZipFile, "r").open(schemeZipFile.split(".")[0] + "/" + "scheme.jsonld"))
+            
         # @graph as ignoring context information in MongoDB
         descriptions = schemeJLD["@graph"]
         for i, description in enumerate(schemeJLD["@graph"], 1):
             # Use id as the _id in Mongo - avoids an extra index
             description["_id"] = description["id"]
             del description["id"]
+        print "\tscheme JSON loaded and changed - now inserting into Mongo ..."
         
         start = datetime.now()
         schemeCollection.insert(descriptions)
-        print "Collection", schemeMN, "has", schemeCollection.count(), "members"
-        print "Load of", len(descriptions), "of scheme", schemeMN, "took", datetime.now() - start
+        print "\tCollection", schemeMN, "has", schemeCollection.count(), "members"
+        print "\tLoad of", len(descriptions), "resources of scheme", schemeMN, "took", datetime.now() - start
         print
     
     print "... done: Mongo stats now"
@@ -91,7 +99,7 @@ def datasetsToMongo():
 
 def main():
 
-    datasetsToMongo()
+    importSchemes()
     
 if __name__ == "__main__":
     main()
