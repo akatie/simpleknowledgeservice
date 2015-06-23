@@ -1,5 +1,9 @@
-# Simple Knowledge Service
+# Medical Knowledge Organization System (MKOS)
 all you need for a simple medical knowledge service. Not a simplistic knowledge service or a service for simplistic knowledge but a straightforward, consistent service for medical knowledge.
+
+Fully exploiting SKOS - the standard [Simple Knowledge Organization System](http://www.w3.org/2004/02/skos/) - for Medical Knowledge Schemes, the RxNORMs, SNOMEDs, LOINCs and ICDs that frame medical expression.
+
+Add in another flavor of today, JSON-LD, _the ... of JSON_, and you have what you need to make a system for representing, comparing, measuring and reasoning upon medical knowledge irrespective of its original data format.
 
 >> In every field of inquiry, it is true that all things should be made as simple as possible – but no simpler.
 
