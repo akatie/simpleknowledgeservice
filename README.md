@@ -21,6 +21,6 @@ to
   * reduce the redundancy and overlaps between schemes including prioritizing "anchor" schemes
   * frame knowledge to suit the medium: document/file store like MongoDB may have different needs from a Graph store and we'll explore knowledge representation in both media
 
-not (yet) concerned with adding concepts to existing schemes or introducing new schemes. The focus is on what already exists and making it easy to exploit.
+not (yet) concerned with adding concepts to existing schemes or coining new schemes. We want to properly represent what exists now and use it better.
 
 
