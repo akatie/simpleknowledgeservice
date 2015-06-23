@@ -5,3 +5,10 @@ Use MongoDB for a simple medical knowledge service
 3. Recipes for common tasks in various domains - drugs, labs, disorders - that go across schemes. The simplest of these are matches where, for example, given an NDC drug code, you want to find the RxNORM normalizing code.
  
 Note: we're starting with drug schemes (RxNORM, MTHSPL (NDC), FDA classes ...) and will move on from there to disorders (SNOMED, ICD9, ...)
+
+This is a work in progress. The scheme data is normalized and complete but as we work through recipes we may reframe - fatten up or normalize - scheme data to suit our needs.
+
+    import python
+    doit()
+
+so ...
