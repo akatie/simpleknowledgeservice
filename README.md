@@ -4,4 +4,4 @@ Take SKOS, [the standard](http://www.w3.org/TR/skos-primer/) for concept schemes
 
 ![SKS Pieces Diagram](/imgs/sks-flow.png?raw=true)
 
-To get started, look in the mongodb directory. Note that rdflib support will be added soon.
+To get started, clone this repository and go into the mongodb directory ...
