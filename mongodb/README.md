@@ -8,8 +8,11 @@ The MongoDB package contains:
  
 As the _.py_ suggests, the code is in Python which is built into Linux and OS X and is easy to install on Windows. From the command line, just
 call 
+
     python loadSchemes.py
+
 or 
+
     ./loadSchemes.py
 
 Note: we're starting with drug schemes (RxNORM, MTHSPL (NDC), FDA classes ...) and will move on from there to disorders (SNOMED, ICD9, ...) and then labs (LOINC).
