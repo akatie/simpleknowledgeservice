@@ -24,10 +24,11 @@ Second create the database directory: dbs/sksdb
 before running - start local server ...
 > ./mongod --dbpath dbs/sksdb & 
 
-Then invoke: python importSchemes.py
+Then invoke: ./importSchemes.py
 
 TODO:
 - more on sizing of raw scheme vs MongoDB representation
+- warnings on zip scheme size ie/ will take time to load ... do ....
 """
 
 MONGODBNAME = "sksdb"
@@ -37,7 +38,7 @@ SCHEMES_DIR = "../schemes/"
 
 SCHEMES = [
     "rxnorm",
-    # "mthspl"
+    "mthspl"
 ]
 
 def importSchemes():
@@ -67,14 +68,14 @@ def importSchemes():
     
         # purge current contents
         if schemeMN in db.collection_names():
-            print "\tpurging contents of pre-existing MongoDB collection"
+            print "\tpurging contents of pre-existing MongoDB collection", schemeMN
             db[schemeMN].remove()
     
         schemeCollection = db[schemeMN] # identify collection with schemeMN
         
         # Loading JSON before inserting as want to change it a little for MongoDB
         # ... this looks convoluted but it's the usual zipFile/file io stuff
-        print "\tloading latest scheme JSON from zip file ..."
+        print "\tloading latest scheme JSON from zip file", schemeZipFile, "..."
         schemeJLD = json.load(ZipFile(SCHEMES_DIR + schemeZipFile, "r").open(schemeZipFile.split(".")[0] + "/" + "scheme.jsonld"))
             
         # @graph as ignoring context information in MongoDB
@@ -93,6 +94,8 @@ def importSchemes():
     
     print "... done: Mongo stats now"
     print db.command("dbstats")
+    print
+    print "... why not run ./reportScheme.py for reports on the loaded schemes"
     print 
         
 # ############################# Driver ####################################
