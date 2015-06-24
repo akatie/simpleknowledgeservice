@@ -1,4 +1,4 @@
-Use MongoDB for a Simple Medical Knowledge Service
+Use MongoDB for a Simple (Medical) Knowledge Service
 
 The MongoDB package contains:
 
@@ -14,5 +14,7 @@ call
 or 
 
     ./loadSchemes.py
+
+Typical output from the routines are in README_OUTPUT_*
 
 Note: we're starting with drug schemes (RxNORM, MTHSPL (NDC), FDA classes ...) and will move on from there to disorders (SNOMED, ICD9, ...) and then labs (LOINC).
