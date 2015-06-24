@@ -22,7 +22,7 @@ First INSTALL MONGO: http://docs.mongodb.org/manual/installation/
 Second create the database directory: dbs/sksdb
 
 before running - start local server ...
-> ./mongod --dbpath dbs/sksdb & 
+> mongod --dbpath dbs/sksdb & 
 
 Then invoke: ./importSchemes.py
 
