@@ -59,7 +59,7 @@ def reportScheme(db, schemeMN):
             <schemeMN>:scheme
     It contains a mixture of meta data about a particular version of a scheme
     """
-    useCollection = "rxnorm"
+    useCollection = schemeMN
     schemeCollection = db[useCollection] 
     
     schemeDescription = schemeCollection.find_one({"_id": schemeMN + ":scheme"})
@@ -71,8 +71,9 @@ def reportScheme(db, schemeMN):
     
     print
     print "\t-------------- details --------------"    
-    print "\tDefinition:"
-    print "\t\t", schemeDescription["definition"]
+    if "definition" in schemeDescription:
+        print "\tDefinition:"
+        print "\t\t", schemeDescription["definition"]
     print "\tVersion:", schemeDescription["version"]
     print "\tLast update:", schemeDescription["lastUpdate"]
     print "\tCopyright:"
@@ -96,23 +97,44 @@ def reportScheme(db, schemeMN):
     print "\t-------------- Broader Tops --------------"
     print "\t... the organizing concepts"
     topConceptId = schemeDescription["hasTopConcept"]["id"]
-    for i, btConceptDescription in enumerate(schemeCollection.find({"broader.id": topConceptId}, {"_id": 1, "prefLabel": 1, "numberSubordinates": 1}).sort("numberSubordinates", -1), 1):
+    for i, btConceptDescription in enumerate(schemeCollection.find({"broader.id": topConceptId}, {"prefLabel": 1, "numberSubordinates": 1}).sort("numberSubordinates", -1), 1):
         if i == 1: # most popular BT is the first as sorting
             mostPopularBTId = btConceptDescription["_id"]
         print "\t", i, btConceptDescription["prefLabel"], "(" + btConceptDescription["_id"] + ")"
         print "\t\tChildren", btConceptDescription["numberSubordinates"] 
      
-    # Let's display a child of the most popular broader top, one that hasn't been retired
-    # (deprecated). All inactive/retired concepts with have the value 'true' for
-    # 'deprecated'. Active concepts won't have a 'deprecated' field.
+    """
+    Let's display a child of the most popular broader top, one that hasn't been retired
+    (deprecated). 
+    
+    All inactive/retired concepts with have the value 'true' for 'deprecated'. 
+    Active concepts won't have a 'deprecated' field.
+    
+    If a scheme supports matches to other schemes then make sure the example is matched.
+    """
     print 
     print "\t-------------- Example (Active) Concept --------------"
-    exampleConceptDescription = schemeCollection.find_one({"broaderTop.id": mostPopularBTId, "deprecated" : { "$exists" : False }})
+    if "cgkos:matched" in schemeDescription:
+        findArgs = {"broadMatch": {"$exists": True}}
+    else:   
+        findArgs = {"broaderTop.id": mostPopularBTId, "deprecated" : { "$exists" : False }}
+    exampleConceptDescription = schemeCollection.find_one(findArgs)
+    schemePreds = []
+    print "\t", exampleConceptDescription["prefLabel"], "(" + exampleConceptDescription["_id"] + ")"
+    print
     for pred in exampleConceptDescription:
+        if pred in ["_id", "prefLabel"]:
+            continue
+        if re.search(r':', pred):   
+            schemePreds.append(pred)
+            continue # just show generic, non scheme properties first
+        print "\t", pred, exampleConceptDescription[pred]
+    print
+    for pred in schemePreds:
         print "\t", pred, exampleConceptDescription[pred]
     print
         
-# ############################# Demo Driver ####################################
+# ############################# Driver ####################################
 
 def main():
 

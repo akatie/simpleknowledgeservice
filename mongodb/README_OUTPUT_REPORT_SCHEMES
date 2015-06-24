@@ -1,7 +1,8 @@
+
 ======= Report on Contents of MongoDB sksdb ========
 
 Simple Knowledge Service DB: sksdb
-Schemes supported - one collection per scheme [u'rxnorm']
+Schemes supported - one collection per scheme [u'rxnorm', u'mthspl']
 
 RxNorm Vocabulary (rxnorm:scheme)
 	Total 'documents' (by MongoDB): 203495
@@ -10,7 +11,7 @@ RxNorm Vocabulary (rxnorm:scheme)
 	Definition:
 		RxNorm, a standardized nomenclature for clinical drugs, is produced by the National Library of Medicine. In this context, a clinical drug is a pharmaceutical product given to (or taken by) a patient with a therapeutic or diagnostic intent. In RxNorm, the name of a clinical drug combines its ingredients, strengths, and form. However; some important medicines are not sufficiently or appropriately characterized by those three components alone. These have been identified as medicines that are dispensed in 'Packs'. The RxNorm clinical drug name does not indicate the form in which the product was manufactured, or its form when it arrived at the dispensary.
 	Version: 15AA_150601F
-	Last update: 2015-06-22
+	Last update: 2015-06-23
 	Copyright:
 		The majority of the content of RxNorm is available for use under the basic and open terms described in sections 1-11 and 13-16 of the UMLS Metathesaurus license. Please refer to the UMLS Reference Manual for further information on this topic..
 
@@ -19,7 +20,6 @@ RxNorm Vocabulary (rxnorm:scheme)
 	Total Assertions: 944073
 	Property Assertions: 261433
 	Graph Assertions: 479147
-	Matches: 0
 	Topmost (Broader Top) Concepts: 13
 
 	-------------- Broader Tops --------------
@@ -52,14 +52,64 @@ RxNorm Vocabulary (rxnorm:scheme)
 		Children 156
 
 	-------------- Example (Active) Concept --------------
-	code 794769
+	Hydromorphone Hydrochloride 3 MG Extended Release Oral Capsule (rxnorm:898613)
+
+	code 898613
 	inScheme rxnorm:scheme
 	broaderTop {u'id': u'rxnorm:SCD'}
-	umlsCUI C2342862
+	umlsCUI C0789808
 	broader [{u'id': u'rxnorm:SCD'}]
-	rxnormo:has_component {u'id': u'rxnorm:328287'}
-	rxnormo:has_ingredient_and_form {u'id': u'rxnorm:597445'}
-	_id rxnorm:794769
 	type skos:Concept
-	prefLabel Ciprofloxacin 500 MG Extended Release Oral Tablet
+
+	rxnormo:has_component {u'id': u'rxnorm:897748'}
+	rxnormo:has_ingredient_and_form {u'id': u'rxnorm:372427'}
+
+
+FDA SPL Structured Content (MTHSPL) (mthspl:scheme)
+	Total 'documents' (by MongoDB): 294716
+
+	-------------- details --------------
+	Version: 2015_05_22
+	Last update: 2015-06-23
+	Copyright:
+		National Drug Codes and Structured Product Labels are free to use
+
+	-------------- statistics --------------
+	Subjects: 290165
+	Total Assertions: 2651373
+	Property Assertions: 702234
+	Graph Assertions: 1654425
+	Matches: 74178
+	Topmost (Broader Top) Concepts: 3
+
+	-------------- Broader Tops --------------
+	... the organizing concepts
+	1 Package (mthspl:package)
+		Children 193254
+	2 Product (mthspl:product)
+		Children 96911
+	3 Labeler (mthspl:labeler)
+		Children 4546
+
+	-------------- Example (Active) Concept --------------
+	BENZETHONIUM CHLORIDE 0.3 mL TOPICAL SWAB [Wet Wipes] (mthspl:202760433)
+
+	code 20276-433
+	inScheme mthspl:scheme
+	broaderTop {u'id': u'mthspl:product'}
+	broader [{u'id': u'mthspl:product'}]
+	type skos:Concept
+	broadMatch [{u'id': u'rxnorm:1043348'}]
+
+	mthsplo:otc_monograph_not_final part333A
+	mthsplo:dm_spl_id 44629
+	mthsplo:marketing_effective_time_low 20110529
+	mthsplo:labeler {u'id': u'mthspl:20276'}
+	mthsplo:has_inactive_ingredient {u'id': u'unii:059QF0KO0R'}
+	mthsplo:spl_type HUMAN OTC DRUG LABEL
+	mthsplo:has_active_moiety {u'id': u'unii:1VU15B70BP'}
+	mthsplo:spl_set_id c917b7e6-cf26-4ed0-83fb-107a4ad9ca20
+	mthsplo:has_active_ingredient {u'id': u'unii:PH41D05744'}
+	mthsplo:marketing_category {u'id': u'ncit:C73604'}
+	mthsplo:marketing_status active
 

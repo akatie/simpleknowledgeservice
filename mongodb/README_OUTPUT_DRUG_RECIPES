@@ -1,0 +1,115 @@
+
+======= Running Drug Recipes on Contents of MongoDB sksdb ========
+
+Simple Knowledge Service DB: sksdb
+
+Looking up Concepts with Esomeprazole in their names ...
+
+	Type: Ingredient and Form (rxnorm:SCDF)
+		1 Esomeprazole Injectable Solution (rxnorm:486498)
+		2 Esomeprazole Oral Capsule (rxnorm:393463)
+		3 Esomeprazole Oral Product (rxnorm:1165149)
+		4 Esomeprazole Pill (rxnorm:1165150)
+		5 Esomeprazole Oral Tablet (rxnorm:393436)
+		6 Esomeprazole / Naproxen Pill (rxnorm:1164524)
+		7 Esomeprazole Injectable Product (rxnorm:1164525)
+		8 Esomeprazole Oral Liquid Product (rxnorm:1164526)
+		9 Esomeprazole / Naproxen Oral Product (rxnorm:1164523)
+		10 Esomeprazole Oral Suspension (rxnorm:692575)
+		11 Esomeprazole Delayed Release Oral Tablet (rxnorm:439356)
+		12 Esomeprazole / Naproxen Delayed Release Oral Tablet (rxnorm:977953)
+		13 Esomeprazole Delayed Release Oral Capsule (rxnorm:606725)
+
+	Type: Drug Component (rxnorm:SCDC)
+		14 Esomeprazole 20 MG (rxnorm:343355)
+		15 Esomeprazole 4 MG/ML (rxnorm:486497)
+		16 Esomeprazole 40 MG (rxnorm:331599)
+		17 Esomeprazole 0.667 MG/ML (rxnorm:796944)
+		18 Esomeprazole 0.33 MG/ML (rxnorm:1307435)
+		19 Esomeprazole 0.167 MG/ML (rxnorm:1307433)
+		20 Esomeprazole 49.3 MG (rxnorm:1440242)
+		21 Esomeprazole 24.65 MG (rxnorm:1440244)
+		22 Esomeprazole 1.33 MG/ML (rxnorm:692574)
+		23 Esomeprazole 2.67 MG/ML (rxnorm:692577)
+		24 Esomeprazole 8 MG/ML (rxnorm:486500)
+		25 Esomeprazole 1 MG/ML (rxnorm:1297760)
+		26 Esomeprazole 0.5 MG/ML (rxnorm:1297657)
+
+	Type: Drug (rxnorm:SCD)
+		27 Esomeprazole 20 MG Delayed Release Oral Tablet (rxnorm:433733)
+		28 Esomeprazole 40 MG Delayed Release Oral Tablet (rxnorm:433787)
+		29 Esomeprazole 0.667 MG/ML Oral Suspension (rxnorm:861568)
+		30 Esomeprazole 0.33 MG/ML Oral Suspension (rxnorm:1307436)
+		31 Esomeprazole 0.167 MG/ML Oral Suspension (rxnorm:1307434)
+		32 Esomeprazole 49.3 MG Delayed Release Oral Capsule (rxnorm:1440243)
+		33 Esomeprazole 24.65 MG Delayed Release Oral Capsule (rxnorm:1440245)
+		34 Esomeprazole 2.67 MG/ML Oral Suspension (rxnorm:692578)
+		35 Esomeprazole 1.33 MG/ML Oral Suspension (rxnorm:692576)
+		36 Esomeprazole 40 MG Oral Tablet (rxnorm:389174)
+		37 Esomeprazole 20 MG Oral Tablet (rxnorm:389175)
+		38 Esomeprazole 40 MG Oral Capsule (rxnorm:391874)
+		39 Esomeprazole 20 MG Oral Capsule (rxnorm:391873)
+		40 Esomeprazole 40 MG Delayed Release Oral Capsule (rxnorm:606730)
+		41 Esomeprazole 4 MG/ML Injectable Solution (rxnorm:486499)
+		42 Esomeprazole 20 MG / Naproxen 500 MG Delayed Release Oral Tablet (rxnorm:994008)
+		43 Esomeprazole 8 MG/ML Injectable Solution (rxnorm:486501)
+		44 Esomeprazole 20 MG / Naproxen 375 MG Delayed Release Oral Tablet (rxnorm:994005)
+		45 Esomeprazole 20 MG Delayed Release Oral Capsule (rxnorm:606726)
+		46 Esomeprazole 1 MG/ML Oral Suspension (rxnorm:1297761)
+		47 Esomeprazole 0.5 MG/ML Oral Suspension (rxnorm:1297658)
+
+	Type: Branded Ingredient and Form (rxnorm:SBDF)
+		48 Esomeprazole Oral Suspension [Nexium] (rxnorm:861569)
+		49 Esomeprazole Injectable Solution [Nexium] (rxnorm:603533)
+		50 Esomeprazole / Naproxen Delayed Release Oral Tablet [Vimovo] (rxnorm:977957)
+		51 Esomeprazole Delayed Release Oral Capsule [Nexium] (rxnorm:606727)
+
+	Type: Branded Drug Component (rxnorm:SBDC)
+		52 Esomeprazole 8 MG/ML [Nexium] (rxnorm:603535)
+		53 Esomeprazole 20 MG [Nexium] (rxnorm:574982)
+		54 Esomeprazole 0.667 MG/ML [Nexium] (rxnorm:796946)
+		55 Esomeprazole 20 MG / Naproxen 500 MG [Vimovo] (rxnorm:994009)
+		56 Esomeprazole 20 MG / Naproxen 375 MG [Vimovo] (rxnorm:994006)
+		57 Esomeprazole 2.67 MG/ML [Nexium] (rxnorm:700396)
+		58 Esomeprazole 1.33 MG/ML [Nexium] (rxnorm:700392)
+		59 Esomeprazole 4 MG/ML [Nexium] (rxnorm:603532)
+		60 Esomeprazole 40 MG [Nexium] (rxnorm:574983)
+		61 Esomeprazole 1 MG/ML [Nexium] (rxnorm:1297762)
+		62 Esomeprazole 0.5 MG/ML [Nexium] (rxnorm:1297659)
+
+	Type: Branded Drug (rxnorm:SBD)
+		63 Esomeprazole 4 MG/ML Injectable Solution [Nexium] (rxnorm:603534)
+		64 Esomeprazole 8 MG/ML Injectable Solution [Nexium] (rxnorm:603536)
+		65 Esomeprazole 20 MG / Naproxen 375 MG Delayed Release Oral Tablet [Vimovo] (rxnorm:994007)
+		66 Esomeprazole 1.33 MG/ML Oral Suspension [Nexium] (rxnorm:861576)
+		67 Esomeprazole 0.667 MG/ML Oral Suspension [Nexium] (rxnorm:861570)
+		68 Esomeprazole 0.5 MG/ML Oral Suspension [Nexium] (rxnorm:1297660)
+		69 Esomeprazole 2.67 MG/ML Oral Suspension [Nexium] (rxnorm:861583)
+		70 Esomeprazole 20 MG Delayed Release Oral Capsule [Nexium] (rxnorm:606728)
+		71 Esomeprazole 20 MG / Naproxen 500 MG Delayed Release Oral Tablet [Vimovo] (rxnorm:994010)
+		72 Esomeprazole 40 MG Delayed Release Oral Capsule [Nexium] (rxnorm:606731)
+		73 Esomeprazole 1 MG/ML Oral Suspension [Nexium] (rxnorm:1297763)
+
+	Type: Precise Ingredient (rxnorm:PIN)
+		74 Esomeprazole magnesium (rxnorm:283562)
+		75 Esomeprazole Strontium (rxnorm:1435522)
+
+	Type: Multi-Ingredient (rxnorm:MIN)
+		76 Esomeprazole / Naproxen (rxnorm:994202)
+
+	Type: Ingredient (rxnorm:IN)
+		77 Esomeprazole (rxnorm:283742)
+
+
+Go from Brand to Generic RXNORM ...
+	Going from brand Esomeprazole 20 MG Delayed Release Oral Capsule [Nexium] (rxnorm:606728)
+	using <tradename_of> which has a value of {u'id': u'rxnorm:606726'}
+	got us to Esomeprazole 20 MG Delayed Release Oral Capsule (rxnorm:606726)
+
+
+From NDC Code to RxNORM Code
+	CODE 0186-5020-82 identifies a packaging of ESOMEPRAZOLE MAGNESIUM 20 mg ORAL CAPSULE, DELAYED RELEASE [NEXIUM] (mthspl:00186502082)
+	Its products matches the RxNORM concept with id [{u'id': u'rxnorm:606728'}]
+	That is RxNORM Concept Esomeprazole 20 MG Delayed Release Oral Capsule [Nexium] of type rxnorm:SBD
+	and code 606728
+

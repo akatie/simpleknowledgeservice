@@ -1,4 +1,4 @@
-Use MongoDB to hold a Medical Knowledge Organization System
+Use MongoDB for a Simple Medical Knowledge Service
 
 The MongoDB package contains:
 
