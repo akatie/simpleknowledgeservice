@@ -1,4 +1,4 @@
-The location for (zipped) schemes. Only the latest versions of schemes will be in here. The MongoDB and RDFLib routines expect the scheme definitions to be in this location and know how to read from these zips.
+The location for (zipped) schemes. Only the latest versions of schemes will be in here. The MongoDB and Fuseki importers expect the scheme definitions to be in this location and know how to read from these zips.
 
 Current schemes ...
 
