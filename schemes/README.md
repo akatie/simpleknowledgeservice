@@ -1,4 +1,4 @@
-The location for (zipped) schemes. Only the latest versions of schemes will be in here. The zips contain definitions in both JSON-LD and TTL (RDF Turtle). The MongoDB and Fuseki importers expect the scheme definitions to be in this location and know how to read from these zips.
+The location for (zipped) schemes. Only the latest versions of schemes will be in here. The zips contain definitions in both [JSON-LD](http://www.w3.org/TR/json-ld/) and ([RDF Turtle](http://www.w3.org/TR/turtle/). The MongoDB and Fuseki importers expect the scheme definitions to be in this location and know how to read from these zips.
 
 Current schemes (all about drugs) ...
 
