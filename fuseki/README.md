@@ -7,10 +7,9 @@ Download Fuseki, start it and insert the schemes into it
   2. Make a directory for your SKS database
      mkdir dbs
      mkdir dbs/sks 
-  3. Go into the apache-jena-fuseki-* directory and run fuseki in the background (or in a separate shell)
-     fuseki -
-  4. Return to this directory and run the 'loadSchemes.sh' script in this directory
+  3. Run the 'loadSchemes.sh' script in this directory
+  4. Go into the apache-jena-fuseki-* directory and run fuseki (in the background or do in a separate shell)
+     fuseki-server --update --loc /....../dbs/sksdb /sks &
+  5. Run python drugRecipes.py to see queries in action
 
 For more details, see the http://jena.apache.org/documentation
-
-Then run drugRecipes.py
