@@ -146,14 +146,13 @@ Go from NDC Code to RXNORM ...
 Running query
 
     PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
-    PREFIX cgkost: <http://datasets.caregraf.org/ontology#>
     PREFIX cgkos: <http://schemes.caregraf.info/ontology#>
     PREFIX mthsplo: <http://schemes.caregraf.info/mthsplo/>
     SELECT DISTINCT ?packageId ?packageLabel ?rxnormMatchId ?rxnormLabel ?rxnormBroaderTop ?rxnormCode
     FROM <http://schemes.caregraf.info/mthspl>
     FROM <http://schemes.caregraf.info/rxnorm>
     WHERE {
-            ?packageId cgkost:code "0186-5020-82" ;
+            ?packageId cgkos:code "0186-5020-82" ;
                     skos:prefLabel ?packageLabel ;
                     mthsplo:packaging_of/skos:broadMatch ?rxnormMatchId .
             ?rxnormMatchId skos:prefLabel ?rxnormLabel ;

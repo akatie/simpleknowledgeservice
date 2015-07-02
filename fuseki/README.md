@@ -7,9 +7,9 @@
  
      mkdir sksdb
 
-  3. Run the 'loadSchemes.sh' script
+  3. Run the 'importSchemes.sh' script. Will take a few minutes but once loaded, you're ready to go.
 
-  4. In a new shell, go into the apache-jena-fuseki-* directory and run fuseki
+  4. In a new shell, go into the apache-jena-fuseki directory and run fuseki
 
      fuseki-server --update --loc ../sksdb /sks
 
