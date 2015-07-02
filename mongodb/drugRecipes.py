@@ -97,6 +97,9 @@ def ndcCodeToRxNORMCode(db):
     
     ie/
         Package --[packaging_of]--> Product --[broadMatch]--> RxNORM Drug (SBD/SCD)
+
+    Note that in MongoDB (current JSON form), this takes many steps - contrast the
+    'one query/propertypaths' of Fuseki/Jena
     """    
     mthsplCollection = db["mthspl"]     
     
