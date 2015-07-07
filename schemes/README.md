@@ -4,9 +4,9 @@ Current schemes (all about drugs) ...
 
 Scheme | Version | Comment
 --- | --- | --- 
-MTHSPL | 2015_05_22 | MTHSPL has the latest NDC data
-NCIT | COMING | Subset referenced from MTHSPL
+MTHSPL | 2015_06_26 | MTHSPL has the latest NDC data
+NCIT | 14.11d | Subset referenced from MTHSPL
 NDFRT | COMING | Subset with drug classes from the FDA
-RXNORM | 15AA_150601F | Latest RXNORM
+RXNORM | 15AA_150706F | Latest RXNORM
 UNII | COMING | Latest ingredient/chemical compounds from the FDA. Used in MTHSPL
 
