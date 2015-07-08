@@ -8,5 +8,5 @@ MTHSPL | 2015_06_26 | MTHSPL has the latest NDC data
 NCIT | 14.11d | Subset referenced from MTHSPL
 NDFRT | COMING | VA National Drug File Reference Terminology (used for FDA classing)
 RXNORM | 15AA_150706F | Latest RXNORM
-UNII | COMING | Latest ingredient/chemical compounds from the FDA. Used in MTHSPL. Linked to drug classes by NDFRT
+UNII | 2July2015 | Latest ingredient/chemical compounds from the FDA. Used in MTHSPL. Linked to drug classes by NDFRT
 
