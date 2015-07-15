@@ -17,13 +17,12 @@ for szip in $SCHEMEZIPS; do
         VERSION=${BASH_REMATCH[2]}
         echo 
         echo "Loading ${SCHEMEMN}, version ${VERSION} into <${GRAPHID}> ..."
-        for i in {1..100}
+        for i in {1..80}
         do
             echo -n '-'
         done
         echo
         TTLINZIP="${SCHEMEMN}_${VERSION}/scheme.ttl"
-        echo $TTLINZIP
         unzip -p $szip $TTLINZIP | java -cp $CP riotcmd.turtle --output nquads | java -cp $CP tdb.tdbloader --loc $DBLOC --graph $GRAPHID -- -
     fi
 echo
