@@ -4,13 +4,17 @@
 
          apache-jena-fuseki-2.0.0
 
-  2. Run the 'importSchemes.sh' script. It takes a few minutes. A sample output is in _README_OUTPUT_IMPORTSCHEMES_
+  2. Run the 'importSchemes.sh' script. It takes a few minutes ...
+
+         ./importSchemes.sh
+
+     ... a sample output is in _README_OUTPUT_IMPORTSCHEMES_
 
   3. In a new shell, go into the apache-jena-fuseki* directory and run fuseki
 
          fuseki-server --update --loc ../sksdb /sks
 
-  4. To see queries in action, run 
+  4. To see queries in action, run ...
 
          python drugRecipes.py 
 
