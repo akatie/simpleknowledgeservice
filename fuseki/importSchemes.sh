@@ -9,7 +9,7 @@ fi
 CP=".:$APACHE_JENA_FUSEKI_DIR/fuseki-server.jar"
 DBLOC=sksdb
 mkdir -p $DBLOC
-echo "On $(date +%Y/%m/%d), clearing '${DBLOC}' and (re)loading schemes ..."
+echo "On $(date +%Y/%m/%d), creating/clearing '${DBLOC}' and (re)loading schemes ..."
 if [ "$(ls -A $DBLOC)" ]; then
     echo "Clearing current contents of database location '$DBLOC'"
     rm $DBLOC/*
@@ -17,16 +17,28 @@ fi
 SCHEMESDIR="../schemes"
 SCHEMEZIPS="$SCHEMESDIR/*zip"
 ZIPRE='\/([A-Z0-9]+)_([^\.]+)\.zip$'
+# Before loading schemes, ensure only one version for each scheme ...
 SCHEMEMNSEEN=""
 for szip in $SCHEMEZIPS; do
     if [[ $(echo $szip) =~ $ZIPRE ]]; then
         SCHEMEMN=${BASH_REMATCH[1]}
-        VERSION=${BASH_REMATCH[2]}
         if [[ $SCHEMEMNSEEN =~ $SCHEMEMN ]]; then
-            echo "$SCHEMEMN defined more than once in $SCHEMESDIR - $szip - not allowed. Exiting ..."
+            echo
+            echo "More than one $SCHEMEMN version in $SCHEMESDIR - not allowed. Exiting ..."
             exit 1
-        fi 
+        fi
         SCHEMEMNSEEN="$SCHEMEMNSEEN $SCHEMEMN"
+    fi
+done
+if [[ -z $SCHEMEMNSEEN ]]; then
+    echo
+    echo "No schemes available in $SCHEMESDIR - you should download some. Exiting ..."
+    exit 1
+fi
+for szip in $SCHEMEZIPS; do
+    if [[ $(echo $szip) =~ $ZIPRE ]]; then
+        SCHEMEMN=${BASH_REMATCH[1]}
+        VERSION=${BASH_REMATCH[2]}
         GRAPHID="http://schemes.caregraf.info/$(tr [A-Z] [a-z] <<< "$SCHEMEMN")"
         echo 
         echo "Loading ${SCHEMEMN}, version ${VERSION} into <${GRAPHID}> ..."
