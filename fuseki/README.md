@@ -4,7 +4,7 @@
 
      apache-jena-fuseki-2.0.0
 
-  2. Run the 'importSchemes.sh' script. Will take a few minutes.
+  2. Run the 'importSchemes.sh' script. It takes a few minutes. A sample output is in 'README_OUTPUT_IMPORTSCHEMES'
 
   3. In a new shell, go into the apache-jena-fuseki* directory and run fuseki
 
@@ -13,4 +13,6 @@
   4. To see queries in action, run 
 
      python drugRecipes.py 
+
+     ... a sample output is in README_OUTPUT_DRUGRECIPLES
 
