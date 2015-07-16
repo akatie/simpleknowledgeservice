@@ -12,6 +12,7 @@
 
   3. In a new shell, go into the apache-jena-fuseki* directory and run fuseki
 
+         cd apache-jena-fuseki-2.0.0
          fuseki-server --update --loc ../sksdb /sks
 
   4. To see queries in action, run ...
