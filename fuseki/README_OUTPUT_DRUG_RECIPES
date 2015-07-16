@@ -1,8 +1,149 @@
 
 ======= Running Drug Recipes on Contents of Fuseki at http://localhost:3030/sks/query ========
 
+Go from Brand to Generic RXNORM ...
+-----------------------------------
+
+Running query
+
+    PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+    PREFIX rxnorm: <http://schemes.caregraf.info/rxnorm/>
+    PREFIX rxnormo: <http://schemes.caregraf.info/rxnormo/>
+    SELECT DISTINCT ?brandLabel ?genericId ?genericLabel
+    WHERE {GRAPH <http://schemes.caregraf.info/rxnorm> {
+            rxnorm:606728 skos:prefLabel ?brandLabel ;
+                rxnormo:tradename_of ?genericId .
+            ?genericId skos:prefLabel ?genericLabel
+    }}
+    
+
+Result:
+	From: Esomeprazole 20 MG Delayed Release Oral Capsule [Nexium] (rxnorm:606728)
+
+		using 'rxnormo:tradename_of' relationship ...
+
+	To: Esomeprazole 20 MG Delayed Release Oral Capsule (rxnorm:606726)
+
+
+Go from NDC Code to RXNORM ...
+------------------------------
+
+Running query
+
+    PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+    PREFIX cgkos: <http://schemes.caregraf.info/ontology#>
+    PREFIX mthsplo: <http://schemes.caregraf.info/mthsplo/>
+    SELECT DISTINCT ?packageId ?packageLabel ?rxnormMatchId ?rxnormLabel ?rxnormBroaderTop ?rxnormCode
+    FROM <http://schemes.caregraf.info/mthspl>
+    FROM <http://schemes.caregraf.info/rxnorm>
+    WHERE {
+            ?packageId cgkos:code "0186-5020-82" ;
+                    skos:prefLabel ?packageLabel ;
+                    mthsplo:packaging_of/skos:broadMatch ?rxnormMatchId .
+            ?rxnormMatchId skos:prefLabel ?rxnormLabel ;
+                    cgkos:broaderTop ?rxnormBroaderTop ;
+                    cgkos:code ?rxnormCode  
+    }
+    
+
+Result:
+	From: ESOMEPRAZOLE MAGNESIUM 20 mg ORAL CAPSULE, DELAYED RELEASE [NEXIUM] (mthspl:00186502082) code 0186-5020-82
+
+		via 'packaging_of' relation and then a match relation (2 steps) ...
+
+	To: Esomeprazole 20 MG Delayed Release Oral Capsule [Nexium] (rxnorm:606728) code 606728 type rxnorm:SBD
+
+
+Go from NDFRT Drug Class to RXNORM Drug(s) ...
+----------------------------------------------
+
+Running query
+
+    PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+    PREFIX cgkos: <http://schemes.caregraf.info/ontology#>
+    PREFIX ndfrt: <http://schemes.caregraf.info/ndfrt/>
+    PREFIX ndfrto: <http://schemes.caregraf.info/ndfrto/>
+    PREFIX rxnorm: <http://schemes.caregraf.info/rxnorm/>
+    PREFIX rxnormo: <http://schemes.caregraf.info/rxnormo/>
+    SELECT DISTINCT ?rxnormId ?rxnormLabel 
+    FROM <http://schemes.caregraf.info/ndfrt>
+    FROM <http://schemes.caregraf.info/rxnorm>
+    WHERE {
+            ?ndfrtId ndfrto:fda_drug_class ndfrt:N0000175525 ;
+                     skos:closeMatch ?matchId .
+            ?matchId skos:inScheme rxnorm:scheme .
+            ?rxnormIId rxnormo:has_ingredient ?matchId .
+            ?rxnormId rxnormo:has_component ?rxnormIId ;
+                    skos:prefLabel ?rxnormLabel
+    } ORDER BY ?rxnormLabel
+    
+
+Results:
+	From: Proton Pump Inhibitor (ndfrt:N0000175525)
+
+		via ndfrt ingredients with class that match rxnorm ingredients that are used in rxnorm drugs
+
+	To:
+		1 2280 MG Omeprazole 0.37 MG/MG Prefilled Applicator (rxnorm:994510)
+		2 Esomeprazole 0.167 MG/ML Oral Suspension (rxnorm:1307434)
+		3 Esomeprazole 0.33 MG/ML Oral Suspension (rxnorm:1307436)
+		4 Esomeprazole 0.5 MG/ML Oral Suspension (rxnorm:1297658)
+		5 Esomeprazole 0.667 MG/ML Oral Suspension (rxnorm:861568)
+		6 Esomeprazole 1 MG/ML Oral Suspension (rxnorm:1297761)
+		7 Esomeprazole 1.33 MG/ML Oral Suspension (rxnorm:692576)
+		8 Esomeprazole 2.67 MG/ML Oral Suspension (rxnorm:692578)
+		9 Esomeprazole 20 MG Delayed Release Oral Capsule (rxnorm:606726)
+		10 Esomeprazole 20 MG Oral Capsule (rxnorm:391873)
+		11 Esomeprazole 20 MG Oral Tablet (rxnorm:389175)
+		12 Esomeprazole 4 MG/ML Injectable Solution (rxnorm:486499)
+		13 Esomeprazole 40 MG Delayed Release Oral Capsule (rxnorm:606730)
+		14 Esomeprazole 40 MG Oral Capsule (rxnorm:391874)
+		15 Esomeprazole 40 MG Oral Tablet (rxnorm:389174)
+		16 Esomeprazole 49.3 MG Delayed Release Oral Capsule (rxnorm:1440243)
+		17 Esomeprazole 8 MG/ML Injectable Solution (rxnorm:486501)
+		18 Magnesium Hydroxide 700 MG / Omeprazole 20 MG / Sodium Bicarbonate 600 MG Chewable Tablet (rxnorm:645295)
+		19 Omeprazole 0.37 MG/MG Prefilled Applicator (rxnorm:1360204)
+		20 Omeprazole 0.5 MG/ML Oral Suspension (rxnorm:797063)
+		21 Omeprazole 0.667 MG/ML Oral Suspension (rxnorm:797058)
+		22 Omeprazole 1.33 MG/ML / Sodium Bicarbonate 1.33 MEQ/ML Oral Suspension (rxnorm:753562)
+		23 Omeprazole 10 MG Delayed Release Oral Capsule (rxnorm:199119)
+		24 Omeprazole 10 MG Delayed Release Oral Tablet (rxnorm:402013)
+		25 Omeprazole 10 MG Oral Tablet (rxnorm:389171)
+		26 Omeprazole 2 MG/ML Oral Suspension (rxnorm:1247406)
+		27 Omeprazole 2.67 MG/ML Oral Suspension (rxnorm:542186)
+		28 Omeprazole 20 MG Delayed Release Oral Capsule (rxnorm:198051)
+		29 Omeprazole 20 MG Delayed Release Oral Tablet (rxnorm:402014)
+		30 Omeprazole 20 MG Oral Tablet (rxnorm:389172)
+		31 Omeprazole 4 MG/ML Injectable Solution (rxnorm:199493)
+		32 Omeprazole 40 MG Delayed Release Oral Capsule (rxnorm:200329)
+		33 Omeprazole 40 MG Delayed Release Oral Tablet (rxnorm:402015)
+		34 Omeprazole 40 MG Extended Release Oral Capsule (rxnorm:541247)
+		35 Omeprazole 40 MG Oral Tablet (rxnorm:389173)
+		36 Rabeprazole sodium 10 MG Delayed Release Oral Capsule (rxnorm:1483318)
+		37 Rabeprazole sodium 10 MG Delayed Release Oral Tablet (rxnorm:854872)
+		38 Rabeprazole sodium 20 MG Delayed Release Oral Tablet (rxnorm:854868)
+		39 Rabeprazole sodium 5 MG Delayed Release Oral Capsule (rxnorm:1437489)
+		40 dexlansoprazole 30 MG Delayed Release Oral Capsule (rxnorm:833204)
+		41 dexlansoprazole 60 MG Delayed Release Oral Capsule (rxnorm:833213)
+		42 lansoprazole 0.5 MG/ML Oral Suspension (rxnorm:791878)
+		43 lansoprazole 1 MG/ML Oral Suspension (rxnorm:791880)
+		44 lansoprazole 15 MG Delayed Release Oral Capsule (rxnorm:596843)
+		45 lansoprazole 15 MG Disintegrating Oral Tablet (rxnorm:351261)
+		46 lansoprazole 3 MG/ML Oral Suspension (rxnorm:1247404)
+		47 lansoprazole 30 MG Delayed Release Oral Capsule (rxnorm:311277)
+		48 lansoprazole 30 MG Disintegrating Oral Tablet (rxnorm:351260)
+		49 lansoprazole 6 MG/ML Injectable Solution (rxnorm:477260)
+		50 pantoprazole 20 MG Delayed Release Oral Tablet (rxnorm:251872)
+		51 pantoprazole 4 MG/ML Injectable Solution (rxnorm:283669)
+		52 pantoprazole 40 MG Delayed Release Oral Tablet (rxnorm:314200)
+		53 pantoprazole 40 MG Oral Granules (rxnorm:763306)
+
+
+
 Looking up Concepts with Esomeprazole in their names ...
-... slower than MongoDB to do broad string searches ...
+--------------------------------------------------------
+
+... not a graph walk and slower than MongoDB to do broad string searches ...
 
 Running query
 
@@ -116,55 +257,4 @@ Results:
 		77 Esomeprazole Strontium (rxnorm:1435522)
 		78 esomeprazole magnesium dihydrate (rxnorm:1601995)
 		79 Esomeprazole magnesium (rxnorm:283562)
-
-Go from Brand to Generic RXNORM ...
------------------------------------
-
-Running query
-
-    PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
-    PREFIX rxnorm: <http://schemes.caregraf.info/rxnorm/>
-    PREFIX rxnormo: <http://schemes.caregraf.info/rxnormo/>
-    SELECT DISTINCT ?brandLabel ?genericId ?genericLabel
-    WHERE {GRAPH <http://schemes.caregraf.info/rxnorm> {
-            rxnorm:606728 skos:prefLabel ?brandLabel ;
-                rxnormo:tradename_of ?genericId .
-            ?genericId skos:prefLabel ?genericLabel
-    }}
-    
-
-Result:
-	From: Esomeprazole 20 MG Delayed Release Oral Capsule [Nexium] (rxnorm:606728)
-
-		using 'rxnormo:tradename_of' relationship ...
-
-	To: Esomeprazole 20 MG Delayed Release Oral Capsule (rxnorm:606726)
-
-Go from NDC Code to RXNORM ...
-------------------------------
-
-Running query
-
-    PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
-    PREFIX cgkos: <http://schemes.caregraf.info/ontology#>
-    PREFIX mthsplo: <http://schemes.caregraf.info/mthsplo/>
-    SELECT DISTINCT ?packageId ?packageLabel ?rxnormMatchId ?rxnormLabel ?rxnormBroaderTop ?rxnormCode
-    FROM <http://schemes.caregraf.info/mthspl>
-    FROM <http://schemes.caregraf.info/rxnorm>
-    WHERE {
-            ?packageId cgkos:code "0186-5020-82" ;
-                    skos:prefLabel ?packageLabel ;
-                    mthsplo:packaging_of/skos:broadMatch ?rxnormMatchId .
-            ?rxnormMatchId skos:prefLabel ?rxnormLabel ;
-                    cgkos:broaderTop ?rxnormBroaderTop ;
-                    cgkos:code ?rxnormCode  
-    }
-    
-
-Result:
-	From: ESOMEPRAZOLE MAGNESIUM 20 mg ORAL CAPSULE, DELAYED RELEASE [NEXIUM] (mthspl:00186502082) code 0186-5020-82
-
-		via 'packaging_of' relation and then a match relation (2 steps) ...
-
-	To: Esomeprazole 20 MG Delayed Release Oral Capsule [Nexium] (rxnorm:606728) code 606728 type rxnorm:SBD
 

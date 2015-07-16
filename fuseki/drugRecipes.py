@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# -*- coding: utf8 -*- 
 
 #
 # LICENSE:
@@ -15,7 +16,8 @@ import urllib, urllib2
 """
 Example queries on drug schemes
 
-These SPARQL based Jena examples match the drugRecipes for MongoDB 
+These SPARQL-based Jena examples match the drugRecipes for MongoDB and illustrate how
+a graph store with its natural path traversal can answer concept questions without the sort of data reframing required in a document store like MongoDB.
 """
 
 FUSEKI_QUERY_URI = "http://localhost:3030/sks/query"
@@ -24,72 +26,15 @@ def runRecipes():
         
     print
     print "======= Running Drug Recipes on Contents of Fuseki at", FUSEKI_QUERY_URI, "========"
-    
-    rxnormLookupByName()
-    
+    print
+        
     rxnormBrandToGeneric()
         
     ndcCodeToRxNORMCode()
-        
-def rxnormLookupByName():
-    """
-    Simple stuff - lookup by name, grouping by type
     
-    Shows nature of SPARQL querying:
+    rxnormByNDFRTClass()
     
-    1. Each scheme is in its own 'graph' and we query within that graph
-    
-    2. literal string lookup is slower than MongoDB
-       - generic SPARQL doesn't promote very efficient literal (string) based lookup
-       - but Jena does support string search capabilities with SPARQL extensions
-       and will show these soon (https://jena.apache.org/documentation/query/text-query.html)
-       
-    3. the native SPARQL JSON is "fat" but clear ...
-       - id: {"value": "...", "type": "uri"}
-       - literal (string/boolean/int ...): {"value": "...", "type": "literal"}
-       and though it returns full URIs (ex/ http://schemes.caregraf.info/rxnorm/..."),
-       we can easily change these a namespaced form (ex/ rxnorm:...). We do this
-       in the function 'sciURIToNSForm' defined below
-       
-    4. it is easy to reach down to get the label of an id inside one query. 
-        - ?broaderTop skos:prefLabel ?broaderTopLabel
-    """
-
-    # Lookup every 'Esomeprazole' concepts for their ids, names and types. Order by type.    
-    QUERY_ESOMEPRAZOLE_RXNORM_CONCEPTS = """
-    PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
-    PREFIX cgkos: <http://schemes.caregraf.info/ontology#>
-    SELECT DISTINCT ?id ?prefLabel ?broaderTop ?broaderTopLabel
-    WHERE {GRAPH <http://schemes.caregraf.info/rxnorm> {
-        ?id a skos:Concept ;
-            skos:prefLabel ?prefLabel ;
-            cgkos:broaderTop ?broaderTop .
-        ?broaderTop skos:prefLabel ?broaderTopLabel .
-        FILTER regex(?prefLabel, "Esomeprazole", "i")
-    }}
-    ORDER BY ?broaderTopLabel
-    """
-    print
-    print "Looking up Concepts with Esomeprazole in their names ..."    
-    print "... slower than MongoDB to do broad string searches ..."
-    print
-    print "Running query"
-    print QUERY_ESOMEPRAZOLE_RXNORM_CONCEPTS
-    queryurl = FUSEKI_QUERY_URI + "?" + urllib.urlencode({"query": QUERY_ESOMEPRAZOLE_RXNORM_CONCEPTS, "output": "json"})
-    request = urllib2.Request(queryurl)
-    reply = json.loads(urllib2.urlopen(request).read())
-    
-    print "Results:"
-    currentBTL = ""
-    for i, binding in enumerate(reply["results"]["bindings"], 1):
-    
-        if currentBTL != binding["broaderTopLabel"]["value"]:
-            currentBTL = binding["broaderTopLabel"]["value"]
-            print
-            print "\tType:", currentBTL, "(" + sciURIToNSForm(binding["broaderTop"]["value"]) + ")"
-            
-        print "\t\t", i, binding["prefLabel"]["value"] + " (" + sciURIToNSForm(binding["id"]["value"]) + ")"
-    print
+    rxnormLookupByName()
         
 def rxnormBrandToGeneric():
     """
@@ -131,6 +76,7 @@ def rxnormBrandToGeneric():
     print "\t\t", "using 'rxnormo:tradename_of' relationship ..."
     print
     print "\tTo:", binding["genericLabel"]["value"] + " (" + sciURIToNSForm(binding["genericId"]["value"]) + ")"
+    print
     print
     
 def ndcCodeToRxNORMCode():
@@ -198,10 +144,159 @@ def ndcCodeToRxNORMCode():
     print
     print "\tTo:", mbinding["rxnormLabel"]["value"] + " (" + sciURIToNSForm(mbinding["rxnormMatchId"]["value"]) + ")", "code", mbinding["rxnormCode"]["value"], "type", sciURIToNSForm(mbinding["rxnormBroaderTop"]["value"])
     print
+    print
     
     # rxnorm:SBD (Branded Drug) tells us that this is a branded drug and that
     # we could do an extra step and go from the code to the appropriate generic RxNORM.
     # This would add the logic of 'rxnormBrandToGeneric' 
+    
+def rxnormByNDFRTClass():
+    """
+    RxNORM doesn't support drug classes but NDFRT does. With both NDFRT and RxNORM in an
+    SKS, we can lookup drugs by class.
+    """
+    
+    print "Go from NDFRT Drug Class to RXNORM Drug(s) ..."
+    print "----------------------------------------------"
+
+    # NDFRT has two types of drug class. We are using the FDA drug classes.
+    CLASS = {"id": "ndfrt:N0000175525", "label": "Proton Pump Inhibitor"}
+    
+    """
+    Property paths again and a two step process:
+    - find NDFRT drugs of a class
+    - find the RxNORM drugs that match the NDFRT drugs
+    ... in effect, we are "collapsing" the NDFRT drugs and links NDFRT classes to
+    RxNORM drugs.
+    
+    Path zig zags ...
+    
+        ndfrt:drug ---- fda_drug_class ----> [NDFRT Drug Class]
+        
+                   ---- matches -----> rxnorm:ingredient
+                   
+                                           ^
+                                           |
+        [rxnorm:drug] ---- has_component --|
+    
+    Extra: this illustrates using "skos:inScheme" to exclude NDFRT matches to schemes
+    other than RxNORM:
+    
+            ?matchId skos:inScheme rxnorm:scheme
+            
+    Note that using a path ...
+    
+            ?rxnormId rxnormo:has_component/rxnormo:has_ingredient ?matchId ;
+            
+    is much slower than being explicit
+    
+            ?rxnormIId rxnormo:has_ingredient ?matchId .
+            ?rxnormId rxnormo:has_component ?rxnormIId ;
+            
+    ... try it yourself.
+            
+    """
+    #        ?rxnormCId rxnormo:has_ingredient ?matchId .
+    #       ?rxnormDId rxnormo:has_component ?rxnormCId ;
+    QUERY_RXNORM_FROM_NDFRT_DRUGCLASS = """
+    PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+    PREFIX cgkos: <http://schemes.caregraf.info/ontology#>
+    PREFIX ndfrt: <http://schemes.caregraf.info/ndfrt/>
+    PREFIX ndfrto: <http://schemes.caregraf.info/ndfrto/>
+    PREFIX rxnorm: <http://schemes.caregraf.info/rxnorm/>
+    PREFIX rxnormo: <http://schemes.caregraf.info/rxnormo/>
+    SELECT DISTINCT ?rxnormId ?rxnormLabel 
+    FROM <http://schemes.caregraf.info/ndfrt>
+    FROM <http://schemes.caregraf.info/rxnorm>
+    WHERE {
+            ?ndfrtId ndfrto:fda_drug_class %s ;
+                     skos:closeMatch ?matchId .
+            ?matchId skos:inScheme rxnorm:scheme .
+            ?rxnormIId rxnormo:has_ingredient ?matchId .
+            ?rxnormId rxnormo:has_component ?rxnormIId ;
+                    skos:prefLabel ?rxnormLabel
+    } ORDER BY ?rxnormLabel
+    """
+    print
+    print "Running query"
+    query = QUERY_RXNORM_FROM_NDFRT_DRUGCLASS % CLASS["id"]
+    print query
+    queryurl = FUSEKI_QUERY_URI + "?" + urllib.urlencode({"query": query, "output": "json"})
+    request = urllib2.Request(queryurl)
+    reply = json.loads(urllib2.urlopen(request).read())
+    print
+    print "Results:"
+    print "\tFrom:", CLASS["label"] + " (" + CLASS["id"] + ")"
+    print
+    print "\t\tvia ndfrt ingredients with class that match rxnorm ingredients that are used in rxnorm drugs"
+    print
+    print "\tTo:"
+    for i, binding in enumerate(reply["results"]["bindings"], 1):
+        print "\t\t", i, binding["rxnormLabel"]["value"] + " (" + sciURIToNSForm(binding["rxnormId"]["value"]) + ")"
+    print
+    print
+        
+def rxnormLookupByName():
+    """
+    Simple stuff - lookup by name, grouping by type
+    
+    Shows nature of SPARQL querying:
+    
+    1. Each scheme is in its own 'graph' and we query within that graph
+    
+    2. literal string lookup is slower than MongoDB
+       - generic SPARQL doesn't promote very efficient literal (string) based lookup
+       - but Jena does support string search capabilities with SPARQL extensions
+       and will show these soon (https://jena.apache.org/documentation/query/text-query.html)
+       
+    3. the native SPARQL JSON is "fat" but clear ...
+       - id: {"value": "...", "type": "uri"}
+       - literal (string/boolean/int ...): {"value": "...", "type": "literal"}
+       and though it returns full URIs (ex/ http://schemes.caregraf.info/rxnorm/..."),
+       we can easily change these a namespaced form (ex/ rxnorm:...). We do this
+       in the function 'sciURIToNSForm' defined below
+       
+    4. it is easy to reach down to get the label of an id inside one query. 
+        - ?broaderTop skos:prefLabel ?broaderTopLabel
+    """
+
+    # Lookup every 'Esomeprazole' concepts for their ids, names and types. Order by type.    
+    QUERY_ESOMEPRAZOLE_RXNORM_CONCEPTS = """
+    PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+    PREFIX cgkos: <http://schemes.caregraf.info/ontology#>
+    SELECT DISTINCT ?id ?prefLabel ?broaderTop ?broaderTopLabel
+    WHERE {GRAPH <http://schemes.caregraf.info/rxnorm> {
+        ?id a skos:Concept ;
+            skos:prefLabel ?prefLabel ;
+            cgkos:broaderTop ?broaderTop .
+        ?broaderTop skos:prefLabel ?broaderTopLabel .
+        FILTER regex(?prefLabel, "Esomeprazole", "i")
+    }}
+    ORDER BY ?broaderTopLabel
+    """
+    print
+    print "Looking up Concepts with Esomeprazole in their names ..."    
+    print "--------------------------------------------------------"
+    print
+    print "... not a graph walk and slower than MongoDB to do broad string searches ..."
+    print
+    print "Running query"
+    print QUERY_ESOMEPRAZOLE_RXNORM_CONCEPTS
+    queryurl = FUSEKI_QUERY_URI + "?" + urllib.urlencode({"query": QUERY_ESOMEPRAZOLE_RXNORM_CONCEPTS, "output": "json"})
+    request = urllib2.Request(queryurl)
+    reply = json.loads(urllib2.urlopen(request).read())
+    
+    print "Results:"
+    currentBTL = ""
+    for i, binding in enumerate(reply["results"]["bindings"], 1):
+    
+        if currentBTL != binding["broaderTopLabel"]["value"]:
+            currentBTL = binding["broaderTopLabel"]["value"]
+            print
+            print "\tType:", currentBTL, "(" + sciURIToNSForm(binding["broaderTop"]["value"]) + ")"
+            
+        print "\t\t", i, binding["prefLabel"]["value"] + " (" + sciURIToNSForm(binding["id"]["value"]) + ")"
+    print
     
 def sciURIToNSForm(uri):
     """

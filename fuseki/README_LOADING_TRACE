@@ -1,0 +1,95 @@
+$ ./importSchemes.sh 
+
+On 2015/07/15, clearing 'sksdb' and (re)loading schemes ...
+Clearing current contents of database location 'sksdb'
+
+Loading MTHSPL, version 2015_06_26 into <http://schemes.caregraf.info/mthspl> ...
+--------------------------------------------------------------------------------
+INFO  -- Start triples data phase
+INFO  ** Load empty triples table
+INFO  Load: - -- 2015/07/15 20:10:07 PDT
+INFO  Add: 50,000 triples (Batch: 18,018 / Avg: 18,018)
+...
+INFO  Add: 3,300,000 triples (Batch: 30,750 / Avg: 82,247)
+INFO  -- Finish triples data phase
+INFO  ** Data: 3,328,451 triples loaded in 40.48 seconds [Rate: 82,230.68 per second]
+INFO  -- Start triples index phase
+INFO  Index GSPO->GPOS: 100,000 slots (Batch: 241,545 slots/s / Avg: 241,545 slots/s)
+...
+INFO  ** Index GSPO->GOSP: 3,328,451 slots indexed in 11.88 seconds [Rate: 280,125.50 per second]
+INFO  Index GSPO->POSG: 100,000 slots (Batch: 268,096 slots/s / Avg: 268,096 slots/s)
+...
+INFO  ** Index GSPO->POSG: 3,328,451 slots indexed in 12.78 seconds [Rate: 260,462.56 per second]
+INFO  Index GSPO->OSPG: 100,000 slots (Batch: 314,465 slots/s / Avg: 314,465 slots/s)
+...
+INFO  ** Index GSPO->OSPG: 3,328,451 slots indexed in 11.54 seconds [Rate: 288,327.38 per second]
+INFO  Index GSPO->SPOG: 100,000 slots (Batch: 602,409 slots/s / Avg: 602,409 slots/s)
+...
+INFO  ** Index GSPO->SPOG: 3,328,451 slots indexed in 5.80 seconds [Rate: 574,167.88 per second]
+INFO  -- Finish triples index phase
+INFO  ** 3,328,451 triples indexed in 55.03 seconds [Rate: 60,482.10 per second]
+INFO  -- Finish triples load
+INFO  ** Completed: 3,328,451 triples loaded in 95.51 seconds [Rate: 34,848.15 per second]
+
+
+Loading NCIT, version 15-06e into <http://schemes.caregraf.info/ncit> ...
+--------------------------------------------------------------------------------
+INFO  -- Start triples data phase
+INFO  ** Load into triples table with existing data
+INFO  Load: - -- 2015/07/15 20:11:57 PDT
+INFO  -- Finish triples data phase
+INFO  ** Data: 4,213 triples loaded in 1.91 seconds [Rate: 2,204.60 per second]
+INFO  -- Start triples index phase
+INFO  -- Finish triples index phase
+INFO  -- Finish triples load
+INFO  ** Completed: 4,213 triples loaded in 1.93 seconds [Rate: 2,184.03 per second]
+
+
+Loading NDFRT, version 2015_07_06 into <http://schemes.caregraf.info/ndfrt> ...
+--------------------------------------------------------------------------------
+INFO  -- Start triples data phase
+INFO  ** Load into triples table with existing data
+INFO  Load: - -- 2015/07/15 20:12:01 PDT
+INFO  Add: 50,000 triples (Batch: 11,230 / Avg: 11,230)
+...
+INFO  Add: 500,000 triples (Batch: 24,366 / Avg: 24,676)
+INFO    Elapsed: 20.26 seconds [2015/07/15 20:12:21 PDT]
+INFO  Add: 550,000 triples (Batch: 31,289 / Avg: 25,160)
+INFO  -- Finish triples data phase
+INFO  ** Data: 576,571 triples loaded in 22.77 seconds [Rate: 25,317.07 per second]
+INFO  -- Start triples index phase
+INFO  -- Finish triples index phase
+INFO  -- Finish triples load
+INFO  ** Completed: 576,571 triples loaded in 22.78 seconds [Rate: 25,312.63 per second]
+
+
+Loading RXNORM, version 15AA_150706F into <http://schemes.caregraf.info/rxnorm> ...
+--------------------------------------------------------------------------------
+INFO  -- Start triples data phase
+INFO  ** Load into triples table with existing data
+INFO  Load: - -- 2015/07/15 20:12:27 PDT
+INFO  Add: 50,000 triples (Batch: 8,824 / Avg: 8,824)
+...
+INFO  Add: 1,950,000 triples (Batch: 8,014 / Avg: 17,764)
+INFO  -- Finish triples data phase
+INFO  ** Data: 1,969,137 triples loaded in 111.95 seconds [Rate: 17,588.96 per second]
+INFO  -- Start triples index phase
+INFO  -- Finish triples index phase
+INFO  -- Finish triples load
+INFO  ** Completed: 1,969,137 triples loaded in 111.96 seconds [Rate: 17,588.33 per second]
+
+
+Loading UNII, version 2July2015 into <http://schemes.caregraf.info/unii> ...
+--------------------------------------------------------------------------------
+INFO  -- Start triples data phase
+INFO  ** Load into triples table with existing data
+INFO  Load: - -- 2015/07/15 20:14:29 PDT
+INFO  Add: 50,000 triples (Batch: 8,954 / Avg: 8,954)
+...
+INFO  Add: 650,000 triples (Batch: 28,153 / Avg: 20,701)
+INFO  -- Finish triples data phase
+INFO  ** Data: 675,562 triples loaded in 32.39 seconds [Rate: 20,859.69 per second]
+INFO  -- Start triples index phase
+INFO  -- Finish triples index phase
+INFO  -- Finish triples load
+INFO  ** Completed: 675,562 triples loaded in 32.40 seconds [Rate: 20,849.39 per second]
