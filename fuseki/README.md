@@ -1,4 +1,4 @@
-# Fuseki (Jena)
+# Use Fuseki (Jena) for an SKS
 
   1. Download the Fuseki zip from its [download page](http://jena.apache.org/download/#apache-jena-fuseki) and unzip it ...
 

@@ -1,4 +1,4 @@
-# Use MongoDB for a Simple (Medical) Knowledge Service
+# Use MongoDB for an SKS 
 
   1. Install MongoDB ([see](http://docs.mongodb.org/manual/installation/)) and its Python Package ([see](http://api.mongodb.org/python/current/installation.html))
 
