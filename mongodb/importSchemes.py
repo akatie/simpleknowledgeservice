@@ -12,6 +12,7 @@
 import os
 import json
 from datetime import datetime
+import re
 from zipfile import ZipFile
 try:
     from pymongo import MongoClient
@@ -19,28 +20,20 @@ except:
     raise Exception("You must install the package pymongo - http://api.mongodb.org/python/current/installation.html")
 
 """
-First INSTALL MONGO: http://docs.mongodb.org/manual/installation/
-Second create the database directory: dbs/sksdb
-
-before running - start local server ...
-> mongod --dbpath dbs/sksdb & 
-
-Then invoke: ./importSchemes.py
+Before running:
+- INSTALL MongoDB from http://docs.mongodb.org/manual/installation/ and its Python package, pyMongo from http://api.mongodb.org/python/current/installation.html
+- create the database directory 'sksdb'
+- run Mongo:
+  > mongod --dbpath sksdb & 
 
 TODO:
 - more on sizing of raw scheme vs MongoDB representation
-- warnings on zip scheme size ie/ will take time to load ... do ....
 """
 
-MONGODBNAME = "sksdb"
-DATABASE_DIR = "dbs/" + MONGODBNAME # strategy is one DB with collection per scheme
+MONGODBNAME = "sksdb" # will exist as can't start mongod otherwise
+DATABASE_DIR = MONGODBNAME # strategy is one DB with collection per scheme
 MONGODB_URI = 'mongodb://localhost' # :27017/smsdb
 SCHEMES_DIR = "../schemes/"
-
-SCHEMES = [
-    "rxnorm",
-    "mthspl"
-]
 
 def importSchemes():
     """
@@ -57,15 +50,20 @@ def importSchemes():
     db = client[MONGODBNAME]
     print "Using Mongo DB", db.name
     
-    for i, schemeMN in enumerate(SCHEMES, 1):
+    # Assemble schemes per scheme
+    schemeZipFiles = [zipFile for zipFile in os.listdir(SCHEMES_DIR) if re.match(r'[A-Z\d]+_.+\.zip$', zipFile)]
+    if not len(schemeZipFiles):
+        raise Exception("No schemes in schemes directory. Why not download some. Exiting ...")
+    schemeZipsBySchemeMN = {}
+    for zipFile in schemeZipFiles:
+        schemeMN = zipFile.split("_")[0].lower()
+        if schemeMN in schemeZipsBySchemeMN:
+            raise Exception("> 1 version for scheme " + schemeMN + " in schemes directory. Only allowed one version per scheme. Exiting ...")
+        schemeZipsBySchemeMN[schemeMN] = zipFile
     
-        print "Loading latest version of scheme", schemeMN
+    for i, (schemeMN, schemeZipFile) in enumerate(schemeZipsBySchemeMN.iteritems(), 1):
     
-        # Identify the latest version of this scheme - should be in a zip in SCHEMES_DIR
-        schemeZipFiles = [zipFile for zipFile in os.listdir(SCHEMES_DIR) if zipFile.lower().startswith(schemeMN) and zipFile.endswith(".zip")]
-        if len(schemeZipFiles) != 1:
-            raise Exception("Can't import version of scheme " + schemeMN + " as either missing or there is more than one")
-        schemeZipFile = schemeZipFiles[0]
+        print "Loading scheme", schemeMN, "from", schemeZipFile
     
         # purge current contents
         if schemeMN in db.collection_names():

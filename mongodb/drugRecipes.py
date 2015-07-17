@@ -17,13 +17,11 @@ try:
 except:
     raise Exception("You must install the package pymongo - http://api.mongodb.org/python/current/installation.html")
     
-from importSchemes import MONGODBNAME
+from importSchemes import MONGODBNAME, MONGODB_URI
 
 """
 Example queries on drug schemes
 """
-
-MONGODB_URI = 'mongodb://localhost' # :27017/sksdb 
 
 def runRecipes():
         

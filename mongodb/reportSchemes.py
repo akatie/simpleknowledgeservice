@@ -7,6 +7,7 @@
 # the GNU Affero General Public License version 3 (AGPL) as published by the Free Software 
 # Foundation.
 # (c) 2015 caregraf
+
 #
 
 import re 
@@ -17,7 +18,7 @@ try:
 except:
     raise Exception("You must install the package pymongo - http://api.mongodb.org/python/current/installation.html")
     
-from importSchemes import MONGODBNAME, SCHEMES
+from importSchemes import MONGODBNAME, MONGODB_URI
 
 """
 All schemes have one ConceptScheme description. It contains a
@@ -26,8 +27,6 @@ set of routines will print out these details about the schemes
 in a Simple Knowledge Service's MongoDB as well as walk down to 
 the key organizing concepts ("Broader Tops") of the scheme.
 """
-
-MONGODB_URI = 'mongodb://localhost' # :27017/sksdb 
 
 def reportSchemes():
 
@@ -44,13 +43,11 @@ def reportSchemes():
     print
     db = client[MONGODBNAME]
     print "Simple Knowledge Service DB:", db.name
+
+    schemes = db.collection_names(include_system_collections=False)    
+    print "Schemes supported - one collection per scheme", schemes
     
-    print "Schemes supported - one collection per scheme", db.collection_names(include_system_collections=False)
-    
-    if len(db.collection_names(include_system_collections=False)) < len(SCHEMES):
-        raise Exception("Did you run importSchemes.py? Wrong number of collections in db - exiting")
-        
-    for schemeMN in SCHEMES:
+    for schemeMN in schemes:
             
         reportScheme(db, schemeMN)
     
@@ -90,19 +87,21 @@ def reportScheme(db, schemeMN):
             continue
         print "\t" + predInfo[1] + ":", schemeDescription[predInfo[0]]
     
-    # Unless a scheme is flat (it has no hierarchy) then it will have one topConcept
-    # and one or more second level concepts. In these scheme representations, such
-    # second level concepts are called "broader tops". These are the main organizing
-    # concepts of a scheme ("Drug", "Dose Form" ... for RxNORM) or ("Clinical Finding", "Substance" for SNOMED).
-    print
-    print "\t-------------- Broader Tops --------------"
-    print "\t... the organizing concepts"
+    # Unless a scheme is flat (it has no hierarchy), it will have two or more
+    # "top concepts". These are the main organizing concepts of a scheme.
+    # Examples include "Drug", "Dose Form" ... for RxNORM and "Clinical Finding", "Substance" for SNOMED).
     topConceptId = schemeDescription["hasTopConcept"]["id"]
-    for i, btConceptDescription in enumerate(schemeCollection.find({"broader.id": topConceptId}, {"prefLabel": 1, "numberSubordinates": 1}).sort("numberSubordinates", -1), 1):
-        if i == 1: # most popular BT is the first as sorting
-            mostPopularBTId = btConceptDescription["_id"]
-        print "\t", i, btConceptDescription["prefLabel"], "(" + btConceptDescription["_id"] + ")"
-        print "\t\tChildren", btConceptDescription["numberSubordinates"] 
+    if "cgkos:broaderTops" in schemeDescription:
+        print
+        print "\t-------------- Top Concepts --------------"
+        print "\t... the organizing concepts"
+        for i, tConceptDescription in enumerate(schemeCollection.find({"broader.id": topConceptId, "deprecated" : { "$exists" : False }}, {"prefLabel": 1, "numberSubordinates": 1}).sort("numberSubordinates", -1), 1):
+            if i == 1: # most popular BT is the first as sorting
+                mostPopularTId = tConceptDescription["_id"]
+            print "\t", i, tConceptDescription["prefLabel"], "(" + tConceptDescription["_id"] + ")"
+            print "\t\tChildren", tConceptDescription["numberSubordinates"] 
+    else: # flat scheme - just pick first concept!
+        mostPopularTId = topConceptId
      
     """
     Let's display a child of the most popular broader top, one that hasn't been retired
@@ -117,8 +116,10 @@ def reportScheme(db, schemeMN):
     print "\t-------------- Example (Active) Concept --------------"
     if "cgkos:matched" in schemeDescription:
         findArgs = {"broadMatch": {"$exists": True}}
-    else:   
-        findArgs = {"broaderTop.id": mostPopularBTId, "deprecated" : { "$exists" : False }}
+    elif "cgkos:broaderTops" in schemeDescription:
+        findArgs = {"broaderTop.id": mostPopularTId, "deprecated" : { "$exists" : False }}
+    else: 
+        findArgs = {"broader.id": mostPopularTId, "deprecated" : { "$exists" : False }}        
     exampleConceptDescription = schemeCollection.find_one(findArgs)
     schemePreds = []
     print "\t", exampleConceptDescription["prefLabel"], "(" + exampleConceptDescription["_id"] + ")"

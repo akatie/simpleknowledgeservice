@@ -1,115 +1,297 @@
-
 ======= Report on Contents of MongoDB sksdb ========
 
 Simple Knowledge Service DB: sksdb
-Schemes supported - one collection per scheme [u'rxnorm', u'mthspl']
+Schemes supported - one collection per scheme [u'unii', u'ncit', u'mthspl', u'ndfrt', u'rxnorm']
 
-RxNorm Vocabulary (rxnorm:scheme)
-	Total 'documents' (by MongoDB): 203495
+UNII Concepts (unii:scheme)
+	Total 'documents' (by MongoDB): 71698
 
 	-------------- details --------------
 	Definition:
-		RxNorm, a standardized nomenclature for clinical drugs, is produced by the National Library of Medicine. In this context, a clinical drug is a pharmaceutical product given to (or taken by) a patient with a therapeutic or diagnostic intent. In RxNorm, the name of a clinical drug combines its ingredients, strengths, and form. However; some important medicines are not sufficiently or appropriately characterized by those three components alone. These have been identified as medicines that are dispensed in 'Packs'. The RxNorm clinical drug name does not indicate the form in which the product was manufactured, or its form when it arrived at the dispensary.
-	Version: 15AA_150601F
-	Last update: 2015-06-23
+		The joint FDA/USP Substance Registration System (SRS) supports health information technology initiatives by generating unique ingredient identifiers (UNIIs) for substances in drugs, biologics, foods, and devices. The UNII is a non-proprietary, free, unique, unambiguous, non semantic, alphanumeric identifier based on a substance's molecular structure and/or descriptive information. UNII is one of the Federal Medication Terminologies (FMT)
+	Version: 2Jul2015
+	Last update: 2015-07-15
 	Copyright:
-		The majority of the content of RxNorm is available for use under the basic and open terms described in sections 1-11 and 13-16 of the UMLS Metathesaurus license. Please refer to the UMLS Reference Manual for further information on this topic..
+		UNIIs are non-proprietary and free to use
 
 	-------------- statistics --------------
-	Subjects: 202100
-	Total Assertions: 944073
-	Property Assertions: 261433
-	Graph Assertions: 479147
-	Topmost (Broader Top) Concepts: 13
-
-	-------------- Broader Tops --------------
-	... the organizing concepts
-	1 Drug (rxnorm:SCD)
-		Children 21171
-	2 Ingredient and Form (rxnorm:SCDF)
-		Children 18649
-	3 Branded Ingredient and Form (rxnorm:SBDF)
-		Children 18407
-	4 Drug Component (rxnorm:SCDC)
-		Children 16817
-	5 Branded Drug (rxnorm:SBD)
-		Children 11674
-	6 Ingredient (rxnorm:IN)
-		Children 10562
-	7 Branded Drug Component (rxnorm:SBDC)
-		Children 10007
-	8 Branded Ingredient (rxnorm:BN)
-		Children 6460
-	9 Multi-Ingredient (rxnorm:MIN)
-		Children 3959
-	10 Precise Ingredient (rxnorm:PIN)
-		Children 2419
-	11 Branded Pack (rxnorm:BPCK)
-		Children 417
-	12 Pack (rxnorm:GPCK)
-		Children 363
-	13 Dose Form (rxnorm:DF)
-		Children 156
+	Subjects: 39924
+	Total Assertions: 111620
+	Property Assertions: 39924
 
 	-------------- Example (Active) Concept --------------
-	Hydromorphone Hydrochloride 3 MG Extended Release Oral Capsule (rxnorm:898613)
+	NORGESTIMATE (unii:C291HFX4DY)
 
-	code 898613
-	inScheme rxnorm:scheme
-	broaderTop {u'id': u'rxnorm:SCD'}
-	umlsCUI C0789808
-	broader [{u'id': u'rxnorm:SCD'}]
 	type skos:Concept
+	broader [{u'id': u'unii:concept'}]
+	altLabel [u'NORGESTIMATE COMPONENT OF TRI LO SPRINTEC', u'(+)-13-ETHYL-17-HYDROXY-18,19-DINOR-17.ALPHA.-PREGN-4-EN-20-YN-3-ONE OXIME ACETATE (ESTER)', u'NORGESTIMATE COMPONENT OF SPRINTEC', u'PREVIFEM COMPONENT NORGESTIMATE', u'TRI-PREVIFEM COMPONENT NORGESTIMATE', u'TRI LO SPRINTEC COMPONENT NORGESTIMATE', u'TRI-SPRINTEC COMPONENT NORGESTIMATE', u'NORGESTIMATE COMPONENT OF PREVIFEM', u'SPRINTEC COMPONENT NORGESTIMATE', u'NORGESTIMATE COMPONENT OF TRI-SPRINTEC', u'PREFEST COMPONENT NORGESTIMATE', u'NORGESTIMATE COMPONENT OF TRI-PREVIFEM', u'18,19-DINOR-17-PREGN-4-EN-20-YN-3-ONE, 17-(ACETYLOXY)-13-ETHYL-, OXIME, (17.ALPHA.)-(+)-', u'NORGESTIMATE COMPONENT OF ORTHO TRI-CYCLEN', u'NORGESTIMATE COMPONENT OF PREFEST', u'ORTHO TRI-CYCLEN COMPONENT NORGESTIMATE']
+	inScheme {u'id': u'unii:scheme'}
 
-	rxnormo:has_component {u'id': u'rxnorm:897748'}
-	rxnormo:has_ingredient_and_form {u'id': u'rxnorm:372427'}
+	uniio:includes_labels_of_schemes USAN, ORANGE BOOK, USP, MI, VANDF, INN, WHO-DD, MART., EP
+
+
+NCI Thesaurus (ncit:scheme)
+	Total 'documents' (by MongoDB): 836
+
+	-------------- details --------------
+	Definition:
+		NCI Thesaurus (NCIt) is the National Cancer Institute's (NCI) Reference Terminology. This scheme is the subset used by the FDA for describing drugs.
+	Version: 15.06e
+	Last update: 2015-07-15
+	Copyright:
+		This product includes the NCI THESAURUS(tm) database, or is derived from the NCI THESAURUS(tm) database, subject to a license from the National Cancer Institute. Your use of the NCI THESAURUS database and NCI THESAURUS ontology also is subject to this license, a copy of which is available at ftp://ftp1.nci.nih.gov/pub/cacore/EVS/NCI_THESAURUS_license.txt.
+
+	-------------- statistics --------------
+	Total Assertions: 834
+	Topmost (Broader Top) Concepts: 32
+
+	-------------- Top Concepts --------------
+	... the organizing concepts
+	1 Pharmaceutical Dosage Form (ncit:C54456)
+		Children 164
+	2 Drug Route of Administration (ncit:C54455)
+		Children 124
+	3 Unit of Presentation (ncit:C87300)
+		Children 85
+	4 Flavor (ncit:C73339)
+		Children 72
+	5 Package Type (ncit:C54457)
+		Children 63
+	6 Substance Indexing (ncit:C105631)
+		Children 50
+	7 Unit of Measure (ncit:C92951)
+		Children 46
+	8 Marketing Category (ncit:C73582)
+		Children 36
+	9 Business Operation (ncit:C73600)
+		Children 26
+	10 Pharmacokinetic Effect Consequences (ncit:C54600)
+		Children 21
+	11 Shape (ncit:C54454)
+		Children 20
+	12 Business Operation Qualifier (ncit:C101885)
+		Children 14
+	13 Color (ncit:C54453)
+		Children 13
+	14 Combination Product Type (ncit:C102833)
+		Children 10
+	15 Limitation Of Use (ncit:C54599)
+		Children 10
+	16 Suspect Drug Classification of Notification (ncit:C121832)
+		Children 6
+	17 Race (ncit:C107675)
+		Children 6
+	18 DEA Schedule (ncit:C54459)
+		Children 6
+	19 License Disciplinary Action (ncit:C118404)
+		Children 5
+	20 Medical Product Intent Of Use (ncit:C54619)
+		Children 5
+	21 Lot Distribution Data - Distribution Codes (ncit:C106324)
+		Children 3
+	22 Miscellaneous Identifier Types (ncit:C99288)
+		Children 3
+	23 Contributing Factor-General (ncit:C111661)
+		Children 2
+	24 Sex (ncit:C113350)
+		Children 2
+	25 Suspect Drug Use (ncit:C121833)
+		Children 2
+	26 Type of Drug Interaction Consequence (ncit:C54618)
+		Children 2
+	27 Document Type (ncit:C87299)
+		Children 1
+	28 Equivalence Codes (ncit:C111660)
+		Children 1
+	29 Business Entity Qualifier (ncit:C117110)
+		Children 1
+	30 Licensing (ncit:C118777)
+		Children 1
+	31 Marketing Status (ncit:C118778)
+		Children 1
+	32 Structured Product Labeling (ncit:C54452)
+		Children 1
+
+	-------------- Example (Active) Concept --------------
+	GRANULE, EXTENDED RELEASE (ncit:C69067)
+
+	type skos:Concept
+	broaderTop {u'id': u'ncit:C54456'}
+	broader [{u'id': u'ncit:C54456'}]
+	inScheme {u'id': u'ncit:scheme'}
+
 
 
 FDA SPL Structured Content (MTHSPL) (mthspl:scheme)
-	Total 'documents' (by MongoDB): 294716
+	Total 'documents' (by MongoDB): 298176
 
 	-------------- details --------------
-	Version: 2015_05_22
-	Last update: 2015-06-23
+	Version: 2015_06_26
+	Last update: 2015-07-15
 	Copyright:
 		National Drug Codes and Structured Product Labels are free to use
 
 	-------------- statistics --------------
-	Subjects: 290165
-	Total Assertions: 2651373
-	Property Assertions: 702234
-	Graph Assertions: 1654425
-	Matches: 74178
+	Subjects: 293555
+	Total Assertions: 2684301
+	Property Assertions: 710806
+	Graph Assertions: 1675321
+	Matches: 74904
 	Topmost (Broader Top) Concepts: 3
 
-	-------------- Broader Tops --------------
+	-------------- Top Concepts --------------
 	... the organizing concepts
 	1 Package (mthspl:package)
-		Children 193254
+		Children 195404
 	2 Product (mthspl:product)
-		Children 96911
+		Children 98151
 	3 Labeler (mthspl:labeler)
-		Children 4546
+		Children 4616
 
 	-------------- Example (Active) Concept --------------
-	BENZETHONIUM CHLORIDE 0.3 mL TOPICAL SWAB [Wet Wipes] (mthspl:202760433)
+	Quinidine gluconate 80 mg in 1 mL INTRAVENOUS SOLUTION (mthspl:000021407)
 
-	code 20276-433
-	inScheme mthspl:scheme
+	inScheme {u'id': u'mthspl:scheme'}
+	code 0002-1407
 	broaderTop {u'id': u'mthspl:product'}
-	broader [{u'id': u'mthspl:product'}]
 	type skos:Concept
-	broadMatch [{u'id': u'rxnorm:1043348'}]
+	broader [{u'id': u'mthspl:product'}]
+	broadMatch [{u'id': u'rxnorm:853004'}]
 
-	mthsplo:otc_monograph_not_final part333A
-	mthsplo:dm_spl_id 44629
-	mthsplo:marketing_effective_time_low 20110529
-	mthsplo:labeler {u'id': u'mthspl:20276'}
-	mthsplo:has_inactive_ingredient {u'id': u'unii:059QF0KO0R'}
-	mthsplo:spl_type HUMAN OTC DRUG LABEL
-	mthsplo:has_active_moiety {u'id': u'unii:1VU15B70BP'}
-	mthsplo:spl_set_id c917b7e6-cf26-4ed0-83fb-107a4ad9ca20
-	mthsplo:has_active_ingredient {u'id': u'unii:PH41D05744'}
-	mthsplo:marketing_category {u'id': u'ncit:C73604'}
+	mthsplo:dm_spl_id 134513
+	mthsplo:spl_set_id 11d14362-8f69-4c30-b487-5d05f6462bd7
+	mthsplo:labeler {u'id': u'mthspl:00002'}
+	mthsplo:has_inactive_ingredient {u'id': u'unii:339NCG44TV'}
+	mthsplo:spl_type HUMAN PRESCRIPTION DRUG LABEL
+	mthsplo:has_active_moiety {u'id': u'unii:ITX08688JL'}
+	mthsplo:application_id NDA007529
+	mthsplo:has_active_ingredient {u'id': u'unii:R6875N380F'}
+	mthsplo:marketing_effective_time_low 19510301
+	mthsplo:marketing_category {u'id': u'ncit:C73594'}
 	mthsplo:marketing_status active
 
+
+The VHA National Drug File – Reference Terminology (NDF-RT) (ndfrt:scheme)
+	Total 'documents' (by MongoDB): 43477
+
+	-------------- details --------------
+	Definition:
+		The National Drug File - Reference Terminology (NDF-RT) is produced by the U.S. Department of Veterans Affairs, Veterans Health Administration (VHA). NDF-RT is an extension of the VHA National Drug File (NDF). It organizes the drug list into a formal representation. NDF-RT is used for modeling drug characteristics including ingredients, chemical structure, dose form, physiologic effect, mechanism of action, pharmacokinetics, and related diseases.
+	Version: 2015_07_06
+	Last update: 2015-07-15
+	Copyright:
+		Free to use
+
+	-------------- statistics --------------
+	Subjects: 32310
+	Total Assertions: 310779
+	Property Assertions: 123654
+	Graph Assertions: 152055
+	Matches: 26723
+	Topmost (Broader Top) Concepts: 12
+
+	-------------- Top Concepts --------------
+	... the organizing concepts
+	1 Chemical Ingredients (ndfrt:N0000000002)
+		Children 10141
+	2 Drug (ndfrt:NDRUG)
+		Children 8956
+	3 Ingredient (ndfrt:N0000010582)
+		Children 7407
+	4 Diseases, Manifestations or Physiologic States (ndfrt:N0000000004)
+		Children 4768
+	5 Physiological Effects (ndfrt:N0000009802)
+		Children 1865
+	6 Cellular or Molecular Interactions (ndfrt:N0000000223)
+		Children 592
+	7 FDA Pharmacologic Class (ndfrt:N0000189939)
+		Children 575
+	8 VA Drug Class (ndfrt:N0000010574)
+		Children 486
+	9 Dose Forms (ndfrt:N0000010010)
+		Children 181
+	10 Clinical Kinetics (ndfrt:N0000000003)
+		Children 58
+	11 Therapeutic Categories (ndfrt:N0000178293)
+		Children 29
+
+	-------------- Example (Active) Concept --------------
+	Platinum-based Drug (ndfrt:N0000175413)
+
+	code N0000175413
+	inScheme {u'id': u'ndfrt:scheme'}
+	broaderTop {u'id': u'ndfrt:N0000189939'}
+	umlsCUI C2266918
+	broader [{u'id': u'ndfrt:N0000189939'}]
+	altLabel [u'Platinum-containing Agent']
+	type skos:Concept
+	broadMatch [{u'id': u'snomed:409193001'}, {u'id': u'snomed:11996000'}, {u'id': u'snomed:409194007'}]
+
+	ndfrto:has_chemical_structure_fmtsme {u'id': u'ndfrt:N0000175073'}
+
+
+RxNorm Vocabulary (rxnorm:scheme)
+	Total 'documents' (by MongoDB): 203760
+
+	-------------- details --------------
+	Definition:
+		RxNorm, a standardized nomenclature for clinical drugs, is produced by the National Library of Medicine. In this context, a clinical drug is a pharmaceutical product given to (or taken by) a patient with a therapeutic or diagnostic intent. In RxNorm, the name of a clinical drug combines its ingredients, strengths, and form. However; some important medicines are not sufficiently or appropriately characterized by those three components alone. These have been identified as medicines that are dispensed in 'Packs'. The RxNorm clinical drug name does not indicate the form in which the product was manufactured, or its form when it arrived at the dispensary.
+	Version: 15AA_150706F
+	Last update: 2015-07-15
+	Copyright:
+		The majority of the content of RxNorm is available for use under the basic and open terms described in sections 1-11 and 13-16 of the UMLS Metathesaurus license. Please refer to the UMLS Reference Manual for further information on this topic..
+
+	-------------- statistics --------------
+	Subjects: 202355
+	Total Assertions: 943636
+	Property Assertions: 260037
+	Graph Assertions: 479841
+	Topmost (Broader Top) Concepts: 13
+
+	-------------- Top Concepts --------------
+	... the organizing concepts
+	1 Drug (rxnorm:SCD)
+		Children 21251
+	2 Ingredient and Form (rxnorm:SCDF)
+		Children 18691
+	3 Branded Ingredient and Form (rxnorm:SBDF)
+		Children 18444
+	4 Drug Component (rxnorm:SCDC)
+		Children 16841
+	5 Branded Drug (rxnorm:SBD)
+		Children 11726
+	6 Ingredient (rxnorm:IN)
+		Children 10604
+	7 Branded Drug Component (rxnorm:SBDC)
+		Children 10019
+	8 Branded Ingredient (rxnorm:BN)
+		Children 6469
+	9 Multi-Ingredient (rxnorm:MIN)
+		Children 3968
+	10 Precise Ingredient (rxnorm:PIN)
+		Children 2430
+	11 Branded Pack (rxnorm:BPCK)
+		Children 416
+	12 Pack (rxnorm:GPCK)
+		Children 363
+	13 Dose Form (rxnorm:DF)
+		Children 159
+
+	-------------- Example (Active) Concept --------------
+	Amlodipine 5 MG / Hydrochlorothiazide 25 MG / Olmesartan medoxomil 40 MG Oral Tablet (rxnorm:1000001)
+
+	code 1000001
+	inScheme {u'id': u'rxnorm:scheme'}
+	broaderTop {u'id': u'rxnorm:SCD'}
+	umlsCUI C2930061
+	broader [{u'id': u'rxnorm:SCD'}]
+	altLabel [u'olmesartan medoxomil 40 MG / amLODIPine 5 MG / hydrochlorothiazide 25 MG Oral Tablet', u'Amlodipine 5 MG / HCTZ 25 MG / Olmesartan medoxomil 40 MG Oral Tablet']
+	type skos:Concept
+
+	rxnormo:source_scheme_historical MDDB,NDDF,VANDF,NDFRT,SNOMEDCT_US,GS,MMX,MMSL
+	rxnormo:prescribable True
+	rxnormo:has_ingredient_and_form {u'id': u'rxnorm:999966'}
+	rxnormo:source_scheme MDDB,NDDF,VANDF,NDFRT,SNOMEDCT_US,GS,MMX,MMSL
+	rxnormo:has_ingredients {u'id': u'rxnorm:1008801'}
+	rxnormo:has_component {u'id': u'rxnorm:359114'}
+	rxnormo:human_drug True
