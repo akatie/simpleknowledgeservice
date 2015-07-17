@@ -1,20 +1,27 @@
-Use MongoDB for a Simple (Medical) Knowledge Service
+# Use MongoDB for a Simple (Medical) Knowledge Service
 
-The MongoDB package contains:
+  1. Install MongoDB ([see](http://docs.mongodb.org/manual/installation/)) and its Python Package ([see](http://api.mongodb.org/python/current/installation.html))
 
-1. loadSchemes.py: loads available schemes into MongoDB, with one collection per scheme
-2. reportSchemes.py: basic report on the loaded schemes
-3. *Recipes.py: "recipes" for common knowledge tasks in various domains. The first set is for drug schemes.
- 
-As the _.py_ suggests, the code is in Python which is built into Linux and OS X and is easy to install on Windows. From the command line, just
-call 
+  2. Make a directory for your database called `sksdb` ...
 
-    python loadSchemes.py
+         mkdir sksdb
 
-or 
+  3. In a new shell, start Mongo and point it to the database directory
 
-    ./loadSchemes.py
+         mongod --dbpath sksdb & 
 
-Typical output from the routines are in README_OUTPUT_*
+  4. (Re)load schemes
 
-Note: we're starting with drug schemes (RxNORM, MTHSPL (NDC), FDA classes ...) and will move on from there to disorders (SNOMED, ICD9, ...) and then labs (LOINC).
+         python importSchemes.py
+
+     ... sample output in _README_OUTPUT_IMPORTSCHEMES_
+
+  5. To see queries in action, run ...
+
+         python reportSchemes.py
+
+     and
+
+         python drugRecipes.py
+
+     ... sample outputs are in _README_OUTPUT_REPORTSCHEMES_ and _README_OUTPUT_DRUGRECIPLES_
