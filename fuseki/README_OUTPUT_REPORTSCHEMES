@@ -1,0 +1,859 @@
+$ python reportSchemes.py 
+
+######################### Report on Schemes of Fuseki at http://localhost:3030/sks/query #########################
+
+Query graphs with schemes ...
+
+
+    PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+    SELECT DISTINCT ?g ?s WHERE {GRAPH ?g {?s a skos:ConceptScheme}} ORDER BY ?g
+    
+Have 5 schemes, each with their own graph:
+	1 mthspl:scheme http://schemes.caregraf.info/mthspl
+	2 ncit:scheme http://schemes.caregraf.info/ncit
+	3 ndfrt:scheme http://schemes.caregraf.info/ndfrt
+	4 rxnorm:scheme http://schemes.caregraf.info/rxnorm
+	5 unii:scheme http://schemes.caregraf.info/unii
+
+######################### Scheme basics, scheme by scheme ###################
+
+=============== About scheme mthspl:scheme ================
+
+Query 'ConceptScheme' details ...
+
+    PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+    SELECT ?p ?o
+    FROM <http://schemes.caregraf.info/mthspl>
+    WHERE {
+        ?s a skos:ConceptScheme ;
+           ?p ?o
+    }
+    
+Reply ...
+
+	-------------- details --------------
+	Label: FDA SPL Structured Content (MTHSPL)
+	Version: 2015_06_26
+	Last update: 2015-07-15
+	Copyright:
+		National Drug Codes and Structured Product Labels are free to use
+
+	-------------- statistics --------------
+	Subjects: 293555
+	Total Assertions: 2684301
+	Property Assertions: 710806
+	Graph Assertions: 1675321
+	Matches: 74904
+	Top Concepts: 3
+
+
+Query 'Top Concepts' and Counts ...
+
+    PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+    PREFIX cgkos: <http://schemes.caregraf.info/ontology#>
+    SELECT ?topCLabel (COUNT(DISTINCT ?c) AS ?numberSubordinates)
+    FROM <http://schemes.caregraf.info/mthspl>
+    WHERE {
+        ?c cgkos:broaderTop ?topC .
+        ?topC skos:prefLabel ?topCLabel
+    }
+    GROUP BY ?topCLabel
+    ORDER BY DESC(?numberSubordinates)
+    
+Reply ...
+
+	-------------- Top Concepts --------------
+	... the organizing concepts
+
+	1 Package
+		Children 195404
+	2 Product
+		Children 98151
+	3 Labeler
+		Children 4616
+
+	-------------- Example (Active) Concept --------------
+Query ...
+
+    PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+    PREFIX owl: <http://www.w3.org/2002/07/owl#>
+    PREFIX cgkos: <http://schemes.caregraf.info/ontology#>
+    DESCRIBE ?s
+    FROM <http://schemes.caregraf.info/mthspl>
+    WHERE {
+        ?tcId skos:prefLabel "Package" .
+        ?s cgkos:broaderTop ?tcId .
+        FILTER NOT EXISTS {?s owl:deprecated []} 
+    }
+    LIMIT 1
+    
+
+Reply ...
+	Stannous Fluoride .63 mg in 1 g ORAL RINSE [Fluoridex] (mthspl:00000750200486503)
+		code: 0-7502004865-3
+		inScheme: mthspl:scheme
+		packaging_of: mthspl:648540004
+		broaderTop: mthspl:package
+		broader: mthspl:package
+		prefLabel: Stannous Fluoride .63 mg in 1 g ORAL RINSE [Fluoridex]
+
+
+=============== About scheme ncit:scheme ================
+
+Query 'ConceptScheme' details ...
+
+    PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+    SELECT ?p ?o
+    FROM <http://schemes.caregraf.info/ncit>
+    WHERE {
+        ?s a skos:ConceptScheme ;
+           ?p ?o
+    }
+    
+Reply ...
+
+	-------------- details --------------
+	Label: NCI Thesaurus
+	Definition:
+		NCI Thesaurus (NCIt) is the National Cancer Institute's (NCI) Reference Terminology. This scheme is the subset used by the FDA for describing drugs.
+	Version: 15.06e
+	Last update: 2015-07-15
+	Copyright:
+		This product includes the NCI THESAURUS(tm) database, or is derived from the NCI THESAURUS(tm) database, subject to a license from the National Cancer Institute. Your use of the NCI THESAURUS database and NCI THESAURUS ontology also is subject to this license, a copy of which is available at ftp://ftp1.nci.nih.gov/pub/cacore/EVS/NCI_THESAURUS_license.txt.
+
+	-------------- statistics --------------
+	Total Assertions: 834
+	Top Concepts: 32
+
+
+Query 'Top Concepts' and Counts ...
+
+    PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+    PREFIX cgkos: <http://schemes.caregraf.info/ontology#>
+    SELECT ?topCLabel (COUNT(DISTINCT ?c) AS ?numberSubordinates)
+    FROM <http://schemes.caregraf.info/ncit>
+    WHERE {
+        ?c cgkos:broaderTop ?topC .
+        ?topC skos:prefLabel ?topCLabel
+    }
+    GROUP BY ?topCLabel
+    ORDER BY DESC(?numberSubordinates)
+    
+Reply ...
+
+	-------------- Top Concepts --------------
+	... the organizing concepts
+
+	1 Pharmaceutical Dosage Form
+		Children 164
+	2 Drug Route of Administration
+		Children 124
+	3 Unit of Presentation
+		Children 85
+	4 Flavor
+		Children 72
+	5 Package Type
+		Children 63
+	6 Substance Indexing
+		Children 50
+	7 Unit of Measure
+		Children 46
+	8 Marketing Category
+		Children 36
+	9 Business Operation
+		Children 26
+	10 Pharmacokinetic Effect Consequences
+		Children 21
+	11 Shape
+		Children 20
+	12 Business Operation Qualifier
+		Children 14
+	13 Color
+		Children 13
+	14 Combination Product Type
+		Children 10
+	15 Limitation Of Use
+		Children 10
+	16 DEA Schedule
+		Children 6
+	17 Race
+		Children 6
+	18 Suspect Drug Classification of Notification
+		Children 6
+	19 License Disciplinary Action
+		Children 5
+	20 Medical Product Intent Of Use
+		Children 5
+	21 Lot Distribution Data - Distribution Codes
+		Children 3
+	22 Miscellaneous Identifier Types
+		Children 3
+	23 Contributing Factor-General
+		Children 2
+	24 Sex
+		Children 2
+	25 Suspect Drug Use
+		Children 2
+	26 Type of Drug Interaction Consequence
+		Children 2
+	27 Business Entity Qualifier
+		Children 1
+	28 Document Type
+		Children 1
+	29 Equivalence Codes
+		Children 1
+	30 Licensing
+		Children 1
+	31 Marketing Status
+		Children 1
+	32 Structured Product Labeling
+		Children 1
+
+	-------------- Example (Active) Concept --------------
+Query ...
+
+    PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+    PREFIX owl: <http://www.w3.org/2002/07/owl#>
+    PREFIX cgkos: <http://schemes.caregraf.info/ontology#>
+    DESCRIBE ?s
+    FROM <http://schemes.caregraf.info/ncit>
+    WHERE {
+        ?tcId skos:prefLabel "Pharmaceutical Dosage Form" .
+        ?s cgkos:broaderTop ?tcId .
+        FILTER NOT EXISTS {?s owl:deprecated []} 
+    }
+    LIMIT 1
+    
+
+Reply ...
+	CELLULAR SHEET (ncit:C100103)
+		broaderTop: ncit:C54456
+		broader: ncit:C54456
+		inScheme: ncit:scheme
+		prefLabel: CELLULAR SHEET
+
+
+=============== About scheme ndfrt:scheme ================
+
+Query 'ConceptScheme' details ...
+
+    PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+    SELECT ?p ?o
+    FROM <http://schemes.caregraf.info/ndfrt>
+    WHERE {
+        ?s a skos:ConceptScheme ;
+           ?p ?o
+    }
+    
+Reply ...
+
+	-------------- details --------------
+	Label: The VHA National Drug File – Reference Terminology (NDF-RT)
+	Definition:
+		The National Drug File - Reference Terminology (NDF-RT) is produced by the U.S. Department of Veterans Affairs, Veterans Health Administration (VHA). NDF-RT is an extension of the VHA National Drug File (NDF). It organizes the drug list into a formal representation. NDF-RT is used for modeling drug characteristics including ingredients, chemical structure, dose form, physiologic effect, mechanism of action, pharmacokinetics, and related diseases.
+	Version: 2015_07_06
+	Last update: 2015-07-15
+	Copyright:
+		Free to use
+
+	-------------- statistics --------------
+	Subjects: 32310
+	Total Assertions: 310779
+	Property Assertions: 123654
+	Graph Assertions: 152055
+	Matches: 26723
+	Top Concepts: 12
+
+
+Query 'Top Concepts' and Counts ...
+
+    PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+    PREFIX cgkos: <http://schemes.caregraf.info/ontology#>
+    SELECT ?topCLabel (COUNT(DISTINCT ?c) AS ?numberSubordinates)
+    FROM <http://schemes.caregraf.info/ndfrt>
+    WHERE {
+        ?c cgkos:broaderTop ?topC .
+        ?topC skos:prefLabel ?topCLabel
+    }
+    GROUP BY ?topCLabel
+    ORDER BY DESC(?numberSubordinates)
+    
+Reply ...
+
+	-------------- Top Concepts --------------
+	... the organizing concepts
+
+	1 Chemical Ingredients
+		Children 10141
+	2 Drug
+		Children 8956
+	3 Ingredient
+		Children 7407
+	4 Diseases, Manifestations or Physiologic States
+		Children 4768
+	5 Physiological Effects
+		Children 1865
+	6 Cellular or Molecular Interactions
+		Children 592
+	7 FDA Pharmacologic Class
+		Children 575
+	8 VA Drug Class
+		Children 486
+	9 Dose Forms
+		Children 181
+	10 Clinical Kinetics
+		Children 58
+	11 Therapeutic Categories
+		Children 29
+
+	-------------- Example (Active) Concept --------------
+Query ...
+
+    PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+    PREFIX owl: <http://www.w3.org/2002/07/owl#>
+    PREFIX cgkos: <http://schemes.caregraf.info/ontology#>
+    DESCRIBE ?s
+    FROM <http://schemes.caregraf.info/ndfrt>
+    WHERE {
+        ?tcId skos:prefLabel "Chemical Ingredients" .
+        ?s cgkos:broaderTop ?tcId .
+        FILTER NOT EXISTS {?s owl:deprecated []} 
+    }
+    LIMIT 1
+    
+
+Reply ...
+	abacavir (ndfrt:N0000004254)
+		mesh_dui: C106538
+		code: N0000004254
+		mesh_name: abacavir
+		inScheme: ndfrt:scheme
+		closeMatch: rxnorm:190521
+		broaderTop: ndfrt:N0000000002
+		umlsCUI: C0663655
+		broader: ndfrt:N0000008043
+		prefLabel: abacavir
+		mesh_ui: M0277557
+
+
+=============== About scheme rxnorm:scheme ================
+
+Query 'ConceptScheme' details ...
+
+    PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+    SELECT ?p ?o
+    FROM <http://schemes.caregraf.info/rxnorm>
+    WHERE {
+        ?s a skos:ConceptScheme ;
+           ?p ?o
+    }
+    
+Reply ...
+
+	-------------- details --------------
+	Label: RxNorm Vocabulary
+	Definition:
+		RxNorm, a standardized nomenclature for clinical drugs, is produced by the National Library of Medicine. In this context, a clinical drug is a pharmaceutical product given to (or taken by) a patient with a therapeutic or diagnostic intent. In RxNorm, the name of a clinical drug combines its ingredients, strengths, and form. However; some important medicines are not sufficiently or appropriately characterized by those three components alone. These have been identified as medicines that are dispensed in 'Packs'. The RxNorm clinical drug name does not indicate the form in which the product was manufactured, or its form when it arrived at the dispensary.
+	Version: 15AA_150706F
+	Last update: 2015-07-15
+	Copyright:
+		The majority of the content of RxNorm is available for use under the basic and open terms described in sections 1-11 and 13-16 of the UMLS Metathesaurus license. Please refer to the UMLS Reference Manual for further information on this topic..
+
+	-------------- statistics --------------
+	Subjects: 202355
+	Total Assertions: 943636
+	Property Assertions: 260037
+	Graph Assertions: 479841
+	Top Concepts: 13
+
+
+Query 'Top Concepts' and Counts ...
+
+    PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+    PREFIX cgkos: <http://schemes.caregraf.info/ontology#>
+    SELECT ?topCLabel (COUNT(DISTINCT ?c) AS ?numberSubordinates)
+    FROM <http://schemes.caregraf.info/rxnorm>
+    WHERE {
+        ?c cgkos:broaderTop ?topC .
+        ?topC skos:prefLabel ?topCLabel
+    }
+    GROUP BY ?topCLabel
+    ORDER BY DESC(?numberSubordinates)
+    
+Reply ...
+
+	-------------- Top Concepts --------------
+	... the organizing concepts
+
+	1 Drug
+		Children 35898
+	2 Branded Ingredient and Form
+		Children 35657
+	3 Ingredient and Form
+		Children 30835
+	4 Drug Component
+		Children 27060
+	5 Branded Drug
+		Children 21581
+	6 Branded Drug Component
+		Children 18834
+	7 Branded Ingredient
+		Children 15649
+	8 Ingredient
+		Children 10604
+	9 Multi-Ingredient
+		Children 3968
+	10 Precise Ingredient
+		Children 2430
+	11 Branded Pack
+		Children 525
+	12 Pack
+		Children 487
+	13 Dose Form
+		Children 217
+
+	-------------- Example (Active) Concept --------------
+Query ...
+
+    PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+    PREFIX owl: <http://www.w3.org/2002/07/owl#>
+    PREFIX cgkos: <http://schemes.caregraf.info/ontology#>
+    DESCRIBE ?s
+    FROM <http://schemes.caregraf.info/rxnorm>
+    WHERE {
+        ?tcId skos:prefLabel "Drug" .
+        ?s cgkos:broaderTop ?tcId .
+        FILTER NOT EXISTS {?s owl:deprecated []} 
+    }
+    LIMIT 1
+    
+
+Reply ...
+	quinidine gluconate 80 MG/ML Injectable Solution (rxnorm:853004)
+		code: 853004
+		prescribable: True
+		prefLabel: quinidine gluconate 80 MG/ML Injectable Solution
+		inScheme: rxnorm:scheme
+		human_drug: True
+		has_ingredient_and_form: rxnorm:373740
+		has_component: rxnorm:853003
+		broaderTop: rxnorm:SCD
+		umlsCUI: C0772611
+		broader: rxnorm:SCD
+		altLabel: quinidine gluconate 80 MG/ML (quinidine 50 MG/ML) Injectable Solution
+		source_scheme: MDDB,VANDF,MMX,GS,MTHSPL,NDFRT,MMSL,NDDF
+		source_scheme_historical: MDDB,VANDF,MMX,MTHFDA,GS,MTHSPL,NDFRT,MMSL,NDDF
+
+
+=============== About scheme unii:scheme ================
+
+Query 'ConceptScheme' details ...
+
+    PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+    SELECT ?p ?o
+    FROM <http://schemes.caregraf.info/unii>
+    WHERE {
+        ?s a skos:ConceptScheme ;
+           ?p ?o
+    }
+    
+Reply ...
+
+	-------------- details --------------
+	Label: UNII Concepts
+	Definition:
+		The joint FDA/USP Substance Registration System (SRS) supports health information technology initiatives by generating unique ingredient identifiers (UNIIs) for substances in drugs, biologics, foods, and devices. The UNII is a non-proprietary, free, unique, unambiguous, non semantic, alphanumeric identifier based on a substance's molecular structure and/or descriptive information. UNII is one of the Federal Medication Terminologies (FMT)
+	Version: 2Jul2015
+	Last update: 2015-07-15
+	Copyright:
+		UNIIs are non-proprietary and free to use
+
+	-------------- statistics --------------
+	Subjects: 39924
+	Total Assertions: 111620
+	Property Assertions: 39924
+
+
+Query 'Top Concepts' and Counts ...
+
+    PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+    PREFIX cgkos: <http://schemes.caregraf.info/ontology#>
+    SELECT ?topCLabel (COUNT(DISTINCT ?c) AS ?numberSubordinates)
+    FROM <http://schemes.caregraf.info/unii>
+    WHERE {
+        ?c cgkos:broaderTop ?topC .
+        ?topC skos:prefLabel ?topCLabel
+    }
+    GROUP BY ?topCLabel
+    ORDER BY DESC(?numberSubordinates)
+    
+Reply ...
+
+	------------- Flat Scheme - no top concepts ---------
+
+
+
+######################### Graph basics, graph by graph ###################
+... slower than quick scheme queries as doing a lot of explicit graph walks
+
+=============== About graph <http://schemes.caregraf.info/mthspl> as a graph================
+... for larger graphs, these take a while as to count every applicable entity (resource or assertion) must be walked
+
+Query number of typed resources ...
+
+    PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+    SELECT (COUNT(*) AS ?noTypedResources)
+    FROM <http://schemes.caregraf.info/mthspl>
+    WHERE {
+        ?r a []
+    }
+    
+--------------------
+| noTypedResources |
+====================
+| 298176           |
+--------------------
+
+
+Query types of resources ...
+... always the same two for these Knowledge Graphs, skos:Concept and skos:ConceptScheme
+
+    PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+    SELECT DISTINCT ?type
+    FROM <http://schemes.caregraf.info/mthspl>
+    WHERE {
+        ?r a ?type
+    }
+    
+----------------------
+| type               |
+======================
+| skos:ConceptScheme |
+| skos:Concept       |
+----------------------
+
+
+Query number of graph/edge (object is resource) assertions ...
+... takes a while if graph is large
+
+    PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+    SELECT (COUNT(*) AS ?noGraphAssertions)
+    FROM <http://schemes.caregraf.info/mthspl>
+    WHERE {
+        ?r ?p ?o . FILTER isIRI(?o)
+    }
+    
+---------------------
+| noGraphAssertions |
+=====================
+| 2037496           |
+---------------------
+
+
+Query number of graph (object is string/int/date) assertions ...
+... takes a while if graph is large
+
+    PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+    SELECT (COUNT(*) AS ?noLiteralAssertions)
+    FROM <http://schemes.caregraf.info/mthspl>
+    WHERE {
+        ?r ?p ?o . FILTER isLiteral(?o)
+    }
+    
+-----------------------
+| noLiteralAssertions |
+=======================
+| 1290955             |
+-----------------------
+
+
+
+=============== About graph <http://schemes.caregraf.info/ncit> as a graph================
+... for larger graphs, these take a while as to count every applicable entity (resource or assertion) must be walked
+
+Query number of typed resources ...
+
+    PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+    SELECT (COUNT(*) AS ?noTypedResources)
+    FROM <http://schemes.caregraf.info/ncit>
+    WHERE {
+        ?r a []
+    }
+    
+--------------------
+| noTypedResources |
+====================
+| 836              |
+--------------------
+
+
+Query types of resources ...
+... always the same two for these Knowledge Graphs, skos:Concept and skos:ConceptScheme
+
+    PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+    SELECT DISTINCT ?type
+    FROM <http://schemes.caregraf.info/ncit>
+    WHERE {
+        ?r a ?type
+    }
+    
+----------------------
+| type               |
+======================
+| skos:ConceptScheme |
+| skos:Concept       |
+----------------------
+
+
+Query number of graph/edge (object is resource) assertions ...
+... takes a while if graph is large
+
+    PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+    SELECT (COUNT(*) AS ?noGraphAssertions)
+    FROM <http://schemes.caregraf.info/ncit>
+    WHERE {
+        ?r ?p ?o . FILTER isIRI(?o)
+    }
+    
+---------------------
+| noGraphAssertions |
+=====================
+| 3308              |
+---------------------
+
+
+Query number of graph (object is string/int/date) assertions ...
+... takes a while if graph is large
+
+    PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+    SELECT (COUNT(*) AS ?noLiteralAssertions)
+    FROM <http://schemes.caregraf.info/ncit>
+    WHERE {
+        ?r ?p ?o . FILTER isLiteral(?o)
+    }
+    
+-----------------------
+| noLiteralAssertions |
+=======================
+| 905                 |
+-----------------------
+
+
+
+=============== About graph <http://schemes.caregraf.info/ndfrt> as a graph================
+... for larger graphs, these take a while as to count every applicable entity (resource or assertion) must be walked
+
+Query number of typed resources ...
+
+    PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+    SELECT (COUNT(*) AS ?noTypedResources)
+    FROM <http://schemes.caregraf.info/ndfrt>
+    WHERE {
+        ?r a []
+    }
+    
+--------------------
+| noTypedResources |
+====================
+| 43477            |
+--------------------
+
+
+Query types of resources ...
+... always the same two for these Knowledge Graphs, skos:Concept and skos:ConceptScheme
+
+    PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+    SELECT DISTINCT ?type
+    FROM <http://schemes.caregraf.info/ndfrt>
+    WHERE {
+        ?r a ?type
+    }
+    
+----------------------
+| type               |
+======================
+| skos:ConceptScheme |
+| skos:Concept       |
+----------------------
+
+
+Query number of graph/edge (object is resource) assertions ...
+... takes a while if graph is large
+
+    PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+    SELECT (COUNT(*) AS ?noGraphAssertions)
+    FROM <http://schemes.caregraf.info/ndfrt>
+    WHERE {
+        ?r ?p ?o . FILTER isIRI(?o)
+    }
+    
+---------------------
+| noGraphAssertions |
+=====================
+| 287018            |
+---------------------
+
+
+Query number of graph (object is string/int/date) assertions ...
+... takes a while if graph is large
+
+    PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+    SELECT (COUNT(*) AS ?noLiteralAssertions)
+    FROM <http://schemes.caregraf.info/ndfrt>
+    WHERE {
+        ?r ?p ?o . FILTER isLiteral(?o)
+    }
+    
+-----------------------
+| noLiteralAssertions |
+=======================
+| 289553              |
+-----------------------
+
+
+
+=============== About graph <http://schemes.caregraf.info/rxnorm> as a graph================
+... for larger graphs, these take a while as to count every applicable entity (resource or assertion) must be walked
+
+Query number of typed resources ...
+
+    PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+    SELECT (COUNT(*) AS ?noTypedResources)
+    FROM <http://schemes.caregraf.info/rxnorm>
+    WHERE {
+        ?r a []
+    }
+    
+--------------------
+| noTypedResources |
+====================
+| 203760           |
+--------------------
+
+
+Query types of resources ...
+... always the same two for these Knowledge Graphs, skos:Concept and skos:ConceptScheme
+
+    PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+    SELECT DISTINCT ?type
+    FROM <http://schemes.caregraf.info/rxnorm>
+    WHERE {
+        ?r a ?type
+    }
+    
+----------------------
+| type               |
+======================
+| skos:ConceptScheme |
+| skos:Concept       |
+----------------------
+
+
+Query number of graph/edge (object is resource) assertions ...
+... takes a while if graph is large
+
+    PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+    SELECT (COUNT(*) AS ?noGraphAssertions)
+    FROM <http://schemes.caregraf.info/rxnorm>
+    WHERE {
+        ?r ?p ?o . FILTER isIRI(?o)
+    }
+    
+---------------------
+| noGraphAssertions |
+=====================
+| 978078            |
+---------------------
+
+
+Query number of graph (object is string/int/date) assertions ...
+... takes a while if graph is large
+
+    PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+    SELECT (COUNT(*) AS ?noLiteralAssertions)
+    FROM <http://schemes.caregraf.info/rxnorm>
+    WHERE {
+        ?r ?p ?o . FILTER isLiteral(?o)
+    }
+    
+-----------------------
+| noLiteralAssertions |
+=======================
+| 991059              |
+-----------------------
+
+
+
+=============== About graph <http://schemes.caregraf.info/unii> as a graph================
+... for larger graphs, these take a while as to count every applicable entity (resource or assertion) must be walked
+
+Query number of typed resources ...
+
+    PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+    SELECT (COUNT(*) AS ?noTypedResources)
+    FROM <http://schemes.caregraf.info/unii>
+    WHERE {
+        ?r a []
+    }
+    
+--------------------
+| noTypedResources |
+====================
+| 71698            |
+--------------------
+
+
+Query types of resources ...
+... always the same two for these Knowledge Graphs, skos:Concept and skos:ConceptScheme
+
+    PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+    SELECT DISTINCT ?type
+    FROM <http://schemes.caregraf.info/unii>
+    WHERE {
+        ?r a ?type
+    }
+    
+----------------------
+| type               |
+======================
+| skos:ConceptScheme |
+| skos:Concept       |
+----------------------
+
+
+Query number of graph/edge (object is resource) assertions ...
+... takes a while if graph is large
+
+    PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+    SELECT (COUNT(*) AS ?noGraphAssertions)
+    FROM <http://schemes.caregraf.info/unii>
+    WHERE {
+        ?r ?p ?o . FILTER isIRI(?o)
+    }
+    
+---------------------
+| noGraphAssertions |
+=====================
+| 215092            |
+---------------------
+
+
+Query number of graph (object is string/int/date) assertions ...
+... takes a while if graph is large
+
+    PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+    SELECT (COUNT(*) AS ?noLiteralAssertions)
+    FROM <http://schemes.caregraf.info/unii>
+    WHERE {
+        ?r ?p ?o . FILTER isLiteral(?o)
+    }
+    
+-----------------------
+| noLiteralAssertions |
+=======================
+| 460470              |
+-----------------------
+
+
+
+

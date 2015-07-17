@@ -1,8 +1,10 @@
 # Fuseki (Jena)
 
-  1. Download and unzip Fuseki into this directory from http://jena.apache.org/download/#apache-jena-fuseki into this directory ...
+  1. Download the Fuseki zip from its [download page](http://jena.apache.org/download/#apache-jena-fuseki) and unzip it ...
 
          apache-jena-fuseki-2.0.0
+
+     ... fuseki is `2.0.0` at the time of writing.
 
   2. Run the 'importSchemes.sh' script. It takes a few minutes ...
 
