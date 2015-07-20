@@ -44,7 +44,7 @@ def reportSchemes():
     db = client[MONGODBNAME]
     print "Simple Knowledge Service DB:", db.name
 
-    schemes = db.collection_names(include_system_collections=False)    
+    schemes = sorted(db.collection_names(include_system_collections=False))   
     print "Schemes supported - one collection per scheme", schemes
     
     for schemeMN in schemes:
@@ -90,19 +90,21 @@ def reportScheme(db, schemeMN):
     # Unless a scheme is flat (it has no hierarchy), it will have two or more
     # "top concepts". These are the main organizing concepts of a scheme.
     # Examples include "Drug", "Dose Form" ... for RxNORM and "Clinical Finding", "Substance" for SNOMED).
-    topConceptId = schemeDescription["hasTopConcept"]["id"]
-    if "cgkos:broaderTops" in schemeDescription:
+    if "hasTopConcept" not in schemeDescription: # TODO: show random ex concept even though flat
+        print "Flat, unstructured scheme - no topConcepts. Nothing more to report"
         print
-        print "\t-------------- Top Concepts --------------"
-        print "\t... the organizing concepts"
-        for i, tConceptDescription in enumerate(schemeCollection.find({"broader.id": topConceptId, "deprecated" : { "$exists" : False }}, {"prefLabel": 1, "numberSubordinates": 1}).sort("numberSubordinates", -1), 1):
-            if i == 1: # most popular BT is the first as sorting
-                mostPopularTId = tConceptDescription["_id"]
-            print "\t", i, tConceptDescription["prefLabel"], "(" + tConceptDescription["_id"] + ")"
-            print "\t\tChildren", tConceptDescription["numberSubordinates"] 
-    else: # flat scheme - just pick first concept!
-        mostPopularTId = topConceptId
-     
+        return
+    
+    topConceptIds = [c["id"] for c in schemeDescription["hasTopConcept"]]
+    print
+    print "\t-------------- Top Concepts", len(topConceptIds), "--------------"
+    print "\t... the organizing concepts"
+    for i, tConceptDescription in enumerate(schemeCollection.find({"_id": {"$in": topConceptIds}}).sort("numberActiveSubordinates", -1), 1):
+        if i == 1: # most popular BT is the first as sorting
+            mostPopularTId = tConceptDescription["_id"]
+        print "\t", i, tConceptDescription["prefLabel"], "(" + tConceptDescription["_id"] + ")"
+        print "\t\tChildren", tConceptDescription["numberActiveSubordinates"] 
+                    
     """
     Let's display a child of the most popular broader top, one that hasn't been retired
     (deprecated). 
@@ -114,12 +116,7 @@ def reportScheme(db, schemeMN):
     """
     print 
     print "\t-------------- Example (Active) Concept --------------"
-    if "cgkos:matched" in schemeDescription:
-        findArgs = {"broadMatch": {"$exists": True}}
-    elif "cgkos:broaderTops" in schemeDescription:
-        findArgs = {"broaderTop.id": mostPopularTId, "deprecated" : { "$exists" : False }}
-    else: 
-        findArgs = {"broader.id": mostPopularTId, "deprecated" : { "$exists" : False }}        
+    findArgs = {"broaderTop.id": mostPopularTId, "deprecated" : { "$exists" : False }}
     exampleConceptDescription = schemeCollection.find_one(findArgs)
     schemePreds = []
     print "\t", exampleConceptDescription["prefLabel"], "(" + exampleConceptDescription["_id"] + ")"

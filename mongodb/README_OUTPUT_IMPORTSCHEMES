@@ -1,38 +1,47 @@
-$ python importSchemes.py
 Using Mongo DB sksdb
 Loading scheme unii from UNII_2July2015.zip
 	purging contents of pre-existing MongoDB collection unii
 	loading latest scheme JSON from zip file UNII_2July2015.zip ...
 	scheme JSON loaded and changed - now inserting into Mongo ...
-	Collection unii has 71698 members
-	Load of 71698 resources of scheme unii took 0:00:02.757658
+	Collection unii has 71697 members
+	Load of 71697 resources of scheme unii took 0:00:02.481560
 
-Loading scheme mthspl from MTHSPL_2015_06_26.zip
-	loading latest scheme JSON from zip file MTHSPL_2015_06_26.zip ...
+Loading scheme atc from ATC_ATC_2015.zip
+	loading latest scheme JSON from zip file ATC_ATC_2015.zip ...
 	scheme JSON loaded and changed - now inserting into Mongo ...
-	Collection mthspl has 298176 members
-	Load of 298176 resources of scheme mthspl took 0:00:31.225093
-
-Loading scheme ndfrt from NDFRT_2015_07_06.zip
-	loading latest scheme JSON from zip file NDFRT_2015_07_06.zip ...
-	scheme JSON loaded and changed - now inserting into Mongo ...
-	Collection ndfrt has 43477 members
-	Load of 43477 resources of scheme ndfrt took 0:00:03.710649
-
-Loading scheme rxnorm from RXNORM_15AA_150706F.zip
-	loading latest scheme JSON from zip file RXNORM_15AA_150706F.zip ...
-	scheme JSON loaded and changed - now inserting into Mongo ...
-	Collection rxnorm has 203760 members
-	Load of 203760 resources of scheme rxnorm took 0:00:09.895424
+	Collection atc has 5939 members
+	Load of 5939 resources of scheme atc took 0:00:00.189216
 
 Loading scheme ncit from NCIT_15-06e.zip
 	purging contents of pre-existing MongoDB collection ncit
 	loading latest scheme JSON from zip file NCIT_15-06e.zip ...
 	scheme JSON loaded and changed - now inserting into Mongo ...
-	Collection ncit has 836 members
-	Load of 836 resources of scheme ncit took 0:00:00.027329
+	Collection ncit has 835 members
+	Load of 835 resources of scheme ncit took 0:00:00.019324
+
+Loading scheme ndfrt from NDFRT_2015_07_06.zip
+	purging contents of pre-existing MongoDB collection ndfrt
+	loading latest scheme JSON from zip file NDFRT_2015_07_06.zip ...
+	scheme JSON loaded and changed - now inserting into Mongo ...
+	Collection ndfrt has 43476 members
+	Load of 43476 resources of scheme ndfrt took 0:00:01.944619
+
+Loading scheme mthspl from MTHSPL_2015_06_26.zip
+	purging contents of pre-existing MongoDB collection mthspl
+	loading latest scheme JSON from zip file MTHSPL_2015_06_26.zip ...
+	scheme JSON loaded and changed - now inserting into Mongo ...
+	Collection mthspl has 298175 members
+	Load of 298175 resources of scheme mthspl took 0:00:18.359329
+
+Loading scheme rxnorm from RXNORM_15AA_150706F.zip
+	purging contents of pre-existing MongoDB collection rxnorm
+	loading latest scheme JSON from zip file RXNORM_15AA_150706F.zip ...
+	scheme JSON loaded and changed - now inserting into Mongo ...
+	Collection rxnorm has 203759 members
+	Load of 203759 resources of scheme rxnorm took 0:00:08.309100
 
 ... done: Mongo stats now
-{u'storageSize': 346857472, u'ok': 1.0, u'avgObjSize': 500.39664510658406, u'dataFileVersion': {u'major': 4, u'minor': 5}, u'db': u'sksdb', u'indexes': 5, u'objects': 617963, u'collections': 7, u'fileSize': 1006632960, u'numExtents': 37, u'dataSize': 309226612, u'indexSize': 41877472, u'nsSizeMB': 16}
+{u'storageSize': 662908928, u'ok': 1.0, u'avgObjSize': 463.40475076134, u'dataFileVersion': {u'major': 4, u'minor': 5}, u'db': u'sksdb', u'indexes': 6, u'objects': 623900, u'collections': 8, u'fileSize': 2080374784.0, u'numExtents': 47, u'dataSize': 289118224, u'indexSize': 42220864, u'nsSizeMB': 16}
 
 ... why not run ./reportScheme.py for reports on the loaded schemes
+

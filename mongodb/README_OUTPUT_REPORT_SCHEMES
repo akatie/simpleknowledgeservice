@@ -1,51 +1,93 @@
 ======= Report on Contents of MongoDB sksdb ========
 
 Simple Knowledge Service DB: sksdb
-Schemes supported - one collection per scheme [u'unii', u'ncit', u'mthspl', u'ndfrt', u'rxnorm']
+Schemes supported - one collection per scheme [u'atc', u'mthspl', u'ncit', u'ndfrt', u'rxnorm', u'unii']
 
-UNII Concepts (unii:scheme)
-	Total 'documents' (by MongoDB): 71698
+Anatomical Therapeutic Chemical Classification System (atc:scheme)
+	Total 'documents' (by MongoDB): 5939
 
 	-------------- details --------------
-	Definition:
-		The joint FDA/USP Substance Registration System (SRS) supports health information technology initiatives by generating unique ingredient identifiers (UNIIs) for substances in drugs, biologics, foods, and devices. The UNII is a non-proprietary, free, unique, unambiguous, non semantic, alphanumeric identifier based on a substance's molecular structure and/or descriptive information. UNII is one of the Federal Medication Terminologies (FMT)
-	Version: 2Jul2015
-	Last update: 2015-07-15
+	Version: ATC_2015
+	Last update: 2015-07-20
 	Copyright:
-		UNIIs are non-proprietary and free to use
+		WHO Collaborating Centre for Drug Statistics Methodology, Oslo, Norway.
+Use of all or parts of the material requires reference to the WHO Collaborating Centre for Drug Statistics Methodology. Copying and distribution for commercial purposes is not allowed. Changing or manipulating the material is not allowed.
 
 	-------------- statistics --------------
-	Subjects: 39924
-	Total Assertions: 111620
-	Property Assertions: 39924
+	Total Assertions: 13131
+	Property Assertions: 2514
+	Graph Assertions: 4679
+	Matches: 3043
+
+	-------------- Top Concepts 2 --------------
+	... the organizing concepts
+	1 Ingredient(s) (atc:in)
+		Children 4679
+	2 Class (atc:class)
+		Children 1257
 
 	-------------- Example (Active) Concept --------------
-	NORGESTIMATE (unii:C291HFX4DY)
+	sodium fluoride (atc:A01AA01)
 
+	code A01AA01
+	inScheme {u'id': u'atc:scheme'}
+	exactMatch [{u'id': u'rxnorm:9873'}]
+	broaderTop {u'id': u'atc:in'}
 	type skos:Concept
-	broader [{u'id': u'unii:concept'}]
-	altLabel [u'NORGESTIMATE COMPONENT OF TRI LO SPRINTEC', u'(+)-13-ETHYL-17-HYDROXY-18,19-DINOR-17.ALPHA.-PREGN-4-EN-20-YN-3-ONE OXIME ACETATE (ESTER)', u'NORGESTIMATE COMPONENT OF SPRINTEC', u'PREVIFEM COMPONENT NORGESTIMATE', u'TRI-PREVIFEM COMPONENT NORGESTIMATE', u'TRI LO SPRINTEC COMPONENT NORGESTIMATE', u'TRI-SPRINTEC COMPONENT NORGESTIMATE', u'NORGESTIMATE COMPONENT OF PREVIFEM', u'SPRINTEC COMPONENT NORGESTIMATE', u'NORGESTIMATE COMPONENT OF TRI-SPRINTEC', u'PREFEST COMPONENT NORGESTIMATE', u'NORGESTIMATE COMPONENT OF TRI-PREVIFEM', u'18,19-DINOR-17-PREGN-4-EN-20-YN-3-ONE, 17-(ACETYLOXY)-13-ETHYL-, OXIME, (17.ALPHA.)-(+)-', u'NORGESTIMATE COMPONENT OF ORTHO TRI-CYCLEN', u'NORGESTIMATE COMPONENT OF PREFEST', u'ORTHO TRI-CYCLEN COMPONENT NORGESTIMATE']
-	inScheme {u'id': u'unii:scheme'}
 
-	uniio:includes_labels_of_schemes USAN, ORANGE BOOK, USP, MI, VANDF, INN, WHO-DD, MART., EP
+	atco:has_class {u'id': u'atc:A01AA'}
+
+
+FDA SPL Structured Content (MTHSPL) (mthspl:scheme)
+	Total 'documents' (by MongoDB): 298175
+
+	-------------- details --------------
+	Version: 2015_06_26
+	Last update: 2015-07-17
+	Copyright:
+		National Drug Codes and Structured Product Labels are free to use
+
+	-------------- statistics --------------
+	Total Assertions: 2684301
+	Property Assertions: 710806
+	Graph Assertions: 1675321
+	Matches: 74904
+
+	-------------- Top Concepts 3 --------------
+	... the organizing concepts
+	1 Package (mthspl:package)
+		Children 195404
+	2 Product (mthspl:product)
+		Children 98151
+	3 Labeler (mthspl:labeler)
+		Children 4616
+
+	-------------- Example (Active) Concept --------------
+	ECHINACEA ANGUSTIFOLIA 2 [hp_X] in 1 mL / BAPTISIA TINCTORIA ROOT 3 [hp_X] in 1 mL / GOLDENSEAL 3 [hp_X] in 1 mL / THIAMINE HYDROCHLORIDE 4 [hp_X] in 1 mL / PYRIDOXINE HYDROCHLORIDE 6 [hp_X] in 1 mL / SPONGIA OFFICINALIS SKELETON, ROASTED 6 [hp_X] in 1 mL / APIS MELLIFERA 12 [hp_X] in 1 mL / ASCORBIC ACID 12 [hp_X] in 1 mL / CALCIUM SULFIDE 12 [hp_X] in 1 mL / POTASSIUM DICHROMATE 12 [hp_X] in 1 mL / LACHESIS MUTA VENOM 12 [hp_X] in 1 mL / MERCURIC IODIDE 12 [hp_X] in 1 mL / MERCURIC SULFIDE 12 [hp_X] in 1 mL / PULSATILLA VULGARIS 12 [hp_X] in 1 mL / SILICON DIOXIDE 12 [hp_X] in 1 mL / SINUSITISINUM 30 [hp_X] in 1 mL / PANTOTHENIC ACID 28 [hp_C] in 1 mL ORAL LIQUID [Sinus Tonic] (mthspl:43857029601)
+
+	code 43857-0296-1
+	broaderTop {u'id': u'mthspl:package'}
+	type skos:Concept
+	inScheme {u'id': u'mthspl:scheme'}
+
+	mthsplo:packaging_of {u'id': u'mthspl:438570296'}
 
 
 NCI Thesaurus (ncit:scheme)
-	Total 'documents' (by MongoDB): 836
+	Total 'documents' (by MongoDB): 835
 
 	-------------- details --------------
 	Definition:
 		NCI Thesaurus (NCIt) is the National Cancer Institute's (NCI) Reference Terminology. This scheme is the subset used by the FDA for describing drugs.
 	Version: 15.06e
-	Last update: 2015-07-15
+	Last update: 2015-07-17
 	Copyright:
 		This product includes the NCI THESAURUS(tm) database, or is derived from the NCI THESAURUS(tm) database, subject to a license from the National Cancer Institute. Your use of the NCI THESAURUS database and NCI THESAURUS ontology also is subject to this license, a copy of which is available at ftp://ftp1.nci.nih.gov/pub/cacore/EVS/NCI_THESAURUS_license.txt.
 
 	-------------- statistics --------------
 	Total Assertions: 834
-	Topmost (Broader Top) Concepts: 32
 
-	-------------- Top Concepts --------------
+	-------------- Top Concepts 32 --------------
 	... the organizing concepts
 	1 Pharmaceutical Dosage Form (ncit:C54456)
 		Children 164
@@ -77,9 +119,9 @@ NCI Thesaurus (ncit:scheme)
 		Children 10
 	15 Limitation Of Use (ncit:C54599)
 		Children 10
-	16 Suspect Drug Classification of Notification (ncit:C121832)
+	16 Race (ncit:C107675)
 		Children 6
-	17 Race (ncit:C107675)
+	17 Suspect Drug Classification of Notification (ncit:C121832)
 		Children 6
 	18 DEA Schedule (ncit:C54459)
 		Children 6
@@ -99,98 +141,46 @@ NCI Thesaurus (ncit:scheme)
 		Children 2
 	26 Type of Drug Interaction Consequence (ncit:C54618)
 		Children 2
-	27 Document Type (ncit:C87299)
+	27 Equivalence Codes (ncit:C111660)
 		Children 1
-	28 Equivalence Codes (ncit:C111660)
+	28 Business Entity Qualifier (ncit:C117110)
 		Children 1
-	29 Business Entity Qualifier (ncit:C117110)
+	29 Licensing (ncit:C118777)
 		Children 1
-	30 Licensing (ncit:C118777)
+	30 Marketing Status (ncit:C118778)
 		Children 1
-	31 Marketing Status (ncit:C118778)
+	31 Structured Product Labeling (ncit:C54452)
 		Children 1
-	32 Structured Product Labeling (ncit:C54452)
+	32 Document Type (ncit:C87299)
 		Children 1
 
 	-------------- Example (Active) Concept --------------
-	GRANULE, EXTENDED RELEASE (ncit:C69067)
+	SMOKE STICK (ncit:C87536)
 
-	type skos:Concept
 	broaderTop {u'id': u'ncit:C54456'}
-	broader [{u'id': u'ncit:C54456'}]
 	inScheme {u'id': u'ncit:scheme'}
-
-
-
-FDA SPL Structured Content (MTHSPL) (mthspl:scheme)
-	Total 'documents' (by MongoDB): 298176
-
-	-------------- details --------------
-	Version: 2015_06_26
-	Last update: 2015-07-15
-	Copyright:
-		National Drug Codes and Structured Product Labels are free to use
-
-	-------------- statistics --------------
-	Subjects: 293555
-	Total Assertions: 2684301
-	Property Assertions: 710806
-	Graph Assertions: 1675321
-	Matches: 74904
-	Topmost (Broader Top) Concepts: 3
-
-	-------------- Top Concepts --------------
-	... the organizing concepts
-	1 Package (mthspl:package)
-		Children 195404
-	2 Product (mthspl:product)
-		Children 98151
-	3 Labeler (mthspl:labeler)
-		Children 4616
-
-	-------------- Example (Active) Concept --------------
-	Quinidine gluconate 80 mg in 1 mL INTRAVENOUS SOLUTION (mthspl:000021407)
-
-	inScheme {u'id': u'mthspl:scheme'}
-	code 0002-1407
-	broaderTop {u'id': u'mthspl:product'}
 	type skos:Concept
-	broader [{u'id': u'mthspl:product'}]
-	broadMatch [{u'id': u'rxnorm:853004'}]
 
-	mthsplo:dm_spl_id 134513
-	mthsplo:spl_set_id 11d14362-8f69-4c30-b487-5d05f6462bd7
-	mthsplo:labeler {u'id': u'mthspl:00002'}
-	mthsplo:has_inactive_ingredient {u'id': u'unii:339NCG44TV'}
-	mthsplo:spl_type HUMAN PRESCRIPTION DRUG LABEL
-	mthsplo:has_active_moiety {u'id': u'unii:ITX08688JL'}
-	mthsplo:application_id NDA007529
-	mthsplo:has_active_ingredient {u'id': u'unii:R6875N380F'}
-	mthsplo:marketing_effective_time_low 19510301
-	mthsplo:marketing_category {u'id': u'ncit:C73594'}
-	mthsplo:marketing_status active
 
 
 The VHA National Drug File – Reference Terminology (NDF-RT) (ndfrt:scheme)
-	Total 'documents' (by MongoDB): 43477
+	Total 'documents' (by MongoDB): 43476
 
 	-------------- details --------------
 	Definition:
 		The National Drug File - Reference Terminology (NDF-RT) is produced by the U.S. Department of Veterans Affairs, Veterans Health Administration (VHA). NDF-RT is an extension of the VHA National Drug File (NDF). It organizes the drug list into a formal representation. NDF-RT is used for modeling drug characteristics including ingredients, chemical structure, dose form, physiologic effect, mechanism of action, pharmacokinetics, and related diseases.
 	Version: 2015_07_06
-	Last update: 2015-07-15
+	Last update: 2015-07-17
 	Copyright:
 		Free to use
 
 	-------------- statistics --------------
-	Subjects: 32310
 	Total Assertions: 310779
 	Property Assertions: 123654
 	Graph Assertions: 152055
 	Matches: 26723
-	Topmost (Broader Top) Concepts: 12
 
-	-------------- Top Concepts --------------
+	-------------- Top Concepts 11 --------------
 	... the organizing concepts
 	1 Chemical Ingredients (ndfrt:N0000000002)
 		Children 10141
@@ -216,39 +206,39 @@ The VHA National Drug File – Reference Terminology (NDF-RT) (ndfrt:scheme)
 		Children 29
 
 	-------------- Example (Active) Concept --------------
-	Platinum-based Drug (ndfrt:N0000175413)
+	Keratan Sulfate (ndfrt:N0000168536)
 
-	code N0000175413
 	inScheme {u'id': u'ndfrt:scheme'}
-	broaderTop {u'id': u'ndfrt:N0000189939'}
-	umlsCUI C2266918
-	broader [{u'id': u'ndfrt:N0000189939'}]
-	altLabel [u'Platinum-containing Agent']
+	code N0000168536
+	broaderTop {u'id': u'ndfrt:N0000000002'}
+	umlsCUI C0022563
+	broader [{u'id': u'ndfrt:N0000007893'}]
+	altLabel [u'Keratosulfate']
 	type skos:Concept
-	broadMatch [{u'id': u'snomed:409193001'}, {u'id': u'snomed:11996000'}, {u'id': u'snomed:409194007'}]
 
-	ndfrto:has_chemical_structure_fmtsme {u'id': u'ndfrt:N0000175073'}
+	ndfrto:mesh_definition A sulfated mucopolysaccharide initially isolated from bovine cornea. At least two types are known. Type I, found mostly in the cornea, contains D-galactose and D-glucosamine-6-O-sulfate as the repeating unit; type II, found in skeletal tissues, contains D-galactose and D-galactosamine-6-O-sulfate as the repeating unit.
+	ndfrto:mesh_ui M0011943
+	ndfrto:mesh_name Keratan Sulfate
+	ndfrto:mesh_dui D007632
 
 
 RxNorm Vocabulary (rxnorm:scheme)
-	Total 'documents' (by MongoDB): 203760
+	Total 'documents' (by MongoDB): 203759
 
 	-------------- details --------------
 	Definition:
 		RxNorm, a standardized nomenclature for clinical drugs, is produced by the National Library of Medicine. In this context, a clinical drug is a pharmaceutical product given to (or taken by) a patient with a therapeutic or diagnostic intent. In RxNorm, the name of a clinical drug combines its ingredients, strengths, and form. However; some important medicines are not sufficiently or appropriately characterized by those three components alone. These have been identified as medicines that are dispensed in 'Packs'. The RxNorm clinical drug name does not indicate the form in which the product was manufactured, or its form when it arrived at the dispensary.
 	Version: 15AA_150706F
-	Last update: 2015-07-15
+	Last update: 2015-07-17
 	Copyright:
 		The majority of the content of RxNorm is available for use under the basic and open terms described in sections 1-11 and 13-16 of the UMLS Metathesaurus license. Please refer to the UMLS Reference Manual for further information on this topic..
 
 	-------------- statistics --------------
-	Subjects: 202355
 	Total Assertions: 943636
 	Property Assertions: 260037
 	Graph Assertions: 479841
-	Topmost (Broader Top) Concepts: 13
 
-	-------------- Top Concepts --------------
+	-------------- Top Concepts 13 --------------
 	... the organizing concepts
 	1 Drug (rxnorm:SCD)
 		Children 21251
@@ -278,20 +268,34 @@ RxNorm Vocabulary (rxnorm:scheme)
 		Children 159
 
 	-------------- Example (Active) Concept --------------
-	Amlodipine 5 MG / Hydrochlorothiazide 25 MG / Olmesartan medoxomil 40 MG Oral Tablet (rxnorm:1000001)
+	celecoxib 100 MG Oral Capsule (rxnorm:205322)
 
-	code 1000001
+	code 205322
 	inScheme {u'id': u'rxnorm:scheme'}
 	broaderTop {u'id': u'rxnorm:SCD'}
-	umlsCUI C2930061
-	broader [{u'id': u'rxnorm:SCD'}]
-	altLabel [u'olmesartan medoxomil 40 MG / amLODIPine 5 MG / hydrochlorothiazide 25 MG Oral Tablet', u'Amlodipine 5 MG / HCTZ 25 MG / Olmesartan medoxomil 40 MG Oral Tablet']
+	umlsCUI C0705969
 	type skos:Concept
 
-	rxnormo:source_scheme_historical MDDB,NDDF,VANDF,NDFRT,SNOMEDCT_US,GS,MMX,MMSL
+	rxnormo:source_scheme_historical MMSL,MDDB,VANDF,SNOMEDCT_US,NDFRT,GS,MMX,NDDF,MTHSPL
 	rxnormo:prescribable True
-	rxnormo:has_ingredient_and_form {u'id': u'rxnorm:999966'}
-	rxnormo:source_scheme MDDB,NDDF,VANDF,NDFRT,SNOMEDCT_US,GS,MMX,MMSL
-	rxnormo:has_ingredients {u'id': u'rxnorm:1008801'}
-	rxnormo:has_component {u'id': u'rxnorm:359114'}
+	rxnormo:source_scheme MMSL,MDDB,VANDF,SNOMEDCT_US,NDFRT,GS,MMX,NDDF,MTHSPL
+	rxnormo:has_component {u'id': u'rxnorm:315603'}
+	rxnormo:has_ingredient_and_form {u'id': u'rxnorm:371343'}
 	rxnormo:human_drug True
+
+
+UNII Concepts (unii:scheme)
+	Total 'documents' (by MongoDB): 71697
+
+	-------------- details --------------
+	Definition:
+		The joint FDA/USP Substance Registration System (SRS) supports health information technology initiatives by generating unique ingredient identifiers (UNIIs) for substances in drugs, biologics, foods, and devices. The UNII is a non-proprietary, free, unique, unambiguous, non semantic, alphanumeric identifier based on a substance's molecular structure and/or descriptive information. UNII is one of the Federal Medication Terminologies (FMT)
+	Version: 2Jul2015
+	Last update: 2015-07-17
+	Copyright:
+		UNIIs are non-proprietary and free to use
+
+	-------------- statistics --------------
+	Total Assertions: 111620
+	Property Assertions: 39924
+Flat, unstructured scheme - no topConcepts. Nothing more to report
