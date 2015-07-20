@@ -128,7 +128,35 @@ def reportScheme(graph, scheme):
     print
     print
    
-    # Unless a scheme is flat (it has no hierarchy), it will have two or more 'top concepts'. These are the main organizing concepts of a scheme ("Drug", "Dose Form" ... for RxNORM) or ("Clinical Finding", "Substance" for SNOMED).
+    """
+    Unless a scheme is flat (it has no hierarchy), it will have two or more 'top concepts'. These are the main organizing concepts of a scheme ("Drug", "Dose Form" ... for RxNORM) or ("Clinical Finding", "Substance" for SNOMED).
+    """
+    # Not flat if hasTopConcepts
+    ASK_IF_TOP_CONCEPTS = """
+    PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+    ASK
+    FROM <%s>
+    WHERE {
+        ?s a skos:ConceptScheme ;
+           skos:hasTopConcept ?tc
+    }
+    """
+    print "ASK 'Scheme has topConcepts' - is it flat or structured? ..."
+    query = ASK_IF_TOP_CONCEPTS % graph
+    print query
+    queryurl = FUSEKI_QUERY_URI + "?" + urllib.urlencode({"query": query, "output": "json"})
+    request = urllib2.Request(queryurl)
+    reply = json.loads(urllib2.urlopen(request).read())
+    if reply["boolean"] == False:
+        print "... no top concepts so Scheme is Flat. Nothing to report on its breakdown."
+        print
+        return
+        
+    """
+    Note: we could just query topConcepts from "hasTopConcept" in Scheme resource
+    and each of those concepts come with an annotation of how many subordinates they
+    have.
+    """
     QUERY_TOP_CONCEPTS_AND_COUNTS = """
     PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
     PREFIX cgkos: <http://schemes.caregraf.info/ontology#>
@@ -165,8 +193,7 @@ def reportScheme(graph, scheme):
             print "\t\tChildren", binding["numberSubordinates"]["value"]
             
     if not mostPopularTopConceptLabel:
-        print
-        return
+        raise Exception("Assumed all structured - not flat - schemes have a most popular TC!")
           
     """
     Let's display a child of the most popular broader top, one that hasn't been retired
