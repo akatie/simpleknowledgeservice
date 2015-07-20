@@ -1,95 +1,218 @@
-$ ./importSchemes.sh 
+$ ./importSchemes.sh
 
-On 2015/07/15, creating/clearing 'sksdb' and (re)loading schemes ...
+On 2015/07/20, creating/clearing 'sksdb' and (re)loading schemes ...
 Clearing current contents of database location 'sksdb'
+
+Loading ATC, version ATC_2015 into <http://schemes.caregraf.info/atc> ...
+--------------------------------------------------------------------------------
+INFO  -- Start triples data phase
+INFO  ** Load empty triples table
+INFO  Load: - -- 2015/07/20 09:48:21 PDT
+INFO  -- Finish triples data phase
+INFO  ** Data: 42,215 triples loaded in 3.12 seconds [Rate: 13,513.12 per second]
+INFO  -- Start triples index phase
+INFO  ** Index GSPO->GPOS: 42,215 slots indexed in 0.42 seconds [Rate: 100,511.91 per second]
+INFO  ** Index GSPO->GOSP: 42,215 slots indexed in 0.15 seconds [Rate: 285,236.50 per second]
+INFO  ** Index GSPO->POSG: 42,215 slots indexed in 0.13 seconds [Rate: 322,251.91 per second]
+INFO  ** Index GSPO->OSPG: 42,215 slots indexed in 0.13 seconds [Rate: 337,720.00 per second]
+INFO  ** Index GSPO->SPOG: 42,215 slots indexed in 0.07 seconds [Rate: 639,621.19 per second]
+INFO  -- Finish triples index phase
+INFO  ** 42,215 triples indexed in 0.89 seconds [Rate: 47,326.23 per second]
+INFO  -- Finish triples load
+INFO  ** Completed: 42,215 triples loaded in 4.03 seconds [Rate: 10,485.59 per second]
+
 
 Loading MTHSPL, version 2015_06_26 into <http://schemes.caregraf.info/mthspl> ...
 --------------------------------------------------------------------------------
 INFO  -- Start triples data phase
-INFO  ** Load empty triples table
-INFO  Load: - -- 2015/07/15 20:10:07 PDT
-INFO  Add: 50,000 triples (Batch: 18,018 / Avg: 18,018)
-...
-INFO  Add: 3,300,000 triples (Batch: 30,750 / Avg: 82,247)
+INFO  ** Load into triples table with existing data
+INFO  Load: - -- 2015/07/20 09:48:27 PDT
+INFO  Add: 50,000 triples (Batch: 12,804 / Avg: 12,804)
+INFO  Add: 100,000 triples (Batch: 27,412 / Avg: 17,455)
+INFO  Add: 150,000 triples (Batch: 30,395 / Avg: 20,341)
+INFO  Add: 200,000 triples (Batch: 35,285 / Avg: 22,750)
+INFO  Add: 250,000 triples (Batch: 34,364 / Avg: 24,399)
+INFO  Add: 300,000 triples (Batch: 34,746 / Avg: 25,673)
+INFO  Add: 350,000 triples (Batch: 31,367 / Avg: 26,357)
+INFO  Add: 400,000 triples (Batch: 32,552 / Avg: 26,999)
+INFO  Add: 450,000 triples (Batch: 31,887 / Avg: 27,467)
+INFO  Add: 500,000 triples (Batch: 36,049 / Avg: 28,137)
+INFO    Elapsed: 17.77 seconds [2015/07/20 09:48:45 PDT]
+INFO  Add: 550,000 triples (Batch: 33,967 / Avg: 28,583)
+INFO  Add: 600,000 triples (Batch: 36,390 / Avg: 29,103)
+INFO  Add: 650,000 triples (Batch: 33,852 / Avg: 29,421)
+INFO  Add: 700,000 triples (Batch: 34,270 / Avg: 29,721)
+INFO  Add: 750,000 triples (Batch: 34,129 / Avg: 29,979)
+INFO  Add: 800,000 triples (Batch: 26,164 / Avg: 29,708)
+INFO  Add: 850,000 triples (Batch: 36,603 / Avg: 30,041)
+INFO  Add: 900,000 triples (Batch: 36,791 / Avg: 30,351)
+INFO  Add: 950,000 triples (Batch: 34,176 / Avg: 30,530)
+INFO  Add: 1,000,000 triples (Batch: 34,602 / Avg: 30,711)
+INFO    Elapsed: 32.56 seconds [2015/07/20 09:48:59 PDT]
+INFO  Add: 1,050,000 triples (Batch: 34,129 / Avg: 30,858)
+INFO  Add: 1,100,000 triples (Batch: 35,460 / Avg: 31,041)
+INFO  Add: 1,150,000 triples (Batch: 34,246 / Avg: 31,168)
+INFO  Add: 1,200,000 triples (Batch: 30,864 / Avg: 31,155)
+INFO  Add: 1,250,000 triples (Batch: 30,469 / Avg: 31,127)
+INFO  Add: 1,300,000 triples (Batch: 34,506 / Avg: 31,245)
+INFO  Add: 1,350,000 triples (Batch: 22,084 / Avg: 30,772)
+INFO  Add: 1,400,000 triples (Batch: 34,364 / Avg: 30,888)
+INFO  Add: 1,450,000 triples (Batch: 33,489 / Avg: 30,970)
+INFO  Add: 1,500,000 triples (Batch: 32,637 / Avg: 31,023)
+INFO    Elapsed: 48.35 seconds [2015/07/20 09:49:15 PDT]
+INFO  Add: 1,550,000 triples (Batch: 26,096 / Avg: 30,835)
+INFO  Add: 1,600,000 triples (Batch: 30,543 / Avg: 30,826)
+INFO  Add: 1,650,000 triples (Batch: 30,156 / Avg: 30,805)
+INFO  Add: 1,700,000 triples (Batch: 32,722 / Avg: 30,859)
+INFO  Add: 1,750,000 triples (Batch: 25,667 / Avg: 30,681)
+INFO  Add: 1,800,000 triples (Batch: 32,299 / Avg: 30,724)
+INFO  Add: 1,850,000 triples (Batch: 30,656 / Avg: 30,722)
+INFO  Add: 1,900,000 triples (Batch: 29,797 / Avg: 30,697)
+INFO  Add: 1,950,000 triples (Batch: 32,175 / Avg: 30,733)
+INFO  Add: 2,000,000 triples (Batch: 30,066 / Avg: 30,716)
+INFO    Elapsed: 65.11 seconds [2015/07/20 09:49:32 PDT]
+INFO  Add: 2,050,000 triples (Batch: 30,525 / Avg: 30,712)
+INFO  Add: 2,100,000 triples (Batch: 18,649 / Avg: 30,246)
+INFO  Add: 2,150,000 triples (Batch: 31,328 / Avg: 30,270)
+INFO  Add: 2,200,000 triples (Batch: 27,277 / Avg: 30,195)
+INFO  Add: 2,250,000 triples (Batch: 27,948 / Avg: 30,141)
+INFO  Add: 2,300,000 triples (Batch: 31,665 / Avg: 30,173)
+INFO  Add: 2,350,000 triples (Batch: 29,411 / Avg: 30,156)
+INFO  Add: 2,400,000 triples (Batch: 28,752 / Avg: 30,125)
+INFO  Add: 2,450,000 triples (Batch: 30,731 / Avg: 30,137)
+INFO  Add: 2,500,000 triples (Batch: 23,820 / Avg: 29,978)
+INFO    Elapsed: 83.39 seconds [2015/07/20 09:49:50 PDT]
+INFO  Add: 2,550,000 triples (Batch: 25,733 / Avg: 29,882)
+INFO  Add: 2,600,000 triples (Batch: 24,875 / Avg: 29,767)
+INFO  Add: 2,650,000 triples (Batch: 24,236 / Avg: 29,639)
+INFO  Add: 2,700,000 triples (Batch: 27,262 / Avg: 29,591)
+INFO  Add: 2,750,000 triples (Batch: 22,172 / Avg: 29,412)
+INFO  Add: 2,800,000 triples (Batch: 26,723 / Avg: 29,359)
+INFO  Add: 2,850,000 triples (Batch: 29,002 / Avg: 29,353)
+INFO  Add: 2,900,000 triples (Batch: 29,638 / Avg: 29,358)
+INFO  Add: 2,950,000 triples (Batch: 21,777 / Avg: 29,186)
+INFO  Add: 3,000,000 triples (Batch: 19,127 / Avg: 28,932)
+INFO    Elapsed: 103.69 seconds [2015/07/20 09:50:11 PDT]
 INFO  -- Finish triples data phase
-INFO  ** Data: 3,328,451 triples loaded in 40.48 seconds [Rate: 82,230.68 per second]
+INFO  ** Data: 3,030,273 triples loaded in 105.21 seconds [Rate: 28,801.32 per second]
 INFO  -- Start triples index phase
-INFO  Index GSPO->GPOS: 100,000 slots (Batch: 241,545 slots/s / Avg: 241,545 slots/s)
-...
-INFO  ** Index GSPO->GOSP: 3,328,451 slots indexed in 11.88 seconds [Rate: 280,125.50 per second]
-INFO  Index GSPO->POSG: 100,000 slots (Batch: 268,096 slots/s / Avg: 268,096 slots/s)
-...
-INFO  ** Index GSPO->POSG: 3,328,451 slots indexed in 12.78 seconds [Rate: 260,462.56 per second]
-INFO  Index GSPO->OSPG: 100,000 slots (Batch: 314,465 slots/s / Avg: 314,465 slots/s)
-...
-INFO  ** Index GSPO->OSPG: 3,328,451 slots indexed in 11.54 seconds [Rate: 288,327.38 per second]
-INFO  Index GSPO->SPOG: 100,000 slots (Batch: 602,409 slots/s / Avg: 602,409 slots/s)
-...
-INFO  ** Index GSPO->SPOG: 3,328,451 slots indexed in 5.80 seconds [Rate: 574,167.88 per second]
 INFO  -- Finish triples index phase
-INFO  ** 3,328,451 triples indexed in 55.03 seconds [Rate: 60,482.10 per second]
 INFO  -- Finish triples load
-INFO  ** Completed: 3,328,451 triples loaded in 95.51 seconds [Rate: 34,848.15 per second]
+INFO  ** Completed: 3,030,273 triples loaded in 105.22 seconds [Rate: 28,800.22 per second]
 
 
 Loading NCIT, version 15-06e into <http://schemes.caregraf.info/ncit> ...
 --------------------------------------------------------------------------------
 INFO  -- Start triples data phase
 INFO  ** Load into triples table with existing data
-INFO  Load: - -- 2015/07/15 20:11:57 PDT
+INFO  Load: - -- 2015/07/20 09:50:21 PDT
 INFO  -- Finish triples data phase
-INFO  ** Data: 4,213 triples loaded in 1.91 seconds [Rate: 2,204.60 per second]
+INFO  ** Data: 3,405 triples loaded in 1.59 seconds [Rate: 2,137.48 per second]
 INFO  -- Start triples index phase
 INFO  -- Finish triples index phase
 INFO  -- Finish triples load
-INFO  ** Completed: 4,213 triples loaded in 1.93 seconds [Rate: 2,184.03 per second]
+INFO  ** Completed: 3,405 triples loaded in 1.60 seconds [Rate: 2,126.80 per second]
 
 
 Loading NDFRT, version 2015_07_06 into <http://schemes.caregraf.info/ndfrt> ...
 --------------------------------------------------------------------------------
 INFO  -- Start triples data phase
 INFO  ** Load into triples table with existing data
-INFO  Load: - -- 2015/07/15 20:12:01 PDT
-INFO  Add: 50,000 triples (Batch: 11,230 / Avg: 11,230)
-...
-INFO  Add: 500,000 triples (Batch: 24,366 / Avg: 24,676)
-INFO    Elapsed: 20.26 seconds [2015/07/15 20:12:21 PDT]
-INFO  Add: 550,000 triples (Batch: 31,289 / Avg: 25,160)
+INFO  Load: - -- 2015/07/20 09:50:25 PDT
+INFO  Add: 50,000 triples (Batch: 11,728 / Avg: 11,728)
+INFO  Add: 100,000 triples (Batch: 27,070 / Avg: 16,366)
+INFO  Add: 150,000 triples (Batch: 30,750 / Avg: 19,389)
+INFO  Add: 200,000 triples (Batch: 24,142 / Avg: 20,393)
+INFO  Add: 250,000 triples (Batch: 30,902 / Avg: 21,881)
+INFO  Add: 300,000 triples (Batch: 32,010 / Avg: 23,100)
+INFO  Add: 350,000 triples (Batch: 32,092 / Avg: 24,063)
+INFO  Add: 400,000 triples (Batch: 31,908 / Avg: 24,826)
+INFO  Add: 450,000 triples (Batch: 30,712 / Avg: 25,366)
+INFO  Add: 500,000 triples (Batch: 24,283 / Avg: 25,253)
+INFO    Elapsed: 19.80 seconds [2015/07/20 09:50:45 PDT]
+INFO  Add: 550,000 triples (Batch: 31,565 / Avg: 25,721)
 INFO  -- Finish triples data phase
-INFO  ** Data: 576,571 triples loaded in 22.77 seconds [Rate: 25,317.07 per second]
+INFO  ** Data: 553,043 triples loaded in 21.47 seconds [Rate: 25,761.27 per second]
 INFO  -- Start triples index phase
 INFO  -- Finish triples index phase
 INFO  -- Finish triples load
-INFO  ** Completed: 576,571 triples loaded in 22.78 seconds [Rate: 25,312.63 per second]
+INFO  ** Completed: 553,043 triples loaded in 21.47 seconds [Rate: 25,757.67 per second]
 
 
 Loading RXNORM, version 15AA_150706F into <http://schemes.caregraf.info/rxnorm> ...
 --------------------------------------------------------------------------------
 INFO  -- Start triples data phase
 INFO  ** Load into triples table with existing data
-INFO  Load: - -- 2015/07/15 20:12:27 PDT
-INFO  Add: 50,000 triples (Batch: 8,824 / Avg: 8,824)
-...
-INFO  Add: 1,950,000 triples (Batch: 8,014 / Avg: 17,764)
+INFO  Load: - -- 2015/07/20 09:50:50 PDT
+INFO  Add: 50,000 triples (Batch: 9,974 / Avg: 9,974)
+INFO  Add: 100,000 triples (Batch: 18,811 / Avg: 13,036)
+INFO  Add: 150,000 triples (Batch: 24,213 / Avg: 15,406)
+INFO  Add: 200,000 triples (Batch: 24,283 / Avg: 16,956)
+INFO  Add: 250,000 triples (Batch: 34,578 / Avg: 18,880)
+INFO  Add: 300,000 triples (Batch: 32,552 / Avg: 20,301)
+INFO  Add: 350,000 triples (Batch: 34,153 / Avg: 21,550)
+INFO  Add: 400,000 triples (Batch: 36,205 / Avg: 22,698)
+INFO  Add: 450,000 triples (Batch: 33,579 / Avg: 23,546)
+INFO  Add: 500,000 triples (Batch: 21,204 / Avg: 23,289)
+INFO    Elapsed: 21.47 seconds [2015/07/20 09:51:11 PDT]
+INFO  Add: 550,000 triples (Batch: 29,922 / Avg: 23,768)
+INFO  Add: 600,000 triples (Batch: 26,881 / Avg: 24,000)
+INFO  Add: 650,000 triples (Batch: 27,442 / Avg: 24,233)
+INFO  Add: 700,000 triples (Batch: 25,920 / Avg: 24,346)
+INFO  Add: 750,000 triples (Batch: 20,798 / Avg: 24,073)
+INFO  Add: 800,000 triples (Batch: 22,232 / Avg: 23,949)
+INFO  Add: 850,000 triples (Batch: 21,824 / Avg: 23,812)
+INFO  Add: 900,000 triples (Batch: 22,104 / Avg: 23,711)
+INFO  Add: 950,000 triples (Batch: 17,343 / Avg: 23,261)
+INFO  Add: 1,000,000 triples (Batch: 28,392 / Avg: 23,473)
+INFO    Elapsed: 42.60 seconds [2015/07/20 09:51:32 PDT]
+INFO  Add: 1,050,000 triples (Batch: 20,824 / Avg: 23,332)
+INFO  Add: 1,100,000 triples (Batch: 26,082 / Avg: 23,444)
+INFO  Add: 1,150,000 triples (Batch: 27,517 / Avg: 23,596)
+INFO  Add: 1,200,000 triples (Batch: 25,947 / Avg: 23,685)
+INFO  Add: 1,250,000 triples (Batch: 23,223 / Avg: 23,667)
+INFO  Add: 1,300,000 triples (Batch: 23,212 / Avg: 23,649)
+INFO  Add: 1,350,000 triples (Batch: 25,549 / Avg: 23,714)
+INFO  Add: 1,400,000 triples (Batch: 18,532 / Avg: 23,480)
+INFO  Add: 1,450,000 triples (Batch: 19,098 / Avg: 23,295)
+INFO  Add: 1,500,000 triples (Batch: 20,525 / Avg: 23,191)
+INFO    Elapsed: 64.68 seconds [2015/07/20 09:51:55 PDT]
+INFO  Add: 1,550,000 triples (Batch: 14,371 / Avg: 22,741)
+INFO  Add: 1,600,000 triples (Batch: 16,355 / Avg: 22,467)
+INFO  Add: 1,650,000 triples (Batch: 15,918 / Avg: 22,190)
+INFO  Add: 1,700,000 triples (Batch: 12,100 / Avg: 21,659)
+INFO  Add: 1,750,000 triples (Batch: 16,954 / Avg: 21,489)
+INFO  Add: 1,800,000 triples (Batch: 13,650 / Avg: 21,151)
+INFO  Add: 1,850,000 triples (Batch: 10,078 / Avg: 20,541)
 INFO  -- Finish triples data phase
-INFO  ** Data: 1,969,137 triples loaded in 111.95 seconds [Rate: 17,588.96 per second]
+INFO  ** Data: 1,864,314 triples loaded in 91.19 seconds [Rate: 20,444.28 per second]
 INFO  -- Start triples index phase
 INFO  -- Finish triples index phase
 INFO  -- Finish triples load
-INFO  ** Completed: 1,969,137 triples loaded in 111.96 seconds [Rate: 17,588.33 per second]
+INFO  ** Completed: 1,864,314 triples loaded in 91.19 seconds [Rate: 20,443.83 per second]
 
 
 Loading UNII, version 2July2015 into <http://schemes.caregraf.info/unii> ...
 --------------------------------------------------------------------------------
 INFO  -- Start triples data phase
 INFO  ** Load into triples table with existing data
-INFO  Load: - -- 2015/07/15 20:14:29 PDT
-INFO  Add: 50,000 triples (Batch: 8,954 / Avg: 8,954)
-...
-INFO  Add: 650,000 triples (Batch: 28,153 / Avg: 20,701)
+INFO  Load: - -- 2015/07/20 09:52:32 PDT
+INFO  Add: 50,000 triples (Batch: 10,290 / Avg: 10,290)
+INFO  Add: 100,000 triples (Batch: 24,654 / Avg: 14,520)
+INFO  Add: 150,000 triples (Batch: 22,045 / Avg: 16,384)
+INFO  Add: 200,000 triples (Batch: 28,360 / Avg: 18,318)
+INFO  Add: 250,000 triples (Batch: 24,061 / Avg: 19,236)
+INFO  Add: 300,000 triples (Batch: 22,065 / Avg: 19,656)
+INFO  Add: 350,000 triples (Batch: 27,382 / Avg: 20,482)
+INFO  Add: 400,000 triples (Batch: 27,129 / Avg: 21,129)
+INFO  Add: 450,000 triples (Batch: 25,654 / Avg: 21,551)
+INFO  Add: 500,000 triples (Batch: 24,715 / Avg: 21,831)
+INFO    Elapsed: 22.91 seconds [2015/07/20 09:52:55 PDT]
+INFO  Add: 550,000 triples (Batch: 24,987 / Avg: 22,084)
+INFO  Add: 600,000 triples (Batch: 18,155 / Avg: 21,693)
 INFO  -- Finish triples data phase
-INFO  ** Data: 675,562 triples loaded in 32.39 seconds [Rate: 20,859.69 per second]
+INFO  ** Data: 603,859 triples loaded in 27.83 seconds [Rate: 21,698.13 per second]
 INFO  -- Start triples index phase
 INFO  -- Finish triples index phase
 INFO  -- Finish triples load
-INFO  ** Completed: 675,562 triples loaded in 32.40 seconds [Rate: 20,849.39 per second]
+INFO  ** Completed: 603,859 triples loaded in 27.84 seconds [Rate: 21,691.12 per second]
