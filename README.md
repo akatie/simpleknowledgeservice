@@ -5,3 +5,5 @@ Represent medical knowledge schemes such as RxNORM, SNOMED and LOINC in standard
 ![SKS Pieces Diagram](/imgs/sks-flows.png?raw=true)
 
 To get started, just git clone this repository and follow the instructions for either a Fuseki/Jena or MongoDB based service. 
+
+__Eating our own__: we host an SKS at [schemes.caregraf.info](http://schemes.caregraf.info).
