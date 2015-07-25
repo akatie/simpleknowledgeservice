@@ -16,7 +16,7 @@ if [ "$(ls -A $DBLOC)" ]; then
 fi
 SCHEMESDIR="../schemes"
 SCHEMEZIPS="$SCHEMESDIR/*zip"
-ZIPRE='\/([A-Z0-9]+)_([^\.]+)\.zip$'
+ZIPRE='\/SKS_([A-Z0-9]+)_([^\.]+)\.zip$'
 # Before loading schemes, ensure only one version for each scheme ...
 SCHEMEMNSEEN=""
 for szip in $SCHEMEZIPS; do
@@ -47,7 +47,7 @@ for szip in $SCHEMEZIPS; do
             echo -n '-'
         done
         echo
-        TTLINZIP="${SCHEMEMN}_${VERSION}/scheme.ttl"
+        TTLINZIP="SKS_${SCHEMEMN}_${VERSION}/scheme.ttl"
         unzip -p $szip $TTLINZIP | java -cp $CP riotcmd.turtle --output nquads | java -cp $CP tdb.tdbloader --loc $DBLOC --graph $GRAPHID -- -
     fi
 echo
