@@ -5,9 +5,10 @@ Current schemes (all about drugs) ...
 Scheme | Version | Comment
 --- | --- | --- 
 ATC | 2015 | WHO Anatomical Therapeutic Chemical Classification System
+FDAOB | 2015_06 | FDA Orange Book
 MTHSPL | 2015_06_26 | MTHSPL has the latest NDC data
 NCIT | 15.06e | Subset referenced from MTHSPL
 NDFRT | 2015_07_06 | VA National Drug File Reference Terminology (FDA classing, Disease effects and more)
-RXNORM | 15AA_150706F | Latest RXNORM
+RXNORM | 15AA_150706F | RXNORM with matches to other schemes
 UNII | 2July2015 | Latest ingredient/chemical compounds from the FDA. Used in MTHSPL. Linked to drug classes by NDFRT
 
