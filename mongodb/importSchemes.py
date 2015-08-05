@@ -51,15 +51,18 @@ def importSchemes():
     print "Using Mongo DB", db.name
     
     # Assemble schemes per scheme
-    schemeZipFiles = [zipFile for zipFile in os.listdir(SCHEMES_DIR) if re.match(r'[A-Z\d]+_.+\.zip$', zipFile)]
+    schemeZipFiles = [zipFile for zipFile in os.listdir(SCHEMES_DIR) if re.match(r'SKS_[A-Z\d]+_.+\.zip$', zipFile)]
     if not len(schemeZipFiles):
         raise Exception("No schemes in schemes directory. Why not download some. Exiting ...")
     schemeZipsBySchemeMN = {}
     for zipFile in schemeZipFiles:
-        schemeMN = zipFile.split("_")[0].lower()
+        schemeMN = re.match(r'SKS_([A-Z\d]+)_', zipFile).group(1).lower()
         if schemeMN in schemeZipsBySchemeMN:
             raise Exception("> 1 version for scheme " + schemeMN + " in schemes directory. Only allowed one version per scheme. Exiting ...")
         schemeZipsBySchemeMN[schemeMN] = zipFile
+    
+    print "Have versions of", len(schemeZipsBySchemeMN), "schemes:", ", ".join(schemeZipsBySchemeMN.keys()), "to load ..."
+    print
     
     for i, (schemeMN, schemeZipFile) in enumerate(schemeZipsBySchemeMN.iteritems(), 1):
     

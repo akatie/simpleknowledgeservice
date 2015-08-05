@@ -1,47 +1,61 @@
 Using Mongo DB sksdb
-Loading scheme unii from UNII_2July2015.zip
+Have versions of 7 schemes: unii, atc, ncit, ndfrt, fdaob, mthspl, rxnorm to load ...
+
+Loading scheme unii from SKS_UNII_2Jul2015.zip
 	purging contents of pre-existing MongoDB collection unii
-	loading latest scheme JSON from zip file UNII_2July2015.zip ...
+	loading latest scheme JSON from zip file SKS_UNII_2Jul2015.zip ...
 	scheme JSON loaded and changed - now inserting into Mongo ...
 	Collection unii has 71697 members
-	Load of 71697 resources of scheme unii took 0:00:02.481560
+	Load of 71697 resources of scheme unii took 0:00:02.813443
 
-Loading scheme atc from ATC_ATC_2015.zip
-	loading latest scheme JSON from zip file ATC_ATC_2015.zip ...
+Loading scheme atc from SKS_ATC_2015.zip
+	purging contents of pre-existing MongoDB collection atc
+	loading latest scheme JSON from zip file SKS_ATC_2015.zip ...
 	scheme JSON loaded and changed - now inserting into Mongo ...
 	Collection atc has 5939 members
-	Load of 5939 resources of scheme atc took 0:00:00.189216
+	Load of 5939 resources of scheme atc took 0:00:00.152721
 
-Loading scheme ncit from NCIT_15-06e.zip
+Loading scheme ncit from SKS_NCIT_15-06e.zip
 	purging contents of pre-existing MongoDB collection ncit
-	loading latest scheme JSON from zip file NCIT_15-06e.zip ...
+	loading latest scheme JSON from zip file SKS_NCIT_15-06e.zip ...
 	scheme JSON loaded and changed - now inserting into Mongo ...
 	Collection ncit has 835 members
-	Load of 835 resources of scheme ncit took 0:00:00.019324
+	Load of 835 resources of scheme ncit took 0:00:00.015797
 
-Loading scheme ndfrt from NDFRT_2015_07_06.zip
+Loading scheme ndfrt from SKS_NDFRT_2015_07_06.zip
 	purging contents of pre-existing MongoDB collection ndfrt
-	loading latest scheme JSON from zip file NDFRT_2015_07_06.zip ...
+	loading latest scheme JSON from zip file SKS_NDFRT_2015_07_06.zip ...
 	scheme JSON loaded and changed - now inserting into Mongo ...
 	Collection ndfrt has 43476 members
-	Load of 43476 resources of scheme ndfrt took 0:00:01.944619
+	Load of 43476 resources of scheme ndfrt took 0:00:02.237096
 
-Loading scheme mthspl from MTHSPL_2015_06_26.zip
+Loading scheme fdaob from SKS_FDAOB_2015_06.zip
+	loading latest scheme JSON from zip file SKS_FDAOB_2015_06.zip ...
+	scheme JSON loaded and changed - now inserting into Mongo ...
+	Collection fdaob has 30676 members
+	Load of 30676 resources of scheme fdaob took 0:00:01.566715
+
+Loading scheme mthspl from SKS_MTHSPL_2015_07_24.zip
 	purging contents of pre-existing MongoDB collection mthspl
-	loading latest scheme JSON from zip file MTHSPL_2015_06_26.zip ...
+	loading latest scheme JSON from zip file SKS_MTHSPL_2015_07_24.zip ...
 	scheme JSON loaded and changed - now inserting into Mongo ...
-	Collection mthspl has 298175 members
-	Load of 298175 resources of scheme mthspl took 0:00:18.359329
+	Collection mthspl has 300514 members
+	Load of 300514 resources of scheme mthspl took 0:00:46.689178
 
-Loading scheme rxnorm from RXNORM_15AA_150706F.zip
+Loading scheme rxnorm from SKS_RXNORM_15AA_150803F.zip
 	purging contents of pre-existing MongoDB collection rxnorm
-	loading latest scheme JSON from zip file RXNORM_15AA_150706F.zip ...
+	loading latest scheme JSON from zip file SKS_RXNORM_15AA_150803F.zip ...
+
+
+Loading scheme rxnorm from SKS_RXNORM_15AA_150803F.zip
+	purging contents of pre-existing MongoDB collection rxnorm
+	loading latest scheme JSON from zip file SKS_RXNORM_15AA_150803F.zip ...
 	scheme JSON loaded and changed - now inserting into Mongo ...
-	Collection rxnorm has 203759 members
-	Load of 203759 resources of scheme rxnorm took 0:00:08.309100
+	Collection rxnorm has 204333 members
+	Load of 204333 resources of scheme rxnorm took 0:00:17.413446
 
 ... done: Mongo stats now
-{u'storageSize': 662908928, u'ok': 1.0, u'avgObjSize': 463.40475076134, u'dataFileVersion': {u'major': 4, u'minor': 5}, u'db': u'sksdb', u'indexes': 6, u'objects': 623900, u'collections': 8, u'fileSize': 2080374784.0, u'numExtents': 47, u'dataSize': 289118224, u'indexSize': 42220864, u'nsSizeMB': 16}
+{u'storageSize': 890179584, u'ok': 1.0, u'avgObjSize': 517.0881777554932, u'dataFileVersion': {u'major': 4, u'minor': 5}, u'db': u'sksdb', u'indexes': 8, u'objects': 710009, u'collections': 10, u'fileSize': 2080374784.0, u'numExtents': 61, u'dataSize': 367137260, u'indexSize': 48132112, u'nsSizeMB': 16}
 
 ... why not run ./reportScheme.py for reports on the loaded schemes
 
