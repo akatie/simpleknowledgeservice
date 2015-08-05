@@ -26,21 +26,26 @@ Example of RxNORM's definition of _Nexium 20mg Extended Release Oral Tablet_ ...
             ],
             "code": "606728",
             "inScheme": {
-                "id": "rxnorm:scheme"
+                "id": "rxnorm:scheme",
+                "prefLabel": "RxNORM Drug Scheme"
             },
             "broaderTop": {
-                "id": "rxnorm:SBD"
+                "id": "rxnorm:SBD",
+                "prefLabel": ""
             },
             "umlsCUI": "C1637815",
                         
             "rxnormo:tradename_of": {
-                "id": "rxnorm:606726"
+                "id": "rxnorm:606726",
+                "prefLabel": "Esomeprazole 20 MG Delayed Release Oral Capsule"
             },
             "rxnormo:has_component": {
-                "id": "rxnorm:574982"
+                "id": "rxnorm:574982",
+                "prefLabel": "Esomeprazole 20 MG [Nexium]"
             },
             "rxnormo:has_ingredient_and_form": {
-                "id": "rxnorm:606727"
+                "id": "rxnorm:606727",
+                "prefLabel": "Esomeprazole Delayed Release Oral Capsule [Nexium]"
             },
             "rxnormo:prescribable": true,
             "rxnormo:human_drug": true
