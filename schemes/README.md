@@ -42,7 +42,6 @@ Example of RxNORM's definition of _Nexium 20mg Extended Release Oral Tablet_ ...
             "rxnormo:has_ingredient_and_form": {
                 "id": "rxnorm:606727"
             },
-
             "rxnormo:prescribable": true,
             "rxnormo:human_drug": true
         },
