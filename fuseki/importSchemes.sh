@@ -1,6 +1,6 @@
 #!/bin/bash
 echo
-APACHE_JENA_FUSEKI_DIR=$(ls -t -U | grep -m 1 "^apache-jena-fuseki")
+APACHE_JENA_FUSEKI_DIR=$(ls -t -U | grep -v "zip" | grep -m 1 "^apache-jena-fuseki")
 if [[ -z $APACHE_JENA_FUSEKI_DIR ]]; then
     echo "No 'apache-jena-fuseki*' subdirectory. Please download jena. Exiting ..."
     exit 1

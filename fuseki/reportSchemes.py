@@ -156,6 +156,8 @@ def reportScheme(graph, scheme):
     Note: we could just query topConcepts from "hasTopConcept" in Scheme resource
     and each of those concepts come with an annotation of how many subordinates they
     have.
+    
+    TODO: combine with description below
     """
     QUERY_TOP_CONCEPTS_AND_COUNTS = """
     PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
@@ -203,45 +205,61 @@ def reportScheme(graph, scheme):
     Active concepts won't have a 'deprecated' field.
     
     If a scheme supports matches to other schemes then make sure the example is matched.
-    """
-    print 
-    print "\t-------------- Example (Active) Concept --------------"
-    DESCRIBE_SAMPLE_CONCEPT = """
+    
+    First get one. Note: doing explicitly as DESCRIBE LIMIT 1 won't work if embedded
+    blank nodes as blanks appear explicitly. 
+    """    
+    print
+    print "\t-------------- Get an (Active) concept of the most popular type ----"
+    QUERY_ONE_MOST_POPULAR = """
     PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
     PREFIX owl: <http://www.w3.org/2002/07/owl#>
     PREFIX cgkos: <http://schemes.caregraf.info/ontology#>
-    DESCRIBE ?s
+    SELECT ?s
     FROM <%s>
     WHERE {
         ?tcId skos:prefLabel "%s" .
         ?s cgkos:broaderTop ?tcId .
-        FILTER NOT EXISTS {?s owl:deprecated []} 
+        FILTER NOT EXISTS {?s owl:deprecated []}
     }
     LIMIT 1
     """
     print "Query ..."
-    query = DESCRIBE_SAMPLE_CONCEPT % (graph, mostPopularTopConceptLabel)
+    query = QUERY_ONE_MOST_POPULAR % (graph, mostPopularTopConceptLabel)
+    print query
+    print
+    queryurl = FUSEKI_QUERY_URI + "?" + urllib.urlencode({"query": query, "output": "json"})
+    request = urllib2.Request(queryurl)
+    reply = json.loads(urllib2.urlopen(request).read())
+    exMostPopularId = reply["results"]["bindings"][0]["s"]["value"]
+    
+    print 
+    print "\t-------------- Example (Active) Concept", exMostPopularId, "--------------"
+    QUERY_SAMPLE_CONCEPT = """
+    PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+    PREFIX owl: <http://www.w3.org/2002/07/owl#>
+    PREFIX cgkos: <http://schemes.caregraf.info/ontology#>
+    SELECT ?p ?o
+    FROM <%s>
+    WHERE {
+        <%s> ?p ?o
+    }
+    """
+    print "Query ..."
+    schemeNS = scheme.split(":")[0] # ie/ atc:scheme -> "atc"
+    query = QUERY_SAMPLE_CONCEPT % (graph, exMostPopularId)
     print query
     print
     # Note: for DESCRIBE in Jena, "json" now means "json-ld"
     queryurl = FUSEKI_QUERY_URI + "?" + urllib.urlencode({"query": query, "output": "json"})
     request = urllib2.Request(queryurl)
-    dReply = json.loads(urllib2.urlopen(request).read())
-    print "Reply ..."
-    context = dReply["@context"]
-    print "\t", dReply["prefLabel"], "(" + sciURIToNSForm(dReply["@id"]) + ")"
-    for pred, value in dReply.iteritems():
-        if re.match(r'\@', pred): # skip meta or top level preds
+    reply = json.loads(urllib2.urlopen(request).read())
+    for binding in reply["results"]["bindings"]:
+        pred = re.search(r'([^\#\:\/]+)$', binding["p"]["value"]).group(1)
+        if binding["o"]["type"] == "bnode":
+            print "\t", pred + ":", "** Blank Node Value - must query again for it"
             continue
-        # Jena JSON-LD is 'buggy' (july 2015): it doesn't compact boolean preds
-        if pred not in context:
-            if not re.match(r'http', pred):
-                raise Exception("'Buggy' preds should be full https: " + pred)
-            pred = pred.split("/")[-1]
-        # Can be "@type": "http://www.w3.org/2001/XMLSchema#boolean" too
-        if isinstance(context[pred], dict) and context[pred]["@type"] == "@id":
-            value = sciURIToNSForm(value) 
-        print "\t\t", pred + ":", value
+        print "\t", pred + ":", binding["o"]["value"] if binding["o"]["type"] != "uri" else sciURIToNSForm(binding["o"]["value"])
     print
     
 def reportGraph(graph):
