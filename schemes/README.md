@@ -31,7 +31,7 @@ Example of RxNORM's definition of _Nexium 20mg Extended Release Oral Tablet_ ...
             },
             "broaderTop": {
                 "id": "rxnorm:SBD",
-                "prefLabel": ""
+                "prefLabel": "Branded Drug"
             },
             "umlsCUI": "C1637815",
                         
