@@ -5,7 +5,7 @@ Current schemes (all about drugs) ...
 Scheme | Version | Comment
 --- | --- | --- 
 ATC | 2015 | WHO Anatomical Therapeutic Chemical Classification System
-FDAOB | 2015_06 | FDA Orange Book
+FDAOB | 2015_07 | FDA Orange Book
 MTHSPL | 2015_07_24 | MTHSPL has the latest NDC data
 NCIT | 15.06e | Subset referenced from MTHSPL
 NDFRT | 2015_07_06 | VA National Drug File Reference Terminology (FDA classing, Disease effects and more)
