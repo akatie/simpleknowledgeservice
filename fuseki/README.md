@@ -17,6 +17,8 @@
 
          cd apache-jena-fuseki-2.3.0
          ./fuseki-server --update --loc ../sksdb /sks
+                   or
+         ./fuseki-server --loc ../sksdb --set tdb:unionDefaultGraph=true /sks (easy cross graph querying)
 
   4. To see queries in action, run ...
 
