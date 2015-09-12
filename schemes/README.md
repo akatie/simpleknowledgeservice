@@ -8,7 +8,7 @@ ATC | 2015 | WHO Anatomical Therapeutic Chemical Classification System
 FDAOB | 2015_07 | FDA Orange Book
 FDAPB | 8-27-2015_6-20-2015 | FDA Purple Book
 MTHSPL | 2015_08_28 | MTHSPL has the latest NDC data
-NCIT | 15.06e | Subset referenced from MTHSPL
+NCIT | 15.08e | Subset referenced from MTHSPL
 NDFRT | 2015_09_07 | VA National Drug File Reference Terminology (FDA classing, Disease effects and more)
 RXNORM | 15AA_150908F | RXNORM with matches to other schemes
 UNII | 1Sept2015 | Latest ingredient/chemical compounds from the FDA. Used in MTHSPL. Linked to drug classes by NDFRT
