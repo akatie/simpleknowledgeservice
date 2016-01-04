@@ -4,13 +4,13 @@ Current schemes (all about drugs) ...
 
 Scheme | Version | Comment
 --- | --- | --- 
-ATC | 2015 | WHO Anatomical Therapeutic Chemical Classification System
-FDAOB | 2015_10 | FDA Orange Book
+ATC | 2016 | WHO Anatomical Therapeutic Chemical Classification System
+FDAOB | 2015_11 | FDA Orange Book
 FDAPB | 8-27-2015_6-20-2015 | FDA Purple Book
-MTHSPL | 2015_11_27 | MTHSPL has the latest NDC data
-NCIT | 15.10d | Subset referenced from MTHSPL
-NDFRT | 2015_11_02 | VA National Drug File Reference Terminology (FDA classing, Disease effects and more)
-RXNORM | 15AB_151207F | RXNORM with matches to other schemes
+MTHSPL | 2015_12_24 | MTHSPL has the latest NDC data
+NCIT | 15.11e | Subset referenced from MTHSPL
+NDFRT | 2016_01_04 | VA National Drug File Reference Terminology (FDA classing, Disease effects and more)
+RXNORM | 15AB_160104F | RXNORM with matches to other schemes
 UNII | 12Nov2015 | Latest ingredient/chemical compounds from the FDA. Used in MTHSPL. Linked to drug classes by NDFRT
 
 Example of RxNORM's definition of _Nexium 20mg Extended Release Oral Tablet_ ...
